@@ -11,3 +11,22 @@
   align-items: center;
   flex-direction: column;
 }
+
+.scroll {
+  overflow: scroll;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+  transition: all 0.2s ease-in-out;
+  scroll-behavior: smooth;
+}
+.scroll::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+.rtl {
+  direction: rtl;
+}
+
+.ltr {
+  direction: ltr;
+}

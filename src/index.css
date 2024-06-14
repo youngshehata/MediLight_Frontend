@@ -13,14 +13,14 @@ body {
 
 @font-face {
   font-family: "roboto";
-  src: url("./assets/fonts/roboto.woff") format("woff");
+  src: url("/fonts/roboto.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "arabic-font";
-  src: url("./assets/fonts/ar-jarida.woff") format("woff");
+  src: url("/fonts/ar-jarida.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }

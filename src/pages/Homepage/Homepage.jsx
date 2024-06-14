@@ -1,4 +1,4 @@
-import Footer from "../../common/Footer/Footer";
+import Footer from "../../components/Footer/Footer";
 import classes from "./Homepage.module.css";
 
 export default function Homepage() {

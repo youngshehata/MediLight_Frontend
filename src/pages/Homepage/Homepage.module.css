@@ -24,4 +24,8 @@
   );
   border-radius: 0.5vmax;
   box-shadow: rgba(0, 0, 0, 0.4) 3.95px 3.95px 5.6px;
+  /* Grid Styling */
+  display: grid;
+  grid-template-columns: 40% 60%;
+  grid-template-rows: 10% 70% 20%;
 }
