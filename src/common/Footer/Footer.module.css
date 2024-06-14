@@ -1,0 +1,40 @@
+.footer {
+  position: absolute;
+  top: 94%;
+  height: 6%;
+  width: 100%;
+}
+
+.footerUL {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footerLi {
+  margin: 0 2.5vmax;
+  cursor: pointer;
+  color: rgb(80, 80, 80);
+  position: relative;
+  text-decoration: none;
+}
+
+.footerLi::after {
+  position: absolute;
+  content: "";
+  transition: all 0.15s ease-in-out;
+  display: block;
+  width: 0%;
+  margin-top: 0.1vmax;
+  height: 0.15vmax;
+  background-color: #000;
+  border-radius: 5vmax;
+}
+
+.footerLi:hover {
+  color: #000;
+}
+.footerLi:hover::after {
+  width: 100%;
+}

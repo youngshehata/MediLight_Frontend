@@ -1,0 +1,24 @@
+import { useContext } from "react";
+import { footerList } from "./footerList";
+import { LanguageContext } from "../../App";
+import classes from "./Footer.module.css";
+import { Link } from "react-router-dom";
+
+export default function Footer() {
+  const language = useContext(LanguageContext);
+  const list = footerList;
+
+  return (
+    <footer className={`${classes.footer} flexCenterRow`}>
+      <ul className={`${classes.footerUL} flexCenterRow`}>
+        {list.map((obj, index) => {
+          return (
+            <Link className={`${classes.footerLi}`} key={index} to={obj.link}>
+              {language == "ar" ? obj.ar : obj.en}
+            </Link>
+          );
+        })}
+      </ul>
+    </footer>
+  );
+}
