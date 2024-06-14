@@ -1,0 +1,27 @@
+.homepageContainer {
+  background: rgb(210, 210, 210);
+  background: linear-gradient(
+    90deg,
+    rgba(230, 230, 230, 1) 0%,
+    rgba(240, 240, 240, 1) 35%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.loginSection {
+  height: 70%;
+  width: 60%;
+  background: rgb(75, 108, 159);
+  background: linear-gradient(
+    0deg,
+    rgba(75, 108, 159, 1) 24%,
+    rgba(78, 39, 129, 1) 60%,
+    rgba(90, 39, 129, 1) 100%
+  );
+  border-radius: 0.5vmax;
+  box-shadow: rgba(0, 0, 0, 0.4) 3.95px 3.95px 5.6px;
+}
