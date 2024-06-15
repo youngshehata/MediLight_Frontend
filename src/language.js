@@ -7,4 +7,8 @@ export const language = {
     ar: "إعادة التحميل",
     en: "Reload",
   },
+  languageError: {
+    ar: "حدث خطأ أثناء تغيير اللغة",
+    en: "Error occurred while changing language",
+  },
 };

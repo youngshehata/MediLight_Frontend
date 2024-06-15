@@ -4,11 +4,21 @@ import Homepage from "./pages/Homepage/Homepage";
 import { BrowserRouter } from "react-router-dom";
 import Fallback from "./pages/Fallback/Fallback";
 import { ErrorBoundary } from "react-error-boundary";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
+import { language as languageTexts } from "./language";
 
 export const LanguageContext = createContext(null);
 function App() {
   const [language, setLanguage] = useState("en");
+
+  const changeLanguage = (lang) => {
+    //temporary checking for only AR and EN
+    if (lang !== "en" && lang !== "ar") {
+      toast.error(languageTexts.languageError[language]);
+    }
+    setLanguage(lang);
+  };
+
   return (
     <BrowserRouter>
       <div className="app">
@@ -17,7 +27,7 @@ function App() {
             <div>
               <Toaster />
             </div>
-            <Homepage />
+            <Homepage changeLanguage={changeLanguage} />
           </ErrorBoundary>
         </LanguageContext.Provider>
       </div>
