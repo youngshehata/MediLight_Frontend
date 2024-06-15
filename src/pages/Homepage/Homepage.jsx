@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import Footer from "../../components/Footer/Footer";
 import classes from "./Homepage.module.css";
 

@@ -4,6 +4,7 @@ import Homepage from "./pages/Homepage/Homepage";
 import { BrowserRouter } from "react-router-dom";
 import Fallback from "./pages/Fallback/Fallback";
 import { ErrorBoundary } from "react-error-boundary";
+import { Toaster } from "react-hot-toast";
 
 export const LanguageContext = createContext(null);
 function App() {
@@ -13,6 +14,9 @@ function App() {
       <div className="app">
         <LanguageContext.Provider value={language}>
           <ErrorBoundary fallback={<Fallback />}>
+            <div>
+              <Toaster />
+            </div>
             <Homepage />
           </ErrorBoundary>
         </LanguageContext.Provider>
