@@ -30,3 +30,11 @@
 .ltr {
   direction: ltr;
 }
+
+.buttonTranslateHover {
+  transition: all 0.2s ease-in-out;
+}
+.buttonTranslateHover:hover {
+  transform: translateX(-0.15vmax) translateY(-0.15vmax);
+  box-shadow: rgba(0, 0, 0, 0.5) 5.95px 5.95px 8.6px;
+}

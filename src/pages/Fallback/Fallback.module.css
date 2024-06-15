@@ -1,0 +1,27 @@
+.container {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.img {
+  height: 20vmax;
+  width: 20vmax;
+}
+
+.text {
+  color: #c74b38;
+  font-size: 1.85vmax;
+  padding: 1vmax 2vmax;
+  text-align: center;
+}
+
+.button {
+  background-color: #f7d04a;
+  font-size: 2vmax;
+  color: #000;
+  box-shadow: rgba(0, 0, 0, 0.4) 3.95px 3.95px 5.6px;
+  border: none;
+  padding: 0.5vmax 3vmax;
+  border-radius: 0.5vmax;
+}

@@ -24,3 +24,8 @@ body {
   font-weight: normal;
   font-style: normal;
 }
+
+button {
+  outline: none;
+  cursor: pointer;
+}
