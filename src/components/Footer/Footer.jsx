@@ -5,16 +5,18 @@ import classes from "./Footer.module.css";
 import { Link } from "react-router-dom";
 
 export default function Footer() {
-  const language = useContext(LanguageContext);
+  const currentLanguage = useContext(LanguageContext);
   const list = footerList;
 
   return (
-    <footer className={`${classes.footer} flexCenterRow`}>
+    <footer
+      className={`${classes.footer} flexCenterRow lang_${currentLanguage}`}
+    >
       <ul className={`${classes.footerUL} flexCenterRow`}>
         {list.map((obj, index) => {
           return (
             <Link className={`${classes.footerLi}`} key={index} to={obj.link}>
-              {language == "ar" ? obj.ar : obj.en}
+              {currentLanguage == "ar" ? obj.ar : obj.en}
             </Link>
           );
         })}

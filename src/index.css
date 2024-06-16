@@ -33,3 +33,13 @@ button {
 input {
   outline: none;
 }
+
+label,
+input,
+button,
+span,
+p,
+li,
+a {
+  font-family: inherit;
+}

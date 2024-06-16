@@ -43,6 +43,10 @@
   font-family: "arabic-font";
 }
 
+.enFont {
+  font-family: "roboto";
+}
+
 .gridAllColumns {
   grid-column-start: 1;
   grid-column-end: -1;

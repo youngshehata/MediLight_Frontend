@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useRef, useState } from "react";
 import "./App.css";
 import Homepage from "./pages/Homepage/Homepage";
 import { BrowserRouter } from "react-router-dom";
@@ -10,6 +10,7 @@ import { language as languageTexts } from "./language";
 export const LanguageContext = createContext(null);
 function App() {
   const [language, setLanguage] = useState("en");
+  const appRef = useRef(null);
 
   const changeLanguage = (lang) => {
     //temporary checking for only AR and EN
@@ -20,12 +21,20 @@ function App() {
     if (lang == language) {
       return;
     }
+    //choosing font family
+    if (lang == "ar") {
+      appRef.current.classList.add("arFont");
+      appRef.current.classList.remove("enFont");
+    } else {
+      appRef.current.classList.add("enFont");
+      appRef.current.classList.remove("arFont");
+    }
     setLanguage(lang);
   };
 
   return (
     <BrowserRouter>
-      <div className="app">
+      <div ref={appRef} className="app">
         <LanguageContext.Provider value={language}>
           <ErrorBoundary fallback={<Fallback />}>
             <div>
