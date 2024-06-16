@@ -6,6 +6,7 @@ import Fallback from "./pages/Fallback/Fallback";
 import { ErrorBoundary } from "react-error-boundary";
 import toast, { Toaster } from "react-hot-toast";
 import { language as languageTexts } from "./language";
+import Loading from "./components/Loading/Loading";
 
 export const LanguageContext = createContext(null);
 function App() {
@@ -40,7 +41,9 @@ function App() {
             <div>
               <Toaster />
             </div>
-            <Homepage changeLanguage={changeLanguage} />
+            <>
+              <Homepage changeLanguage={changeLanguage} />
+            </>
           </ErrorBoundary>
         </LanguageContext.Provider>
       </div>
