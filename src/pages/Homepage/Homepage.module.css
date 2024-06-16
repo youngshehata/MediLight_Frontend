@@ -27,5 +27,48 @@
   /* Grid Styling */
   display: grid;
   grid-template-columns: 40% 60%;
-  grid-template-rows: 10% 70% 20%;
+  grid-template-rows: 15% 65% 20%;
+}
+
+.languagesContainer {
+  grid-column-start: 1;
+  grid-column-end: -1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 2vmax;
+}
+
+.languageOption {
+  margin: 0 1vmax;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+.languageOption:hover {
+  transform: translateY(-0.2vmax);
+}
+.languageOption:hover .languageText {
+  color: rgb(253, 235, 135);
+}
+.languageOption:hover .languageImgWrapper {
+  background-color: rgb(253, 235, 135);
+}
+
+.languageImgWrapper {
+  position: relative;
+  background-color: #fff;
+  border-radius: 50%;
+  height: 2.4vmax;
+  width: 2.4vmax;
+  transition: all 0.2s ease-in-out;
+}
+.languageImg {
+  height: 2vmax;
+  width: 2vmax;
+}
+
+.languageText {
+  font-size: 0.8vmax;
+  color: #fff;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }

@@ -14,7 +14,7 @@ function App() {
   const changeLanguage = (lang) => {
     //temporary checking for only AR and EN
     if (lang !== "en" && lang !== "ar") {
-      toast.error(languageTexts.languageError[language]);
+      return toast.error(languageTexts.languageError[language]);
     }
     setLanguage(lang);
   };
