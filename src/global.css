@@ -23,11 +23,11 @@
   display: none; /* Safari and Chrome */
 }
 
-.rtl {
+.lang_ar {
   direction: rtl;
 }
 
-.ltr {
+.lang_en {
   direction: ltr;
 }
 
@@ -41,4 +41,13 @@
 
 .arFont {
   font-family: "arabic-font";
+}
+
+.gridAllColumns {
+  grid-column-start: 1;
+  grid-column-end: -1;
+}
+.gridAllRows {
+  grid-row-start: 1;
+  grid-row-end: -1;
 }

@@ -16,6 +16,10 @@ function App() {
     if (lang !== "en" && lang !== "ar") {
       return toast.error(languageTexts.languageError[language]);
     }
+    //checking if same language selected, then no need for state changing
+    if (lang == language) {
+      return;
+    }
     setLanguage(lang);
   };
 
