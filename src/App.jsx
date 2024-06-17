@@ -6,15 +6,18 @@ import Fallback from "./pages/Fallback/Fallback";
 import { ErrorBoundary } from "react-error-boundary";
 import toast, { Toaster } from "react-hot-toast";
 import { language as languageTexts } from "./language";
-import Loading from "./components/Loading/Loading";
 
 export const LanguageContext = createContext(null);
 function App() {
-  const [language, setLanguage] = useState("en");
+  // check if this user has language in local storage
+  const alreadyChoosedLanguage = localStorage.getItem("lang") || "en";
+  const [language, setLanguage] = useState(alreadyChoosedLanguage);
+
+  // this ref is used to get the app div element and give it the correct font (arabic | english)
   const appRef = useRef(null);
 
   const changeLanguage = (lang) => {
-    //temporary checking for only AR and EN
+    //checking for only AR and EN - if more languages added later this gotta change
     if (lang !== "en" && lang !== "ar") {
       return toast.error(languageTexts.languageError[language]);
     }
@@ -30,6 +33,9 @@ function App() {
       appRef.current.classList.add("enFont");
       appRef.current.classList.remove("arFont");
     }
+    // changing in local storage
+    localStorage.setItem("lang", lang);
+    // changing the state
     setLanguage(lang);
   };
 

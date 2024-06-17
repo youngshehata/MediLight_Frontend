@@ -4,6 +4,9 @@ import { LanguageContext } from "../../App";
 import { language } from "../../language";
 import Button from "../Button";
 import Loading from "../Loading/Loading";
+import { validation_login } from "./LoginFormValidation";
+import { fetchFromApi } from "../../api/fetcher";
+import toast from "react-hot-toast";
 
 export default function LoginForm() {
   const currentLanguage = useContext(LanguageContext);
@@ -25,9 +28,27 @@ export default function LoginForm() {
     e.target.classList.remove(`${classes.inputFocused}`);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
+
+    const isValid = validation_login(usernameInput, passwordInput);
+    if (!isValid) {
+      setLoading(false);
+      return;
+    }
+
+    fetchFromApi(`V1/Authentication/SignIn`, "POST", {
+      userName: usernameInput,
+      password: passwordInput,
+    })
+      .then(() => {
+        setLoading(false);
+        toast.success("from login form");
+      })
+      .catch(() => {
+        setLoading(false);
+      });
   };
 
   return (

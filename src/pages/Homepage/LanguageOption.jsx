@@ -8,9 +8,6 @@ export default function LanguageOption({
   return (
     <div
       onClick={changeLanguageFunction}
-      // onClick={() => {
-      //   changeLanguageFunction();
-      // }}
       className={`${classes.languageOption} flexCenterColumn`}
     >
       <div className={`${classes.languageImgWrapper} flexCenterRow`}>

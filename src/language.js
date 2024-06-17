@@ -23,4 +23,12 @@ export const language = {
     ar: "دخول",
     en: "Login",
   },
+  usernameAndPassword: {
+    ar: "يرجى التأكد من إدخال إسم المستخدم وكلمة المرور",
+    en: "Please provide username and password",
+  },
+  internalError: {
+    ar: "حدث خطأ بالتطبيق، يرجى المحاولة مجدداً",
+    en: "Internal server error, please try again",
+  },
 };
