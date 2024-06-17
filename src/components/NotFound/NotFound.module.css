@@ -1,0 +1,13 @@
+.notFoundContainer {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+.notFoundImg {
+  height: 35vmax;
+}
+
+.notFoundText {
+  font-size: 2vmax;
+  color: #01588e;
+}

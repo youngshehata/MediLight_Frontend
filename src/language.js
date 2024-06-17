@@ -31,4 +31,8 @@ export const language = {
     ar: "حدث خطأ بالتطبيق، يرجى المحاولة مجدداً",
     en: "Internal server error, please try again",
   },
+  invalidUrl: {
+    ar: "رابط غير صحيح",
+    en: "Invalid URL",
+  },
 };

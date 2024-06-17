@@ -1,17 +1,23 @@
-import { createContext, useRef, useState } from "react";
+import { createContext, useEffect, useRef, useState } from "react";
 import "./App.css";
 import Homepage from "./pages/Homepage/Homepage";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import Fallback from "./pages/Fallback/Fallback";
 import { ErrorBoundary } from "react-error-boundary";
 import toast, { Toaster } from "react-hot-toast";
 import { language as languageTexts } from "./language";
+import NotFound from "./components/NotFound/NotFound";
 
 export const LanguageContext = createContext(null);
+export const AuthContxt = createContext(null);
+
 function App() {
+  // navigation
+  const navigate = useNavigate();
   // check if this user has language in local storage
   const alreadyChoosedLanguage = localStorage.getItem("lang") || "en";
   const [language, setLanguage] = useState(alreadyChoosedLanguage);
+  const [userInfo, setUserInfo] = useState(null);
 
   // this ref is used to get the app div element and give it the correct font (arabic | english)
   const appRef = useRef(null);
@@ -40,20 +46,27 @@ function App() {
   };
 
   return (
-    <BrowserRouter>
-      <div ref={appRef} className="app">
-        <LanguageContext.Provider value={language}>
+    <div ref={appRef} className="app">
+      <LanguageContext.Provider value={language}>
+        <AuthContxt.Provider value={userInfo}>
           <ErrorBoundary fallback={<Fallback />}>
             <div>
               <Toaster />
             </div>
             <>
-              <Homepage changeLanguage={changeLanguage} />
+              <Routes>
+                <Route
+                  path="/"
+                  element={<Homepage changeLanguage={changeLanguage} />}
+                ></Route>
+                {/* LAST ROUTE */}
+                <Route path="/*" element={<NotFound />}></Route>
+              </Routes>
             </>
           </ErrorBoundary>
-        </LanguageContext.Provider>
-      </div>
-    </BrowserRouter>
+        </AuthContxt.Provider>
+      </LanguageContext.Provider>
+    </div>
   );
 }
 
