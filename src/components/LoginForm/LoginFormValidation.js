@@ -1,9 +1,8 @@
 import toast from "react-hot-toast";
 import { language } from "../../language";
 
-const currentLanguage = localStorage.getItem("lang") || "en";
-
 export const validation_login = (username, password) => {
+  const currentLanguage = localStorage.getItem("lang") || "en";
   if (!username || !password) {
     toast.error(language.usernameAndPassword[currentLanguage]);
     return false;
