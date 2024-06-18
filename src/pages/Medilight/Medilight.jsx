@@ -8,6 +8,10 @@ import toast from "react-hot-toast";
 import NotFound from "../NotFound/NotFound";
 import Organization from "../Organization/Organization";
 import { language } from "../../language";
+import TopNavbar from "../../components/TopNavbar/TopNavbar";
+import classes from "./Medilight.module.css";
+import SideNavbar from "../../components/SideNavbar/SideNavbar";
+import AppFooter from "../../components/AppFooter/AppFooter";
 
 export default function Medilight() {
   const navigate = useNavigate();
@@ -25,12 +29,22 @@ export default function Medilight() {
     }
   }, []);
   return (
-    <Routes>
-      <Route path="/organization" element={<Organization />} />
-      {/* Dashboard Just Before Last Route */}
-      <Route path="/" element={<Dashboard />} />
-      {/* LAST ROUTE */}
-      <Route path="/*" element={<NotFound />} />
-    </Routes>
+    <div className={`${classes.medilight}`}>
+      <TopNavbar />
+      <div className={`${classes.navAndMain}`}>
+        {/*side bar and main are contained together for dynamic width */}
+        <SideNavbar />
+        <main className={`${classes.main} scroll`}>
+          <Routes>
+            <Route path="/organization" element={<Organization />} />
+            {/* Dashboard Just Before Last Route */}
+            <Route path="/" element={<Dashboard />} />
+            {/* LAST ROUTE */}
+            <Route path="/*" element={<NotFound />} />
+          </Routes>
+        </main>
+      </div>
+      <AppFooter />
+    </div>
   );
 }

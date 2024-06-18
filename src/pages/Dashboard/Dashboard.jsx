@@ -1,3 +1,48 @@
 export default function Dashboard() {
-  return <div>DASHBOARD</div>;
+  return (
+    <div>
+      <h1>One</h1>
+      <h2>TWO</h2>
+      <h1>One</h1>
+      <h2>TWO</h2>
+      <h1>One</h1>
+      <h2>TWO</h2>
+      <h1>One</h1>
+      <h2>TWO</h2>
+      <h1>One</h1>
+      <h2>TWO</h2>
+      <h1>One</h1>
+      <h2>TWO</h2>
+      <h1>One</h1>
+      <h2>TWO</h2>
+      <h1>One</h1>
+      <h2>TWO</h2>
+      <h1>One</h1>
+      <h2>TWO</h2>
+      <h1>One</h1>
+      <h2>TWO</h2>
+      <h1>One</h1>
+      <h2>TWO</h2>
+      <h1>One</h1>
+      <h2>TWO</h2>
+      <h1>One</h1>
+      <h2>TWO</h2>
+      <h1>One</h1>
+      <h2>TWO</h2>
+      <h1>One</h1>
+      <h2>TWO</h2>
+      <h1>One</h1>
+      <h2>TWO</h2>
+      <h1>One</h1>
+      <h2>TWO</h2>
+      <h1>One</h1>
+      <h2>TWO</h2>
+      <h1>One</h1>
+      <h2>TWO</h2>
+      <h1>One</h1>
+      <h2>TWO</h2>
+      <h1>One</h1>
+      <h2>TWO</h2>
+    </div>
+  );
 }

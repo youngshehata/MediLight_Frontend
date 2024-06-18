@@ -1,0 +1,25 @@
+.medilight {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.navAndMain {
+  position: relative;
+  width: 100%;
+  height: 89%;
+  top: 6%;
+  display: flex;
+}
+
+.main {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: gold;
+}
