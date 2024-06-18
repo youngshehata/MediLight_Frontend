@@ -7,9 +7,12 @@ import Loading from "../Loading/Loading";
 import { validation_login } from "./LoginFormValidation";
 import { fetchFromApi } from "../../api/fetcher";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
-export default function LoginForm() {
+export default function LoginForm({ changeAuth }) {
   const currentLanguage = useContext(LanguageContext);
+
+  const navigate = useNavigate();
 
   // States for inputs changing
   const [usernameInput, setUsernameInput] = useState(null);
@@ -43,8 +46,11 @@ export default function LoginForm() {
       password: passwordInput,
     })
       .then(() => {
+        // changing auth with dummy data for now
+        changeAuth({ username: "Shehata" });
         setLoading(false);
         toast.success("from login form");
+        navigate("medilight");
       })
       .catch(() => {
         setLoading(false);

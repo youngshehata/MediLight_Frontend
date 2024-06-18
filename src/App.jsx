@@ -1,19 +1,19 @@
-import { createContext, useEffect, useRef, useState } from "react";
+import { createContext, useRef, useState } from "react";
 import "./App.css";
 import Homepage from "./pages/Homepage/Homepage";
-import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Fallback from "./pages/Fallback/Fallback";
 import { ErrorBoundary } from "react-error-boundary";
 import toast, { Toaster } from "react-hot-toast";
 import { language as languageTexts } from "./language";
-import NotFound from "./components/NotFound/NotFound";
+import NotFound from "./pages/NotFound/NotFound";
+import Medilight from "./pages/Medilight/Medilight";
 
 export const LanguageContext = createContext(null);
-export const AuthContxt = createContext(null);
+export const AuthContext = createContext(null);
 
 function App() {
   // navigation
-  const navigate = useNavigate();
   // check if this user has language in local storage
   const alreadyChoosedLanguage = localStorage.getItem("lang") || "en";
   const [language, setLanguage] = useState(alreadyChoosedLanguage);
@@ -45,10 +45,15 @@ function App() {
     setLanguage(lang);
   };
 
+  // Change Auth function
+  const changeAuth = (data) => {
+    setUserInfo(data);
+  };
+
   return (
     <div ref={appRef} className="app">
       <LanguageContext.Provider value={language}>
-        <AuthContxt.Provider value={userInfo}>
+        <AuthContext.Provider value={userInfo}>
           <ErrorBoundary fallback={<Fallback />}>
             <div>
               <Toaster />
@@ -57,14 +62,23 @@ function App() {
               <Routes>
                 <Route
                   path="/"
-                  element={<Homepage changeLanguage={changeLanguage} />}
+                  element={
+                    <Homepage
+                      changeLanguage={changeLanguage}
+                      changeAuth={changeAuth}
+                    />
+                  }
+                ></Route>
+                <Route
+                  path="/medilight/*"
+                  element={<Medilight userInfo={userInfo} />}
                 ></Route>
                 {/* LAST ROUTE */}
                 <Route path="/*" element={<NotFound />}></Route>
               </Routes>
             </>
           </ErrorBoundary>
-        </AuthContxt.Provider>
+        </AuthContext.Provider>
       </LanguageContext.Provider>
     </div>
   );

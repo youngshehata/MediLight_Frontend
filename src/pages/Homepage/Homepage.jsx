@@ -3,7 +3,7 @@ import LoginForm from "../../components/LoginForm/LoginForm";
 import classes from "./Homepage.module.css";
 import LanguageOption from "./LanguageOption";
 
-export default function Homepage({ changeLanguage }) {
+export default function Homepage({ changeLanguage, changeAuth }) {
   return (
     <main className={`${classes.homepageContainer} flexCenterColumn`}>
       <section className={`${classes.loginSection}`}>
@@ -30,7 +30,7 @@ export default function Homepage({ changeLanguage }) {
             alt="dctors"
           />
         </div>
-        <LoginForm />
+        <LoginForm changeAuth={changeAuth} />
         <div className="flexCenterRow gridAllColumns">
           <img className={`${classes.appLogo}`} src="/appLogo.svg" alt="Logo" />
         </div>

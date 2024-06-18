@@ -35,4 +35,12 @@ export const language = {
     ar: "رابط غير صحيح",
     en: "Invalid URL",
   },
+  homePage: {
+    ar: "الصفحة الرئيسية",
+    en: "Homepage",
+  },
+  unauthorized: {
+    ar: "غير مصرح، برجاء تسجيل الدخول",
+    en: "Unauthorized, please login",
+  },
 };

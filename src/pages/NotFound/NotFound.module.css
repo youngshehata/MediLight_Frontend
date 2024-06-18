@@ -11,3 +11,12 @@
   font-size: 2vmax;
   color: #01588e;
 }
+
+.homepageLink {
+  margin-top: 1vmax;
+  font-size: 1.3vmax;
+  padding: 0.2vmax 1vmax;
+  background-color: #01588e;
+  color: #fff;
+  border-radius: 0.4vmax;
+}
