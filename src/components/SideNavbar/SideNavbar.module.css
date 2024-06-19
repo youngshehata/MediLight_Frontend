@@ -2,5 +2,11 @@
   height: 100%;
   min-width: 5vmax;
   max-width: 15vmax;
-  background-color: red;
+  background: rgb(0, 29, 47);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 29, 47, 1) 0%,
+    rgba(0, 71, 121, 1) 100%
+  );
+  transition: all 0.2s ease-in-out;
 }

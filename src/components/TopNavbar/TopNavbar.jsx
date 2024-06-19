@@ -3,13 +3,18 @@ import classes from "./TopNavbar.module.css";
 import TopNavbarOptionsSection from "./TopNavbarOptionsSection/TopNavbarOptionsSection";
 import { useNavigate } from "react-router-dom";
 
-export default function TopNavbar() {
+export default function TopNavbar({
+  changeLanguage,
+  changeAuth,
+  handleSideBarClassChange,
+}) {
   const navigate = useNavigate();
 
   const togglerRef = useRef(null);
 
   const toggleFunction = () => {
     togglerRef.current.classList.toggle(`${classes.togglerActive}`);
+    handleSideBarClassChange();
   };
 
   return (
@@ -35,7 +40,10 @@ export default function TopNavbar() {
           alt="Medilight Logo"
         />
       </div>
-      <TopNavbarOptionsSection />
+      <TopNavbarOptionsSection
+        changeLanguage={changeLanguage}
+        changeAuth={changeAuth}
+      />
     </div>
   );
 }

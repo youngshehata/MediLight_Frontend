@@ -41,11 +41,11 @@
 }
 
 .arFont {
-  font-family: "arabic-font";
+  font-family: arabic-font, roboto, Calibri;
 }
 
 .enFont {
-  font-family: "roboto";
+  font-family: roboto, Calibri;
 }
 
 .gridAllColumns {

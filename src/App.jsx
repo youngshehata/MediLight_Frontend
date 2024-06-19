@@ -71,7 +71,12 @@ function App() {
                 ></Route>
                 <Route
                   path="/medilight/*"
-                  element={<Medilight userInfo={userInfo} />}
+                  element={
+                    <Medilight
+                      changeLanguage={changeLanguage}
+                      changeAuth={changeAuth}
+                    />
+                  }
                 ></Route>
                 {/* LAST ROUTE */}
                 <Route path="/*" element={<NotFound />}></Route>

@@ -43,4 +43,20 @@ export const language = {
     ar: "غير مصرح، برجاء تسجيل الدخول",
     en: "Unauthorized, please login",
   },
+  editProfile: {
+    ar: "تعديل الملف الشخصى",
+    en: "Edit Profile",
+  },
+  settings: {
+    ar: "الإعدادات",
+    en: "Settings",
+  },
+  logout: {
+    ar: "تسجيل الخروج",
+    en: "Logout",
+  },
+  languageLetter: {
+    ar: "ع",
+    en: "EN",
+  },
 };

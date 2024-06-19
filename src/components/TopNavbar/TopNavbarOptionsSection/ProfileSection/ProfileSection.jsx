@@ -1,9 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import classes from "../../TopNavbar.module.css";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { LanguageContext } from "../../../../App";
+import { language } from "../../../../language";
+import toast from "react-hot-toast";
 
-export default function ProfileSection() {
+export default function ProfileSection({ changeAuth }) {
   const [menuActive, setMenuActive] = useState(false);
+  const currentLanguage = useContext(LanguageContext);
+
+  const navigate = useNavigate();
 
   const dropDownContainer = useRef();
 
@@ -15,8 +21,13 @@ export default function ProfileSection() {
       setMenuActive(false);
     }
   };
+
+  const logoutFunction = () => {
+    changeAuth(null);
+    navigate("/");
+  };
+
   useEffect(() => {
-    // Add event listener on document mount
     document.addEventListener("click", handleClickOutside);
     // Cleanup function to remove listener on component unmount
     return () => document.removeEventListener("click", handleClickOutside);
@@ -47,9 +58,19 @@ export default function ProfileSection() {
             : `${classes.profileList} ddl flexCenterColumn`
         }
       >
-        <Link to={"/profile"}>Edit Profile</Link>
-        <Link to={"/settings"}>Settings</Link>
-        <li>Logout</li>
+        <Link to={"/medilight/profile"}>
+          {language.editProfile[currentLanguage]}
+        </Link>
+        <Link to={"/medilight/settings"}>
+          {language.settings[currentLanguage]}
+        </Link>
+        <li
+          onClick={() => {
+            logoutFunction();
+          }}
+        >
+          {language.logout[currentLanguage]}
+        </li>
       </ul>
     </div>
   );
