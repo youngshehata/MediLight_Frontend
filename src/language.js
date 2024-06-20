@@ -1,4 +1,8 @@
 export const language = {
+  allRightsReserved: {
+    ar: "© جميع الحقوق محفوظة 2023",
+    en: "All rights reserved 2023 ©",
+  },
   fallback: {
     ar: "عذراً، يبدو أن الخدمة معطلة حالياً يرجى إعادة تحميل الصفحة والمحاولة مجدداً بعد قليل",
     en: "We are apologizing, seems like our service went down temporarily please reload the page and try again shortly",

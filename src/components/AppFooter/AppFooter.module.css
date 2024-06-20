@@ -4,4 +4,38 @@
   width: 100%;
   height: 4%;
   top: 96%;
+  color: #fff;
+  font-size: 0.8vmax;
+}
+
+.logo {
+  transition: transform 0.2s ease-in-out;
+  height: 1.2vmax;
+  margin: 0 1vmax;
+  cursor: pointer;
+}
+
+.logo:hover {
+  transform: scale(1.1);
+}
+
+.iconsContainer {
+  height: 100%;
+}
+.icon {
+  height: 1.2vmax;
+  width: 1.2vmax;
+  margin: 0 0.2vmax;
+  transition: transform 0.15s ease-in-out;
+  cursor: pointer;
+}
+.icon:hover {
+  transform: scale(1.1);
+}
+
+.borderSpan {
+  height: 70%;
+  width: 0.1vmax;
+  background-color: #fff;
+  margin-right: 0.3vmax;
 }

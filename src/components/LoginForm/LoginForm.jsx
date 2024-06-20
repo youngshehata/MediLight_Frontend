@@ -49,7 +49,7 @@ export default function LoginForm({ changeAuth }) {
         // changing auth with dummy data for now
         changeAuth({ username: "Shehata" });
         setLoading(false);
-        toast.success("from login form");
+        toast.success("Logged in as Shehata");
         navigate("medilight");
       })
       .catch(() => {

@@ -30,11 +30,13 @@ export default function Medilight({ changeLanguage, changeAuth }) {
   const currentLanguage = localStorage.getItem("lang") || "en";
 
   useEffect(() => {
+    // Unauthorized checking
     if (!userInfo) {
       toast.error(language.unauthorized[currentLanguage]);
       return navigate("/");
     }
   }, []);
+
   return (
     <div className={`${classes.medilight}`}>
       <TopNavbar

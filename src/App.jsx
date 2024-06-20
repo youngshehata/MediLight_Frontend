@@ -13,7 +13,6 @@ export const LanguageContext = createContext(null);
 export const AuthContext = createContext(null);
 
 function App() {
-  // navigation
   // check if this user has language in local storage
   const alreadyChoosedLanguage = localStorage.getItem("lang") || "en";
   const [language, setLanguage] = useState(alreadyChoosedLanguage);
@@ -45,7 +44,6 @@ function App() {
     setLanguage(lang);
   };
 
-  // Change Auth function
   const changeAuth = (data) => {
     setUserInfo(data);
   };

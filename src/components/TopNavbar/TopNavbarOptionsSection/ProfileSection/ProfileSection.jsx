@@ -3,10 +3,10 @@ import classes from "../../TopNavbar.module.css";
 import { useContext, useEffect, useRef, useState } from "react";
 import { LanguageContext } from "../../../../App";
 import { language } from "../../../../language";
-import toast from "react-hot-toast";
 
 export default function ProfileSection({ changeAuth }) {
   const [menuActive, setMenuActive] = useState(false);
+
   const currentLanguage = useContext(LanguageContext);
 
   const navigate = useNavigate();
