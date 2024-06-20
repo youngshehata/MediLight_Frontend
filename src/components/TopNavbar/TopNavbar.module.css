@@ -96,20 +96,11 @@
 }
 
 .profileList {
-  position: absolute;
-  margin: 0;
-  padding: 0.3vmax 0.1vmax;
-  left: -10%;
-  top: 102%;
+  align-self: flex-end;
   list-style: none;
-  background-color: #fff;
-  color: #000;
-  border-radius: 0.3vmax;
   min-width: 8vmax;
-  box-shadow: rgba(0, 0, 0, 0.3) 3.95px 3.95px 5.6px;
   visibility: hidden;
   opacity: 0;
-  transition: all 0.2s ease-in-out;
   overflow: hidden;
 }
 

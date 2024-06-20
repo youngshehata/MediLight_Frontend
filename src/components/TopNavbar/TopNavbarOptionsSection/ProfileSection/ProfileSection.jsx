@@ -54,8 +54,8 @@ export default function ProfileSection({ changeAuth }) {
       <ul
         className={
           menuActive
-            ? `${classes.profileList} ddl flexCenterColumn ${classes.profileListActive}`
-            : `${classes.profileList} ddl flexCenterColumn`
+            ? `${classes.profileList} flexCenterColumn topBarList ${classes.profileListActive}`
+            : `${classes.profileList} flexCenterColumn topBarList`
         }
       >
         <Link to={"/medilight/profile"}>

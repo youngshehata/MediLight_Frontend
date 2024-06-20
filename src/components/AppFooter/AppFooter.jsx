@@ -3,13 +3,13 @@ import { language } from "../../language";
 import classes from "./AppFooter.module.css";
 import { LanguageContext } from "../../App";
 import { useNavigate } from "react-router-dom";
-import { links } from "./footerLinks";
+import { footerLinks } from "./footerLinks";
 
 export default function AppFooter() {
   const navigate = useNavigate();
   const currentLanguage = useContext(LanguageContext);
 
-  const socialMediaLinks = links;
+  const socialMediaLinks = footerLinks;
 
   return (
     <div className={`${classes.footer} flexCenterRow`}>
@@ -27,6 +27,7 @@ export default function AppFooter() {
         {socialMediaLinks.map((platform) => {
           return (
             <img
+              key={platform.key}
               className={`${classes.icon}`}
               src={platform.icon}
               alt={platform.icon.replace(".svg", "")}

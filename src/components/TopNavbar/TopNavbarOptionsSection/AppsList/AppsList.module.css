@@ -1,0 +1,74 @@
+.container {
+  position: relative;
+  height: 100%;
+}
+.img {
+  height: 1.3vmax;
+  cursor: pointer;
+}
+.list {
+  min-width: 15vmax;
+  min-height: 10vmax;
+  align-self: flex-end;
+  visibility: hidden;
+  opacity: 0;
+  overflow: hidden;
+}
+.listActive {
+  opacity: 1;
+  visibility: visible;
+}
+
+.ul {
+  display: grid;
+  position: relative;
+  grid-template-columns: 33.3% 33.3% 33.3%;
+  grid-template-rows: auto;
+  align-items: flex-start;
+  justify-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0.3vmax 0.5vmax;
+}
+.li {
+  opacity: 0.8;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+  padding: 0.5vmax;
+  margin: 0.2vmax;
+  transition: all 0.1s ease-in-out;
+}
+.li img {
+  height: 1.7vmax;
+  cursor: pointer;
+}
+.li span {
+  font-size: 0.7vmax;
+  cursor: pointer;
+}
+.li:hover {
+  opacity: 1;
+  transform: scale(1.06);
+}
+
+.button {
+  background-color: rgb(80, 80, 80);
+  color: #fff;
+  width: 80%;
+  padding: 0.2vmax 0.5vmax;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.3) 2.95px 2.95px 3.6px;
+  outline: none;
+  margin: 0.7vmax 0.3vmax;
+  border-radius: 0.15vmax;
+  transition: all 0.13s ease-in-out;
+  font-size: 0.8vmax;
+}
+.button:hover {
+  transform: translateX(-0.1vmax) translateY(-0.1vmax);
+  background-color: rgb(60, 60, 60);
+  box-shadow: rgba(0, 0, 0, 0.3) 3.95px 3.95px 4.6px;
+}

@@ -32,7 +32,7 @@
 }
 
 .buttonTranslateHover {
-  transition: all 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out;
   box-shadow: rgba(0, 0, 0, 0.4) 3.95px 3.95px 5.6px;
 }
 .buttonTranslateHover:hover {
@@ -42,10 +42,12 @@
 
 .arFont {
   font-family: arabic-font, roboto, Calibri;
+  direction: rtl;
 }
 
 .enFont {
   font-family: roboto, Calibri;
+  direction: ltr;
 }
 
 .gridAllColumns {
@@ -55,4 +57,16 @@
 .gridAllRows {
   grid-row-start: 1;
   grid-row-end: -1;
+}
+
+.topBarList {
+  margin: 0;
+  position: absolute;
+  padding: 0.3vmax 0.1vmax;
+  top: 102%;
+  background-color: #fff;
+  color: #000;
+  border-radius: 0.3vmax;
+  box-shadow: rgba(0, 0, 0, 0.3) 3.95px 3.95px 5.6px;
+  transition: all 0.2s ease-in-out;
 }

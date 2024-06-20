@@ -3,6 +3,7 @@ import { language } from "../../../language";
 import classes from "../TopNavbar.module.css";
 import ProfileSection from "./ProfileSection/ProfileSection";
 import { LanguageContext } from "../../../App";
+import AppsList from "./AppsList/AppsList";
 
 export default function TopNavbarOptionsSection({
   changeLanguage,
@@ -12,6 +13,7 @@ export default function TopNavbarOptionsSection({
 
   return (
     <div className={`${classes.optionsSection}`}>
+      <AppsList />
       <span
         className={`${classes.languageSpan}`}
         onClick={() => {

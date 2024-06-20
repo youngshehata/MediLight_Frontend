@@ -63,4 +63,32 @@ export const language = {
     ar: "ع",
     en: "EN",
   },
+  lab: {
+    ar: "المعمل",
+    en: "Lab",
+  },
+  invoice: {
+    ar: "فاتورة",
+    en: "Invoice",
+  },
+  operation: {
+    ar: "جراحة",
+    en: "Operation",
+  },
+  outpatientManager: {
+    ar: "إدارة العيادات",
+    en: "Outpatient Manager",
+  },
+  fixedAssets: {
+    ar: "أصول ثابتة",
+    en: "Fixed Assets",
+  },
+  housekeeping: {
+    ar: "التدبير المنزلى",
+    en: "Housekeeping",
+  },
+  mainMenu: {
+    ar: "القائمة الرئيسية",
+    en: "Main Menu",
+  },
 };
