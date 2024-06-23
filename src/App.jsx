@@ -38,9 +38,9 @@ function App() {
       appRef.current.classList.add("enFont");
       appRef.current.classList.remove("arFont");
     }
-    // changing in local storage
+
     localStorage.setItem("lang", lang);
-    // changing the state
+
     setLanguage(lang);
   };
 
@@ -49,7 +49,10 @@ function App() {
   };
 
   return (
-    <div ref={appRef} className="app">
+    <div
+      ref={appRef}
+      className={alreadyChoosedLanguage == "ar" ? "app arFont" : "app enFont"}
+    >
       <LanguageContext.Provider value={language}>
         <AuthContext.Provider value={userInfo}>
           <ErrorBoundary fallback={<Fallback />}>

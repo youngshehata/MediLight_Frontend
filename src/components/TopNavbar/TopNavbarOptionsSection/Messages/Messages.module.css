@@ -1,0 +1,20 @@
+.container {
+  height: 100%;
+  margin: 0 1vmax;
+}
+
+.img {
+  height: 1.3vmax;
+}
+
+.newMessages {
+  position: absolute;
+  display: block;
+  content: "";
+  height: 0.5vmax;
+  width: 0.5vmax;
+  background-color: red;
+  border-radius: 50%;
+  top: 25%;
+  align-self: flex-end;
+}

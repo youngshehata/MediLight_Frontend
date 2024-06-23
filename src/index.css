@@ -6,6 +6,9 @@ body {
   position: relative;
   font-family: "roboto";
 }
+* {
+  box-sizing: border-box;
+}
 #root {
   height: 100%;
   width: 100%;

@@ -1,0 +1,73 @@
+.listContainer {
+  background-color: rgb(255, 255, 255);
+  position: absolute;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 10% 80% 10%;
+  justify-items: center;
+  box-shadow: rgba(0, 0, 0, 0.4) 3.95px 3.95px 5.6px;
+  border-radius: 0.5vmax;
+  padding: 0.3vmax 0.6vmax;
+  min-height: 15vmax;
+  min-width: 12vmax;
+  max-height: 20vmax;
+  color: rgb(120, 120, 120);
+  cursor: default;
+  top: 102%;
+  align-self: flex-end;
+}
+
+.title {
+  font-size: 0.9vmax;
+  height: 100%;
+  padding: 0.5vmax 0.2vmax;
+  margin: 0;
+}
+
+.ul {
+  border-bottom: 0.2vmax rgb(220, 220, 220) solid;
+  border-top: 0.2vmax rgb(220, 220, 220) solid;
+  border-bottom: 0.2vmax rgb(220, 220, 220) solid;
+  width: 95%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.3vmax 0.2vmax;
+  height: 100%;
+}
+
+.ul * {
+  width: 100%;
+  padding: 0.2vmax 0.3vmax;
+  margin: 0;
+  text-align: center;
+  color: #000;
+}
+
+.ulNotFound {
+  cursor: default;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}
+
+.viewAllLabel {
+  width: fit-content;
+  text-align: center;
+  font-size: 0.8vmax;
+  height: 100%;
+  cursor: pointer;
+  padding: 0.7vmax;
+  transition: color 0.2s ease-in-out;
+}
+.viewAllLabel:hover {
+  color: rgb(12, 66, 148);
+}
+.notFound {
+  font-size: 0.8vmax;
+  width: 100%;
+  text-align: center;
+}

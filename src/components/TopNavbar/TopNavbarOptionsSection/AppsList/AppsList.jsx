@@ -59,6 +59,7 @@ export default function AppsList() {
           {listOfApps.map((app) => {
             return (
               <li
+                key={app.key}
                 onClick={() => {
                   navigate(app.link);
                   setMenuActive("");

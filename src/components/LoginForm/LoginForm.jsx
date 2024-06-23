@@ -41,20 +41,27 @@ export default function LoginForm({ changeAuth }) {
       return;
     }
 
-    fetchFromApi(`V1/Authentication/SignIn`, "POST", {
-      userName: usernameInput,
-      password: passwordInput,
-    })
-      .then(() => {
-        // changing auth with dummy data for now
-        changeAuth({ username: "Shehata" });
-        setLoading(false);
-        toast.success("Logged in as Shehata");
-        navigate("medilight");
-      })
-      .catch(() => {
-        setLoading(false);
-      });
+    //! TEMP REPLACE FOR LOGIN REQUEST
+    changeAuth({ username: "Shehata" });
+    setLoading(false);
+    toast.success("Logged in as Shehata");
+    navigate("medilight");
+    //! TEMP REPLACE FOR LOGIN REQUEST
+
+    // fetchFromApi(`V1/Authentication/SignIn`, "POST", {
+    //   userName: usernameInput,
+    //   password: passwordInput,
+    // })
+    //   .then(() => {
+    //     // changing auth with dummy data for now
+    //     changeAuth({ username: "Shehata" });
+    //     setLoading(false);
+    //     toast.success("Logged in as Shehata");
+    //     navigate("medilight");
+    //   })
+    //   .catch(() => {
+    //     setLoading(false);
+    //   });
   };
 
   return (

@@ -1,7 +1,7 @@
 // This component will be working as router to the whole app for authorized user
 
 import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../App";
+import { AuthContext, LanguageContext } from "../../App";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Dashboard from "../Dashboard/Dashboard";
 import toast from "react-hot-toast";
@@ -25,9 +25,7 @@ export default function Medilight({ changeLanguage, changeAuth }) {
     sidebarClass == "" ? setSidebarClass("sideExpanded") : setSidebarClass("");
   };
 
-  // im getting the language from local storage not from the context cuz this component would have many childs
-  // and if i pulled the context here and it changed later, this component will be rerendered, with all of those many childs
-  const currentLanguage = localStorage.getItem("lang") || "en";
+  const currentLanguage = useContext(LanguageContext);
 
   useEffect(() => {
     // Unauthorized checking

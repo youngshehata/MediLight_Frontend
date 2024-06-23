@@ -13,6 +13,7 @@
 }
 
 .loginSection {
+  direction: ltr;
   height: 70%;
   width: 60%;
   background: rgb(75, 108, 159);
@@ -28,6 +29,7 @@
   display: grid;
   grid-template-columns: 40% 60%;
   grid-template-rows: 15% 65% 20%;
+  align-self: center;
 }
 
 .languagesContainer {

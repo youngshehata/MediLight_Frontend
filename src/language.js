@@ -1,7 +1,7 @@
 export const language = {
   allRightsReserved: {
-    ar: "© جميع الحقوق محفوظة 2023",
-    en: "All rights reserved 2023 ©",
+    ar: `جميع الحقوق محفوظة ${new Date().getFullYear()} © `,
+    en: `All rights reserved ${new Date().getFullYear()} ©`,
   },
   fallback: {
     ar: "عذراً، يبدو أن الخدمة معطلة حالياً يرجى إعادة تحميل الصفحة والمحاولة مجدداً بعد قليل",
@@ -90,5 +90,29 @@ export const language = {
   mainMenu: {
     ar: "القائمة الرئيسية",
     en: "Main Menu",
+  },
+  messages: {
+    ar: "الرسائل",
+    en: "Messages",
+  },
+  messagesNotFound: {
+    ar: "لا توجد رسائل",
+    en: "No messages were found",
+  },
+  viewAllMessages: {
+    ar: "عرض جميع الرسائل",
+    en: "View all messages",
+  },
+  notifications: {
+    ar: "الرسائل",
+    en: "Notifications",
+  },
+  viewAllNotifications: {
+    ar: "عرض جميع الرسائل",
+    en: "View all notifications",
+  },
+  notificationsNotFound: {
+    ar: "لا توجد إشعارات",
+    en: "No notifications were found",
   },
 };

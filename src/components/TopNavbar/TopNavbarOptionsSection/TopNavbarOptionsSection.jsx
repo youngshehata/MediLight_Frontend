@@ -4,6 +4,7 @@ import classes from "../TopNavbar.module.css";
 import ProfileSection from "./ProfileSection/ProfileSection";
 import { LanguageContext } from "../../../App";
 import AppsList from "./AppsList/AppsList";
+import Messages from "./Messages/Messages";
 
 export default function TopNavbarOptionsSection({
   changeLanguage,
@@ -13,6 +14,7 @@ export default function TopNavbarOptionsSection({
 
   return (
     <div className={`${classes.optionsSection}`}>
+      <Messages />
       <AppsList />
       <span
         className={`${classes.languageSpan}`}
