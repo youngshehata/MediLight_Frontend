@@ -26,7 +26,7 @@ export default function Messages() {
   const dummyMessages = [
     {
       img: "/user.jpg",
-      name: "Dr. Mazen Hany",
+      name: "Dr. Ahmed Shehata",
       date: new Date(),
       title: "Case of lun",
       type: "reply",
@@ -35,12 +35,12 @@ export default function Messages() {
     },
     {
       img: "/user.jpg",
-      name: "Dr. Mazen Hany",
+      name: "Dr. Laila A.Shehata",
       date: new Date(),
       title: "Case of lun",
       type: "reply",
       details:
-        "56 yo female pt. known case of lung ca s/p radio and chemotherapy.",
+        "56 yo female pt. known case of lung ca s/p radio and chemotherapy known case of lung ca s/p radio and chemotherapy known case of lung ca s/p radio and chemotherapy.",
     },
     {
       img: "/user.jpg",

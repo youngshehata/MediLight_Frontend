@@ -29,13 +29,12 @@
   grid-template-columns: 20% 40% 40%;
   grid-template-rows: 30% 30% 40%;
   place-items: center;
-  /* min-height: 40%;
-  max-height: 40%; */
   margin: 0.5vmax 0;
   font-weight: 600;
   box-shadow: rgba(0, 0, 0, 0.05) 1.95px 1.95px 2.6px;
   border-radius: 0.5vmax;
-  height: fit-content;
+  min-height: fit-content;
+  max-height: 50%;
   /* overflow: hidden; */
   transition: background-color 0.1s ease-in-out;
 }
@@ -82,9 +81,10 @@
   grid-column-start: 2;
   grid-column-end: 4;
   white-space: wrap;
-  padding: 0.5vmax 0.2vmax;
+  padding: 0.15vmax 0.2vmax;
   font-size: 0.7vmax;
   color: rgb(120, 120, 120);
+  align-items: flex-start;
 }
 
 .messageName {

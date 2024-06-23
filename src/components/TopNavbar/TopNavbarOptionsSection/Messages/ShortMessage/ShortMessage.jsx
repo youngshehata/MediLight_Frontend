@@ -5,7 +5,7 @@ export default function ShortMessage({
   name,
   date,
   title,
-  type,
+  type, // for that RE
   details,
 }) {
   return (
