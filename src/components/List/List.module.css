@@ -9,7 +9,8 @@
   border-radius: 0.5vmax;
   padding: 0.3vmax 0.6vmax;
   min-height: 15vmax;
-  min-width: 12vmax;
+  min-width: 17vmax;
+  max-width: 25vmax;
   max-height: 20vmax;
   color: rgb(120, 120, 120);
   cursor: default;
@@ -31,7 +32,7 @@
   border-bottom: 0.2vmax rgb(220, 220, 220) solid;
   border-top: 0.2vmax rgb(220, 220, 220) solid;
   border-bottom: 0.2vmax rgb(220, 220, 220) solid;
-  width: 95%;
+  width: 99%;
   padding: 0;
   margin: 0;
   list-style: none;

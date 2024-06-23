@@ -3,6 +3,8 @@ import List from "../../../List/List";
 import { LanguageContext } from "../../../../App";
 import { language } from "../../../../language";
 import classes from "./Messages.module.css";
+import ShortMessage from "./ShortMessage/ShortMessage";
+import { convertDate } from "../../../../common/DateAndTime";
 
 export default function Messages() {
   const [newMessages, setNewMessages] = useState(false); // tiggers the red dot on the messages icon
@@ -20,6 +22,102 @@ export default function Messages() {
       dropDownRef.current.classList.remove("topBarListActive");
     }
   };
+
+  const dummyMessages = [
+    {
+      img: "/user.jpg",
+      name: "Dr. Mazen Hany",
+      date: new Date(),
+      title: "Case of lun",
+      type: "reply",
+      details:
+        "56 yo female pt. known case of lung ca s/p radio and chemotherapy.",
+    },
+    {
+      img: "/user.jpg",
+      name: "Dr. Mazen Hany",
+      date: new Date(),
+      title: "Case of lun",
+      type: "reply",
+      details:
+        "56 yo female pt. known case of lung ca s/p radio and chemotherapy.",
+    },
+    {
+      img: "/user.jpg",
+      name: "Dr. Mazen Hany",
+      date: new Date(),
+      title: "Case of lun",
+      type: "reply",
+      details:
+        "56 yo female pt. known case of lung ca s/p radio and chemotherapy.",
+    },
+    {
+      img: "/user.jpg",
+      name: "Dr. Mazen Hany",
+      date: new Date(),
+      title: "Case of lun",
+      type: "reply",
+      details:
+        "56 yo female pt. known case of lung ca s/p radio and chemotherapy.",
+    },
+    {
+      img: "/user.jpg",
+      name: "Dr. Mazen Hany",
+      date: new Date(),
+      title: "Case of lun",
+      type: "reply",
+      details:
+        "56 yo female pt. known case of lung ca s/p radio and chemotherapy.",
+    },
+    {
+      img: "/user.jpg",
+      name: "Dr. Mazen Hany",
+      date: new Date(),
+      title: "Case of lun",
+      type: "reply",
+      details:
+        "56 yo female pt. known case of lung ca s/p radio and chemotherapy.",
+    },
+    {
+      img: "/user.jpg",
+      name: "Dr. Mazen Hany",
+      date: new Date(),
+      title: "Case of lun",
+      type: "reply",
+      details:
+        "56 yo female pt. known case of lung ca s/p radio and chemotherapy.",
+    },
+    {
+      img: "/user.jpg",
+      name: "Dr. Mazen Hany",
+      date: new Date(),
+      title: "Case of lun",
+      type: "reply",
+      details:
+        "56 yo female pt. known case of lung ca s/p radio and chemotherapy.",
+    },
+    {
+      img: "/user.jpg",
+      name: "Dr. Mazen Mohamed Hany",
+      date: new Date(),
+      title: "Case of lun",
+      type: "reply", // for that RE
+      details:
+        "56 yo female pt. known case of lung ca s/p radio and chemotherapy.",
+    },
+  ].map((msg, index) => {
+    return (
+      <ShortMessage
+        key={index + 1}
+        img={msg.img}
+        name={msg.name}
+        date={convertDate(new Date(msg.date))}
+        title={msg.title}
+        type={msg.type}
+        details={msg.details}
+      />
+    );
+  });
 
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
@@ -44,6 +142,7 @@ export default function Messages() {
         listName={language.messages[currentLanguage]}
         viewAllLabel={language.viewAllMessages[currentLanguage]}
         notFoundLabel={language.messagesNotFound[currentLanguage]}
+        items={dummyMessages}
       />
     </div>
   );

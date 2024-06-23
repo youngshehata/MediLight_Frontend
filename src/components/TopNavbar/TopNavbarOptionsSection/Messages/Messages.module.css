@@ -1,6 +1,7 @@
 .container {
   height: 100%;
   margin: 0 1vmax;
+  font-size: 0.8vmax;
 }
 
 .img {
@@ -18,4 +19,79 @@
   border-radius: 50%;
   top: 25%;
   align-self: flex-end;
+}
+
+.shortMessageContainer {
+  width: 100%;
+  cursor: pointer;
+  margin: 0.3vmax 0;
+  display: grid;
+  grid-template-columns: 20% 40% 40%;
+  grid-template-rows: 30% 30% 40%;
+  place-items: center;
+  /* min-height: 40%;
+  max-height: 40%; */
+  margin: 0.5vmax 0;
+  font-weight: 600;
+  box-shadow: rgba(0, 0, 0, 0.05) 1.95px 1.95px 2.6px;
+  border-radius: 0.5vmax;
+  height: fit-content;
+  /* overflow: hidden; */
+  transition: background-color 0.1s ease-in-out;
+}
+
+.shortMessageContainer:hover {
+  background-color: rgb(230, 230, 230);
+}
+
+.shortMessageContainer * {
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  text-align: start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.messageImg {
+  height: 2.7vmax;
+  width: 2.7vmax;
+  border-radius: 50%;
+  border: 0.1vmax #000 solid;
+  grid-row-start: 1;
+  grid-row-end: -1;
+  grid-column-start: 1;
+  grid-column-end: 1;
+  align-self: flex-start;
+  padding: 0;
+  margin: 0;
+}
+
+.messageTitle {
+  grid-row-start: 2;
+  grid-row-end: 3;
+  grid-column-start: 2;
+  grid-column-end: 4;
+  justify-content: start;
+  font-size: 500;
+}
+.messageDetails {
+  grid-row-start: 3;
+  grid-row-end: 4;
+  grid-column-start: 2;
+  grid-column-end: 4;
+  white-space: wrap;
+  padding: 0.5vmax 0.2vmax;
+  font-size: 0.7vmax;
+  color: rgb(120, 120, 120);
+}
+
+.messageName {
+  white-space: nowrap;
+  justify-content: start;
+}
+.messageDate {
+  color: rgb(120, 120, 120);
+  font-size: 0.7vmax;
 }
