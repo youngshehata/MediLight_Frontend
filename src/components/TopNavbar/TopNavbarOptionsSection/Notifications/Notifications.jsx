@@ -25,83 +25,56 @@ export default function Notifications() {
 
   const dummyNotifications = [
     {
-      img: "/user.jpg",
-      name: "Dr. Ahmed Shehata",
       date: new Date(),
       title: "Case of lun",
-      type: "reply",
       details:
         "56 yo female pt. known case of lung ca s/p radio and chemotherapy.",
     },
     {
-      img: "/user.jpg",
-      name: "Dr. Laila A.Shehata",
       date: new Date(),
       title: "Case of lun",
-      type: "reply",
       details:
         "56 yo female pt. known case of lung ca s/p radio and chemotherapy known case of lung ca s/p radio and chemotherapy known case of lung ca s/p radio and chemotherapy.",
     },
     {
-      img: "/user.jpg",
-      name: "Dr. Mazen Hany",
       date: new Date(),
       title: "Case of lun",
-      type: "reply",
       details:
         "Starting.. Testing for long message Testing for long message Testing for long message Testing for long message Testing for long message Testing for long message Testing for long message Testing for long message Testing for long message Testing for long message Testing for long message Testing for long message Testing for long message Testing for long message Testing for long message Testing for long message Testing for long message Testing for long message Testing for long message Testing for long message Testing for long message Testing for long message ",
     },
     {
-      img: "/user.jpg",
-      name: "Dr. Mazen Hany",
       date: new Date(),
       title: "Case of lun",
-      type: "reply",
       details:
         "56 yo female pt. known case of lung ca s/p radio and chemotherapy.",
     },
     {
-      img: "/user.jpg",
-      name: "Dr. Mazen Hany",
       date: new Date(),
       title: "Case of lun",
-      type: "reply",
       details:
         "56 yo female pt. known case of lung ca s/p radio and chemotherapy.",
     },
     {
-      img: "/user.jpg",
-      name: "Dr. Mazen Hany",
       date: new Date(),
       title: "Case of lun",
-      type: "reply",
       details:
         "56 yo female pt. known case of lung ca s/p radio and chemotherapy.",
     },
     {
-      img: "/user.jpg",
-      name: "Dr. Mazen Hany",
       date: new Date(),
       title: "Case of lun",
-      type: "reply",
       details:
         "56 yo female pt. known case of lung ca s/p radio and chemotherapy.",
     },
     {
-      img: "/user.jpg",
-      name: "Dr. Mazen Hany",
       date: new Date(),
       title: "Case of lun",
-      type: "reply",
       details:
         "56 yo female pt. known case of lung ca s/p radio and chemotherapy.",
     },
     {
-      img: "/user.jpg",
-      name: "Dr. Mazen Mohamed Hany",
       date: new Date(),
       title: "Case of lun",
-      type: "reply", // for that RE
       details:
         "56 yo female pt. known case of lung ca s/p radio and chemotherapy.",
     },
@@ -109,11 +82,8 @@ export default function Notifications() {
     return (
       <ShortNotification
         key={index + 1}
-        img={msg.img}
-        name={msg.name}
         date={convertDate(new Date(msg.date))}
         title={msg.title}
-        type={msg.type}
         details={msg.details}
       />
     );
