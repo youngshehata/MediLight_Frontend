@@ -52,6 +52,9 @@ export default function ProfileSection({ changeAuth }) {
         />
       </div>
       <ul
+        onClick={() => {
+          setMenuActive(false);
+        }}
         className={
           menuActive
             ? `${classes.profileList} flexCenterColumn topBarList ${classes.profileListActive}`

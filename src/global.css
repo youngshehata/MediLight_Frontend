@@ -32,7 +32,7 @@
 }
 
 .buttonTranslateHover {
-  transition: transform 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   box-shadow: rgba(0, 0, 0, 0.4) 3.95px 3.95px 5.6px;
 }
 .buttonTranslateHover:hover {
@@ -69,4 +69,9 @@
   border-radius: 0.3vmax;
   box-shadow: rgba(0, 0, 0, 0.3) 3.95px 3.95px 5.6px;
   transition: all 0.2s ease-in-out;
+}
+
+.topBarListActive {
+  opacity: 1;
+  visibility: visible;
 }

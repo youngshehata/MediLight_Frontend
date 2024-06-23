@@ -15,6 +15,9 @@
   cursor: default;
   top: 102%;
   align-self: flex-end;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease-in-out;
 }
 
 .title {
