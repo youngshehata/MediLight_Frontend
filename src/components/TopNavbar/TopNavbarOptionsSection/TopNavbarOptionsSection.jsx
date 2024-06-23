@@ -5,6 +5,7 @@ import ProfileSection from "./ProfileSection/ProfileSection";
 import { LanguageContext } from "../../../App";
 import AppsList from "./AppsList/AppsList";
 import Messages from "./Messages/Messages";
+import Notifications from "./Notifications/Notifications";
 
 export default function TopNavbarOptionsSection({
   changeLanguage,
@@ -14,6 +15,7 @@ export default function TopNavbarOptionsSection({
 
   return (
     <div className={`${classes.optionsSection}`}>
+      <Notifications />
       <Messages />
       <AppsList />
       <span

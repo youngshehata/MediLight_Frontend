@@ -1,6 +1,6 @@
 .container {
   height: 100%;
-  margin: 0 1vmax;
+  margin: 0 0.5vmax;
   font-size: 0.8vmax;
 }
 
@@ -35,7 +35,6 @@
   border-radius: 0.5vmax;
   min-height: fit-content;
   max-height: 50%;
-  /* overflow: hidden; */
   transition: background-color 0.1s ease-in-out;
 }
 

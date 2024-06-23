@@ -2,12 +2,12 @@ import { useContext, useEffect, useRef, useState } from "react";
 import List from "../../../List/List";
 import { LanguageContext } from "../../../../App";
 import { language } from "../../../../language";
-import classes from "./Messages.module.css";
-import ShortMessage from "./ShortMessage/ShortMessage";
+import classes from "./Notifications.module.css";
 import { convertDate } from "../../../../common/DateAndTime";
+import ShortNotification from "./ShortNotification/ShortNotification";
 
-export default function Messages() {
-  const [newMessages, setNewMessages] = useState(false); // tiggers the red dot on the messages icon
+export default function Notifications() {
+  const [newNotifications, setNewNotifications] = useState(false); // tiggers the red dot on the messages icon
 
   const dropDownRef = useRef();
   const containerRef = useRef();
@@ -23,7 +23,7 @@ export default function Messages() {
     }
   };
 
-  const dummyMessages = [
+  const dummyNotifications = [
     {
       img: "/user.jpg",
       name: "Dr. Ahmed Shehata",
@@ -107,7 +107,7 @@ export default function Messages() {
     },
   ].map((msg, index) => {
     return (
-      <ShortMessage
+      <ShortNotification
         key={index + 1}
         img={msg.img}
         name={msg.name}
@@ -127,22 +127,24 @@ export default function Messages() {
 
   return (
     <div ref={containerRef} className={`${classes.container} flexCenterColumn`}>
-      {newMessages ? <span className={`${classes.newMessages}`}></span> : null}
+      {newNotifications ? (
+        <span className={`${classes.newNotifications}`}></span>
+      ) : null}
 
       <img
         onClick={() => {
           toggleList();
         }}
         className={`${classes.img}`}
-        src="/messages.svg"
-        alt="messages"
+        src="/notification.svg"
+        alt="notifications"
       />
       <List
         ref={dropDownRef}
-        listName={language.messages[currentLanguage]}
-        viewAllLabel={language.viewAllMessages[currentLanguage]}
-        notFoundLabel={language.messagesNotFound[currentLanguage]}
-        items={dummyMessages}
+        listName={language.notifications[currentLanguage]}
+        viewAllLabel={language.viewAllNotifications[currentLanguage]}
+        notFoundLabel={language.notificationsNotFound[currentLanguage]}
+        items={dummyNotifications}
       />
     </div>
   );
