@@ -12,6 +12,7 @@ import TopNavbar from "../../components/TopNavbar/TopNavbar";
 import classes from "./Medilight.module.css";
 import SideNavbar from "../../components/SideNavbar/SideNavbar";
 import AppFooter from "../../components/AppFooter/AppFooter";
+import ParamsWatcher from "../../components/ParamsWatcher/ParamsWatcher";
 
 export default function Medilight({ changeLanguage, changeAuth }) {
   const navigate = useNavigate();
@@ -46,6 +47,9 @@ export default function Medilight({ changeLanguage, changeAuth }) {
         {/*side bar and main are contained together for dynamic width */}
         <SideNavbar sidebarClass={sidebarClass} />
         <main className={`${classes.main} scroll`}>
+          <div className={`${classes.paramsDiv}`}>
+            <ParamsWatcher />
+          </div>
           <Routes>
             <Route path="/organization" element={<Organization />} />
             {/* Dashboard Just Before Last Route */}
