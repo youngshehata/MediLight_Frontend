@@ -13,17 +13,38 @@ import classes from "./Medilight.module.css";
 import SideNavbar from "../../components/SideNavbar/SideNavbar";
 import AppFooter from "../../components/AppFooter/AppFooter";
 import ParamsWatcher from "../../components/ParamsWatcher/ParamsWatcher";
+import SecondSideBar from "../../components/SecondSideBar/SecondSideBar";
 
 export default function Medilight({ changeLanguage, changeAuth }) {
   const navigate = useNavigate();
 
   const userInfo = useContext(AuthContext);
 
+  const [secondSideBarData, setSecondSideBarData] = useState({
+    title: "",
+    items: [],
+  });
+
+  const [secondSidebarPinned, setSecondSidebarPinned] = useState(false);
+
   // State for toggling the sidebar (State lifting)
-  // This ( sideExpanded ) class is defined on App.css , cuz its not module
+  // These ( sideExpanded, secondSideExpanded ) class is defined on App.css , cuz its not module
   const [sidebarClass, setSidebarClass] = useState("");
+  const [secondSidebarClass, setSecondSidebarClass] = useState("");
   const handleSideBarClassChange = () => {
     sidebarClass == "" ? setSidebarClass("sideExpanded") : setSidebarClass("");
+  };
+  const handleSecondSideBarClassChange = () => {
+    secondSidebarClass == ""
+      ? setSecondSidebarClass("secondSideExpanded")
+      : setSecondSidebarClass("");
+  };
+
+  const changeSecondSidebarData = (title, items) => {
+    setSecondSideBarData({ title, items });
+  };
+  const pinSecondSidebar = () => {
+    setSecondSidebarPinned(!secondSidebarPinned);
   };
 
   const currentLanguage = useContext(LanguageContext);
@@ -44,8 +65,19 @@ export default function Medilight({ changeLanguage, changeAuth }) {
         handleSideBarClassChange={handleSideBarClassChange}
       />
       <div className={`${classes.navAndMain}`}>
-        {/*side bar and main are contained together for dynamic width */}
-        <SideNavbar sidebarClass={sidebarClass} />
+        {/*side bars and main are contained together for dynamic width */}
+        <SideNavbar
+          changeSecondSidebarData={changeSecondSidebarData}
+          sidebarClass={sidebarClass}
+          handleSecondSideBarClassChange={handleSecondSideBarClassChange}
+        />
+        <SecondSideBar
+          pinSecondSidebar={pinSecondSidebar}
+          isPinned={secondSidebarPinned}
+          title={secondSideBarData.title}
+          items={secondSideBarData.items}
+          isExpanded={secondSidebarClass == "" ? false : true}
+        />
         <main className={`${classes.main} scroll`}>
           <div className={`${classes.paramsDiv}`}>
             <ParamsWatcher />

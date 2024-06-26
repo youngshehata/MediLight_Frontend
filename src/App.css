@@ -6,3 +6,31 @@
 .sideExpanded {
   min-width: 15vmax !important;
 }
+
+.secondSideCollapsed {
+  opacity: 0;
+  width: 0%;
+  height: 100%;
+  background-color: rgba(200, 200, 200, 0.6);
+  transition: all 0.2s ease-in-out;
+}
+
+.secondSideExpanded {
+  transition: all 0.2s ease-in-out;
+  opacity: 1;
+  width: 15vmax;
+  height: 100%;
+  background-color: rgba(230, 230, 230, 0.9);
+  position: absolute;
+  left: 4vmax;
+  z-index: 20;
+}
+
+.secondSidePinned {
+  position: relative !important;
+  left: 0% !important;
+}
+
+.pinnedImg {
+  transform: rotate(-45deg);
+}
