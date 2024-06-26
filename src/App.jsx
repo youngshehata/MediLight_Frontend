@@ -16,7 +16,7 @@ function App() {
   // check if this user has language in local storage
   const alreadyChoosedLanguage = localStorage.getItem("lang") || "en";
   const [language, setLanguage] = useState(alreadyChoosedLanguage);
-  const [userInfo, setUserInfo] = useState(true);
+  const [userInfo, setUserInfo] = useState(null);
 
   // this ref is used to get the app div element and give it the correct font (arabic | english)
   const appRef = useRef(null);
@@ -47,7 +47,6 @@ function App() {
   const changeAuth = (data) => {
     setUserInfo(data);
   };
-
   return (
     <div
       ref={appRef}

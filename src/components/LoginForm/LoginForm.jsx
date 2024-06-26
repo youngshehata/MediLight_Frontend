@@ -6,7 +6,6 @@ import Button from "../Button";
 import Loading from "../Loading/Loading";
 import { validation_login } from "./LoginFormValidation";
 import { fetchFromApi } from "../../api/fetcher";
-import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginForm({ changeAuth }) {
@@ -41,27 +40,28 @@ export default function LoginForm({ changeAuth }) {
       return;
     }
 
-    //! TEMP REPLACE FOR LOGIN REQUEST
-    changeAuth({ username: "Shehata" });
-    setLoading(false);
-    toast.success("Logged in as Shehata");
-    navigate("medilight");
+    // //! TEMP REPLACE FOR LOGIN REQUEST
+    // changeAuth({ username: "Shehata" });
+    // setLoading(false);
+    // toast.success("Logged in as Shehata");
+    // navigate("medilight");
     //! TEMP REPLACE FOR LOGIN REQUEST
 
-    // fetchFromApi(`V1/Authentication/SignIn`, "POST", {
-    //   userName: usernameInput,
-    //   password: passwordInput,
-    // })
-    //   .then(() => {
-    //     // changing auth with dummy data for now
-    //     changeAuth({ username: "Shehata" });
-    //     setLoading(false);
-    //     toast.success("Logged in as Shehata");
-    //     navigate("medilight");
-    //   })
-    //   .catch(() => {
-    //     setLoading(false);
-    //   });
+    fetchFromApi(`V1/Authentication/SignIn`, "POST", {
+      userName: usernameInput,
+      password: passwordInput,
+    })
+      .then((response) => {
+        changeAuth({
+          username: response.data.data.userName,
+          id: response.data.data.id,
+        });
+        setLoading(false);
+        navigate("medilight");
+      })
+      .catch(() => {
+        setLoading(false);
+      });
   };
 
   return (
