@@ -12,7 +12,7 @@ export default function ParamsWatcher() {
     currentLanguage == "ar" ? "/leftGreyArrow.svg" : "/rightGreyArrow.svg";
 
   const params = useParams();
-  const paramsArray = params["*"].split("/");
+  const paramsArray = params["*"]?.split("/");
 
   // Getting the current title
   let url = "medilight";

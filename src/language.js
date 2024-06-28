@@ -115,4 +115,8 @@ export const language = {
     ar: "لا توجد إشعارات",
     en: "No notifications were found",
   },
+  client: {
+    en: "Client",
+    ar: "المستخدم",
+  },
 };

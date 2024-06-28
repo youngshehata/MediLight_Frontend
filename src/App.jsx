@@ -1,4 +1,4 @@
-import { createContext, useRef, useState } from "react";
+import { Suspense, createContext, lazy, useRef, useState } from "react";
 import "./App.css";
 import Homepage from "./pages/Homepage/Homepage";
 import { Route, Routes } from "react-router-dom";
@@ -7,7 +7,9 @@ import { ErrorBoundary } from "react-error-boundary";
 import toast, { Toaster } from "react-hot-toast";
 import { language as languageTexts } from "./language";
 import NotFound from "./pages/NotFound/NotFound";
-import Medilight from "./pages/Medilight/Medilight";
+import Loading from "./components/Loading/Loading";
+
+const Medilight = lazy(() => import("./pages/Medilight/Medilight"));
 
 export const LanguageContext = createContext(null);
 export const AuthContext = createContext(null);
@@ -47,6 +49,7 @@ function App() {
   const changeAuth = (data) => {
     setUserInfo(data);
   };
+
   return (
     <div
       ref={appRef}
@@ -72,12 +75,15 @@ function App() {
                 <Route
                   path="/medilight/*"
                   element={
-                    <Medilight
-                      changeLanguage={changeLanguage}
-                      changeAuth={changeAuth}
-                    />
+                    <Suspense fallback={<Loading />}>
+                      <Medilight
+                        changeLanguage={changeLanguage}
+                        changeAuth={changeAuth}
+                      />
+                    </Suspense>
                   }
                 ></Route>
+
                 {/* LAST ROUTE */}
                 <Route path="/*" element={<NotFound />}></Route>
               </Routes>

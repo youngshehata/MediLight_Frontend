@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import styles from "../SideNavbar.module.css";
 
 export default function SideCategory({
@@ -9,7 +8,6 @@ export default function SideCategory({
   isExpanded,
   toggleSecond,
 }) {
-  const navigate = useNavigate();
   return (
     <div
       className={
@@ -27,22 +25,6 @@ export default function SideCategory({
         src={icon}
         alt="category"
       />
-      {/* <div className={`${styles.nameAndList}`}>
-        <span className={`${styles.categorygTitle}`}>{title}</span>
-        <ul className={`${styles.categorygUl}`}>
-          {listItems.map((i) => {
-            return (
-              <li
-                onClick={() => {
-                  navigate(i.link);
-                }}
-              >
-                {i.label}
-              </li>
-            );
-          })}
-        </ul>
-      </div> */}
     </div>
   );
 }

@@ -47,6 +47,12 @@ export default function Medilight({ changeLanguage, changeAuth }) {
     setSecondSidebarPinned(!secondSidebarPinned);
   };
 
+  const clickOutsideSecondSidebar = () => {
+    if (!secondSidebarPinned) {
+      setSecondSidebarClass("");
+    }
+  };
+
   const currentLanguage = useContext(LanguageContext);
 
   useEffect(() => {
@@ -72,13 +78,19 @@ export default function Medilight({ changeLanguage, changeAuth }) {
           handleSecondSideBarClassChange={handleSecondSideBarClassChange}
         />
         <SecondSideBar
+          clickOutsideSecondSidebar={clickOutsideSecondSidebar}
           pinSecondSidebar={pinSecondSidebar}
           isPinned={secondSidebarPinned}
           title={secondSideBarData.title}
           items={secondSideBarData.items}
           isExpanded={secondSidebarClass == "" ? false : true}
         />
-        <main className={`${classes.main} scroll`}>
+        <main
+          onClick={() => {
+            clickOutsideSecondSidebar();
+          }}
+          className={`${classes.main} scroll`}
+        >
           <div className={`${classes.paramsDiv}`}>
             <ParamsWatcher />
           </div>
