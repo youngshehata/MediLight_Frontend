@@ -55,11 +55,16 @@
   width: 100%;
 }
 
+.liAr::after {
+  transform: rotate(180deg);
+}
+
 .pinImg {
   height: 1.2vmax;
   position: absolute;
   top: 2%;
-  left: 90%;
+  align-self: flex-end;
+  padding: 0 1vmax;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out;
+  /* transition: transform 0.2s ease-in-out; */
 }

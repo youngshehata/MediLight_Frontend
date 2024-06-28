@@ -24,6 +24,7 @@ export default function Medilight({ changeLanguage, changeAuth }) {
     title: "",
     items: [],
   });
+  const currentLanguage = useContext(LanguageContext);
 
   const [secondSidebarPinned, setSecondSidebarPinned] = useState(false);
 
@@ -36,7 +37,13 @@ export default function Medilight({ changeLanguage, changeAuth }) {
   };
   const handleSecondSideBarClassChange = () => {
     secondSidebarClass == ""
-      ? setSecondSidebarClass("secondSideExpanded")
+      ? setSecondSidebarClass(
+          `${
+            currentLanguage == "ar"
+              ? "secondSideExpanded secondSideExpandedAr"
+              : "secondSideExpanded"
+          }`
+        )
       : setSecondSidebarClass("");
   };
 
@@ -52,8 +59,6 @@ export default function Medilight({ changeLanguage, changeAuth }) {
       setSecondSidebarClass("");
     }
   };
-
-  const currentLanguage = useContext(LanguageContext);
 
   useEffect(() => {
     // Unauthorized checking

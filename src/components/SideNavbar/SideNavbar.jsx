@@ -19,9 +19,12 @@ export default function SideNavbar({
         icon={"/person.svg"}
         title={language.client[currentLanguage]}
         listItems={[
-          { label: "One", link: "One" },
-          { label: "Two", link: "Two" },
-          { label: "Three", link: "Three" },
+          {
+            label: { en: "Add Organization", ar: "إضافة منظمة" }[
+              currentLanguage
+            ],
+            link: "client/organization",
+          },
         ]}
       />
     </div>

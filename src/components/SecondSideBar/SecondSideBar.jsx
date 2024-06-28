@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import classes from "./SecondSideBar.module.css";
 import { useNavigate } from "react-router-dom";
+import { LanguageContext } from "../../App";
 
 export default function SecondSideBar({
   title,
@@ -14,13 +15,17 @@ export default function SecondSideBar({
 
   const navigate = useNavigate();
 
+  const currentLanguage = useContext(LanguageContext);
+
   return (
     <div
       className={
         isExpanded
-          ? `${classes.main} secondSideExpanded ${
-              isPinned ? "secondSidePinned" : ""
-            }`
+          ? `${classes.main} ${
+              currentLanguage == "ar"
+                ? "secondSideExpandedAr"
+                : "secondSideExpanded"
+            } ${isPinned ? "secondSidePinned" : ""}`
           : `${classes.main} secondSideCollapsed ${
               isPinned ? "secondSidePinned" : ""
             }`
@@ -42,7 +47,11 @@ export default function SecondSideBar({
         {items.map((i, index) => {
           return (
             <li
-              className={`${classes.li}`}
+              className={
+                currentLanguage == "ar"
+                  ? `${classes.li} ${classes.liAr}`
+                  : `${classes.li}`
+              }
               key={index + 1}
               onClick={() => {
                 clickOutsideSecondSidebar();
