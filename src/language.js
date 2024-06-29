@@ -119,4 +119,72 @@ export const language = {
     en: "Client",
     ar: "المستخدم",
   },
+  addNewOrganization: {
+    en: "Add New Organization",
+    ar: "إضافة منظمة جديدة",
+  },
+  name: {
+    en: "Name",
+    ar: "الأسم",
+  },
+  nameAr: {
+    en: "Name in arabic",
+    ar: "الأسم باللغة العربية",
+  },
+  code: {
+    en: "Code",
+    ar: "الكود",
+  },
+  governorate: {
+    en: "Governorate",
+    ar: "المحافظة",
+  },
+  area: {
+    en: "Area",
+    ar: "المنطقة",
+  },
+  address: {
+    en: "Address",
+    ar: "العنوان",
+  },
+  keyPerson: {
+    en: "Key Person",
+    ar: "الرمز الشخصى",
+  },
+  title: {
+    en: "Title",
+    ar: "العنوان",
+  },
+  job: {
+    en: "Job",
+    ar: "الوظيفة",
+  },
+  type: {
+    en: "Type",
+    ar: "النوع",
+  },
+  defaultCurrency: {
+    en: "Default Currency",
+    ar: "العملة الإفتراضية",
+  },
+  debitAccountNumber: {
+    en: "Debit Account Number",
+    ar: "رقم حساب المدين",
+  },
+  debitProfitCenter: {
+    en: "Debit Profit Center",
+    ar: "مركز أرباح المدين",
+  },
+  add: {
+    en: "Add",
+    ar: "إضافة",
+  },
+  edit: {
+    en: "Edit",
+    ar: "تعديل",
+  },
+  isOrganization: {
+    en: "Is Organization?",
+    ar: "منظمة؟",
+  },
 };

@@ -6,7 +6,6 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import Dashboard from "../Dashboard/Dashboard";
 import toast from "react-hot-toast";
 import NotFound from "../NotFound/NotFound";
-import Organization from "../Organization/Organization";
 import { language } from "../../language";
 import TopNavbar from "../../components/TopNavbar/TopNavbar";
 import classes from "./Medilight.module.css";
@@ -14,6 +13,7 @@ import SideNavbar from "../../components/SideNavbar/SideNavbar";
 import AppFooter from "../../components/AppFooter/AppFooter";
 import ParamsWatcher from "../../components/ParamsWatcher/ParamsWatcher";
 import SecondSideBar from "../../components/SecondSideBar/SecondSideBar";
+import Client from "../Client/Client";
 
 export default function Medilight({ changeLanguage, changeAuth }) {
   const navigate = useNavigate();
@@ -99,13 +99,15 @@ export default function Medilight({ changeLanguage, changeAuth }) {
           <div className={`${classes.paramsDiv}`}>
             <ParamsWatcher />
           </div>
-          <Routes>
-            <Route path="/organization" element={<Organization />} />
-            {/* Dashboard Just Before Last Route */}
-            <Route path="/" element={<Dashboard />} />
-            {/* LAST ROUTE */}
-            <Route path="/*" element={<NotFound />} />
-          </Routes>
+          <div className={`${classes.routesDiv}`}>
+            <Routes>
+              <Route path="/client/*" element={<Client />} />
+              {/* Dashboard Just Before Last Route */}
+              <Route path="/" element={<Dashboard />} />
+              {/* LAST ROUTE */}
+              <Route path="/*" element={<NotFound />} />
+            </Routes>
+          </div>
         </main>
       </div>
       <AppFooter />
