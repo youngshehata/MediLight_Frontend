@@ -61,6 +61,10 @@ export default function Organization() {
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
   useEffect(() => {
     gatherData();
   }, [dataObject]);
@@ -72,19 +76,31 @@ export default function Organization() {
       </span>
       <form className={`${classes.form}`}>
         {/* NAME */}
-        <div className={`${classes.wrapper}`}>
+        <div className={`${classes.wrapper} ${classes.div1}`}>
           <label htmlFor="orgName">{language.name[currentLanguage]}</label>
-          <input name="name" onChange={handleChange} type="text" id="orgName" />
+          <input
+            spellCheck={false}
+            name="name"
+            onChange={handleChange}
+            type="text"
+            id="orgName"
+          />
         </div>
         {/* ------------------------------------ */}
         {/* Code */}
-        <div className={`${classes.wrapper}`}>
+        <div className={`${classes.wrapper} ${classes.div2}`}>
           <label htmlFor="orgCode">{language.code[currentLanguage]}</label>
-          <input name="code" onChange={handleChange} type="text" id="orgCode" />
+          <input
+            spellCheck={false}
+            name="code"
+            onChange={handleChange}
+            type="text"
+            id="orgCode"
+          />
         </div>
         {/* ------------------------------------ */}
         {/* Governorates */}
-        <div className={`${classes.wrapper}`}>
+        <div className={`${classes.wrapper} ${classes.div3}`}>
           <label htmlFor="orgGovernorates">
             {language.governorate[currentLanguage]}
           </label>
@@ -103,8 +119,9 @@ export default function Organization() {
           </select>
         </div>
         {/* ------------------------------------ */}
+
         {/* Areas */}
-        <div className={`${classes.wrapper}`}>
+        <div className={`${classes.wrapper} ${classes.div4}`}>
           <label htmlFor="orgAreas">
             {language.governorate[currentLanguage]}
           </label>
@@ -120,11 +137,12 @@ export default function Organization() {
         </div>
         {/* ------------------------------------ */}
         {/* Address */}
-        <div className={`${classes.wrapper}`}>
+        <div className={`${classes.wrapper} ${classes.div5}`}>
           <label htmlFor="orgAddress">
             {language.address[currentLanguage]}
           </label>
           <input
+            spellCheck={false}
             name="address"
             onChange={handleChange}
             type="text"
@@ -133,11 +151,12 @@ export default function Organization() {
         </div>
         {/* ------------------------------------ */}
         {/* Key Person */}
-        <div className={`${classes.wrapper}`}>
+        <div className={`${classes.wrapper} ${classes.div6}`}>
           <label htmlFor="orgKeyPerson">
             {language.keyPerson[currentLanguage]}
           </label>
           <input
+            spellCheck={false}
             name="keyPerson"
             onChange={handleChange}
             type="text"
@@ -146,8 +165,10 @@ export default function Organization() {
         </div>
         {/* ------------------------------------ */}
         {/* Titles */}
-        <div className={`${classes.wrapper}`}>
-          <label htmlFor="orgTitles">{language.title[currentLanguage]}</label>
+        <div className={`${classes.wrapper} ${classes.div7}`}>
+          <label htmlFor="orgTitles">
+            {language.titleName[currentLanguage]}
+          </label>
           <select onChange={handleChange} name="area" id="orgTitles">
             {titles.map((title) => {
               return (
@@ -162,17 +183,65 @@ export default function Organization() {
         </div>
         {/* ------------------------------------ */}
         {/* Job */}
-        <div className={`${classes.wrapper}`}>
+        <div className={`${classes.wrapper} ${classes.div8}`}>
           <label htmlFor="orgJob">{language.job[currentLanguage]}</label>
-          <input name="job" onChange={handleChange} type="text" id="orgJob" />
+          <input
+            spellCheck={false}
+            name="job"
+            onChange={handleChange}
+            type="text"
+            id="orgJob"
+          />
+        </div>
+        {/* ------------------------------------ */}
+
+        {/* Currency */}
+        <div className={`${classes.wrapper} ${classes.div9}`}>
+          <label htmlFor="orgCurrency">
+            {language.defaultCurrency[currentLanguage]}
+          </label>
+          <select
+            onChange={handleChange}
+            name="defaultCurrency"
+            id="orgCurrency"
+          >
+            {currencies.map((defaultCurrency, index) => {
+              return (
+                <option key={index + 1} value={defaultCurrency}>
+                  {currentLanguage == "ar"
+                    ? defaultCurrency.ar
+                    : defaultCurrency.en}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+
+        {/* ------------------------------------ */}
+
+        {/* Debit Account Number */}
+        <div className={`${classes.wrapper} ${classes.div10}`}>
+          <label htmlFor="orgDebitAcoountNumber">
+            {language.debitAccountNumber[currentLanguage]}
+          </label>
+          <input
+            spellCheck={false}
+            name="debitAccountNumber"
+            onChange={handleChange}
+            type="text"
+            id="orgDebitAcoountNumber"
+          />
         </div>
         {/* ------------------------------------ */}
         {/* Type */}
-        <div className={`${classes.wrapper} ${classes.typeChecbox}`}>
+        <div
+          className={`${classes.wrapper} ${classes.typeChecbox} ${classes.div11}`}
+        >
           <label htmlFor="orgType">
             {language.isOrganization[currentLanguage]}
           </label>
           <input
+            spellCheck={false}
             name="type"
             onChange={(e) => {
               setDataObject({ ...dataObject, organization: e.target.checked });
@@ -182,7 +251,29 @@ export default function Organization() {
           />
         </div>
         {/* ------------------------------------ */}
-        //! CURRENCY
+        {/* Debit Profit Center */}
+        <div className={`${classes.wrapper} ${classes.div12}`}>
+          <label htmlFor="orgDebitProfitCenter">
+            {language.debitProfitCenter[currentLanguage]}
+          </label>
+          <input
+            spellCheck={false}
+            name="debitProfitCenter"
+            onChange={handleChange}
+            type="text"
+            id="orgDebitProfitCenter"
+          />
+        </div>
+        {/* ------------------------------------ */}
+
+        {/* Submit Button */}
+        <button
+          onClick={handleSubmit}
+          className={`${classes.div13} ${classes.button}`}
+          formAction="submit"
+        >
+          {language.add[currentLanguage]}
+        </button>
       </form>
     </div>
   );

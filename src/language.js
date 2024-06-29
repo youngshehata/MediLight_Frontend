@@ -151,9 +151,9 @@ export const language = {
     en: "Key Person",
     ar: "الرمز الشخصى",
   },
-  title: {
+  titleName: {
     en: "Title",
-    ar: "العنوان",
+    ar: "المٌسمى الوظيفى",
   },
   job: {
     en: "Job",
