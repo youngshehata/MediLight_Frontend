@@ -187,4 +187,8 @@ export const language = {
     en: "Is Organization?",
     ar: "منظمة؟",
   },
+  changeLogo: {
+    en: "Change Logo",
+    ar: "تغيير الصورة",
+  },
 };
