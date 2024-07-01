@@ -191,4 +191,8 @@ export const language = {
     en: "Change Logo",
     ar: "تغيير الصورة",
   },
+  addedSuccessfully: {
+    en: "Added Successfully",
+    ar: "تمت الإضافة بنجاح",
+  },
 };

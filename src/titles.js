@@ -9,9 +9,17 @@ export const setPageTitle = (en, ar) => {
 };
 export const titles = {
   medilight: { en: "Home", ar: "الرئيسية" },
-  "medilight-client": { en: "Client", ar: "المستخدم" },
-  "medilight-client-organization": {
-    en: "Create New Organization",
-    ar: "إنشاء منظمة جديدة",
+  medilight_client: { en: "Client", ar: "المستخدم" },
+  medilight_client_organization: {
+    en: "Organizations",
+    ar: "المنظمات",
+  },
+  medilight_client_organization_add: {
+    en: "Add New Organization",
+    ar: "إضافة منظمة جديدة",
+  },
+  medilight_client_organization_edit: {
+    en: "Edit Organization",
+    ar: "تعديل منظمة",
   },
 };

@@ -17,7 +17,10 @@ export default function ParamsWatcher() {
   // Getting the current title
   let url = "medilight";
   for (let i = 0; i < paramsArray.length; i++) {
-    url = `${url}-${paramsArray[i]}`;
+    // ignore IDs
+    if (!parseInt(paramsArray[i])) {
+      url = `${url}_${paramsArray[i]}`;
+    }
   }
   let currentTitle = titles[url] || "Medilight";
 
