@@ -7,6 +7,8 @@ import { fetchFromApi } from "../../api/fetcher";
 import toast from "react-hot-toast";
 import Loading from "../../components/Loading/Loading";
 import { useNavigate } from "react-router-dom";
+import DataTable from "../../components/DataTable/DataTable";
+import { handleErrors } from "../../utilities/errors";
 
 export default function Organization() {
   setPageTitle("Create New Organization", "إنشاء منظمة جديدة");
@@ -17,25 +19,157 @@ export default function Organization() {
 
   const navigate = useNavigate();
 
+  const fetchOrgnizations = async (pageNumber, pageSize) => {
+    try {
+      setLoading(true);
+      const response = await fetchFromApi(
+        `V1/Organization/Organization/Paginated?PageNumber=${pageNumber}&PageSize=${pageSize}`,
+        "GET"
+      );
+      setLoading(false);
+      return response.data;
+    } catch (err) {
+      setLoading(false);
+      handleErrors(err);
+    }
+  };
+
+  const columnsObject = {
+    name: {
+      en: "Name (AR)",
+      ar: "الأسم بالعربية",
+      skip: false,
+      widthPercentage: "20",
+    },
+    enName: {
+      en: "Name (EN)",
+      ar: "الأسم بالإنجليزية",
+      skip: false,
+      widthPercentage: "20",
+    },
+    governoratesname: {
+      en: "Governorate",
+      ar: "المحافظة",
+      skip: false,
+      widthPercentage: "10",
+    },
+
+    areasname: {
+      en: "Area",
+      ar: "المنطقة",
+      skip: false,
+      widthPercentage: "10",
+    },
+    organizationCode: {
+      en: "Code",
+      ar: "الرمز",
+      skip: false,
+      widthPercentage: "10",
+    },
+    keyperson: {
+      en: "Key Person",
+      ar: "الرمز الشخصى",
+      skip: false,
+      widthPercentage: "10",
+    },
+    edit: {
+      en: "Edit",
+      ar: "تعديل",
+      skip: false,
+      widthPercentage: "10",
+    },
+    delete: {
+      en: "Delete",
+      ar: "حذف",
+      skip: false,
+      widthPercentage: "10",
+    },
+    courtesy: {
+      en: "Courtesy Id",
+      ar: "رقم اللقب",
+      skip: true,
+      widthPercentage: "10",
+    },
+    courtesyName: {
+      en: "Courtesy",
+      ar: "اللقب",
+      skip: true,
+      widthPercentage: "10",
+    },
+    area: {
+      en: "Area Id",
+      ar: "رقم المنطقة",
+      skip: true,
+      widthPercentage: "10",
+    },
+    debitAccountNo: {
+      en: "Debit Account No.",
+      ar: "رقم حساب المدين",
+      skip: true,
+      widthPercentage: "10",
+    },
+    debitProfitCenter: {
+      en: "Debit Profile Center",
+      ar: "مركز أرباح المدين",
+      skip: true,
+      widthPercentage: "10",
+    },
+    defaultCurrency: {
+      en: "Default Currency",
+      ar: "العملة الإفتراضية",
+      skip: true,
+      widthPercentage: "10",
+    },
+    governorate: {
+      en: "governorateId",
+      ar: "رقم المحافظة",
+      skip: true,
+      widthPercentage: "10",
+    },
+    id: { en: "id", ar: "رقم", skip: true, widthPercentage: "10" },
+    individuals: {
+      en: "Individual",
+      ar: "شخص",
+      skip: true,
+      widthPercentage: "10",
+    },
+
+    logo: {
+      en: "logo",
+      ar: "لوجو",
+      skip: true,
+      widthPercentage: "10",
+    },
+
+    savedToFMIS: {
+      en: "savedFMIS",
+      ar: "محفوظ",
+      skip: true,
+      widthPercentage: "10",
+    },
+    secUserAccountID: {
+      en: "AgentId",
+      ar: "رقم الممثل",
+      skip: true,
+      widthPercentage: "10",
+    },
+    title: {
+      en: "Title",
+      ar: "عنوان",
+      skip: true,
+      widthPercentage: "10",
+    },
+  };
+
   return (
     <>
       {loading ? <Loading /> : null}
       <div className={`${classes.container}`}>
-        <h1
-          onClick={() => {
-            navigate("add");
-          }}
-        >
-          ADD
-        </h1>
-        <h1
-          onClick={() => {
-            navigate("edit/5");
-          }}
-        >
-          EDIT
-        </h1>
-        <h2>DATA</h2>
+        <DataTable
+          fetchFunction={fetchOrgnizations}
+          columnsObject={columnsObject}
+          editUrl={"/medilight/client/organization/edit"}
+        />
       </div>
     </>
   );
