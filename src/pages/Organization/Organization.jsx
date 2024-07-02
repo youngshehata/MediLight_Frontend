@@ -20,22 +20,23 @@ export default function Organization() {
   return (
     <>
       {loading ? <Loading /> : null}
-      <div className={`${classes.container}`}></div>
-      {/* <h1
-        onClick={() => {
-          navigate("add");
-        }}
-      >
-        ADD
-      </h1>
-      <h1
-        onClick={() => {
-          navigate("edit/5");
-        }}
-      >
-        EDIT
-      </h1>
-      <h2>DATA</h2> */}
+      <div className={`${classes.container}`}>
+        <h1
+          onClick={() => {
+            navigate("add");
+          }}
+        >
+          ADD
+        </h1>
+        <h1
+          onClick={() => {
+            navigate("edit/5");
+          }}
+        >
+          EDIT
+        </h1>
+        <h2>DATA</h2>
+      </div>
     </>
   );
 }

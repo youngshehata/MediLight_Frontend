@@ -7,6 +7,7 @@ export default function Client() {
     <Routes>
       <Route path="/organization/add/" element={<OrganizationForm />} />
       <Route path="/organization/edit/:id" element={<OrganizationForm />} />
+      <Route path="/organization/view/:id" element={<OrganizationForm />} />
       <Route path="/organization/*" element={<Organiztion />} />
       {/* Dashboard Just Before Last Route */}
     </Routes>

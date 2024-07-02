@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { setPageTitle } from "../../../utilities/titles";
 import { useContext, useEffect, useRef, useState } from "react";
 import classes from "./OrganizationForm.module.css";
@@ -13,6 +13,8 @@ export default function OrganizationForm() {
   setPageTitle("Create New Organization", "إنشاء منظمة جديدة");
 
   const currentLanguage = useContext(LanguageContext);
+
+  const navigate = useNavigate();
 
   const params = useParams();
   const [editMode, setEditMode] = useState(params.id ? true : false);
@@ -92,12 +94,10 @@ export default function OrganizationForm() {
     reader.readAsDataURL(file);
 
     reader.onload = () => {
-      let x = reader.result;
-      let v = x.indexOf(",");
-      console.log(v);
-      x = x.substring(v + 1, x.length - 1);
-      console.log(x);
-      setDataObject({ ...dataObject, logo: x });
+      let base64String = reader.result;
+      let comaIndex = base64String.indexOf(",");
+      base64String = base64String.substring(comaIndex + 1, base64String.length);
+      setDataObject({ ...dataObject, logo: base64String });
     };
   };
 
@@ -113,6 +113,7 @@ export default function OrganizationForm() {
       .then(() => {
         setLoading(false);
         toast.success(language.addedSuccessfully[currentLanguage]);
+        navigate("/medilight/client/organization");
       })
       .catch((err) => {
         handleErrors(err);

@@ -1,7 +1,8 @@
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 export function initAuthentication() {
-  const unAuthorizedAtteptDone = 0;
+  let unAuthorizedAtteptDone = 0;
 
   async function refreshAccessToken() {
     try {
@@ -66,3 +67,16 @@ export function initAuthentication() {
     }
   );
 }
+
+export const decodeJWT = (token) => {
+  try {
+    const decodedJWT = jwtDecode(token);
+    let formatted = {
+      username: decodedJWT.UserName,
+      id: decodedJWT.Id,
+    };
+    return formatted;
+  } catch (err) {
+    return null;
+  }
+};

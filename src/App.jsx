@@ -1,15 +1,23 @@
-import { Suspense, createContext, lazy, useRef, useState } from "react";
+import {
+  Suspense,
+  createContext,
+  lazy,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import "./App.css";
 import Homepage from "./pages/Homepage/Homepage";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import Fallback from "./pages/Fallback/Fallback";
 import { ErrorBoundary } from "react-error-boundary";
 import toast, { Toaster } from "react-hot-toast";
 import { language as languageTexts } from "./utilities/language";
 import NotFound from "./pages/NotFound/NotFound";
 import Loading from "./components/Loading/Loading";
-import { initAuthentication } from "./utilities/auth";
+import { decodeJWT, initAuthentication } from "./utilities/auth";
 import axios from "axios";
+import { fetchFromApi } from "./api/fetcher";
 
 const Medilight = lazy(() => import("./pages/Medilight/Medilight"));
 
@@ -56,6 +64,31 @@ function App() {
   const changeAuth = (data) => {
     setUserInfo(data);
   };
+
+  const checkAuthentication = () => {
+    const myToken = sessionStorage.getItem("access");
+    if (myToken) {
+      fetchFromApi(
+        `V1/Authentication/Validate-Token?AccessToken=${myToken}`,
+        "GET"
+      )
+        .then(() => {
+          const userInfoFromJWT = decodeJWT(myToken);
+          setUserInfo(userInfoFromJWT);
+        })
+        .catch(() => {
+          if (useLocation().pathname == "/") {
+            return;
+          }
+          toast.error(languageTexts.unauthorized[changeLanguage]);
+          return Navigate("/");
+        });
+    }
+  };
+
+  useEffect(() => {
+    checkAuthentication();
+  }, []);
 
   return (
     <div
