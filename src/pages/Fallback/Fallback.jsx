@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import classes from "./Fallback.module.css";
 import { LanguageContext } from "../../App";
-import { language } from "../../language";
+import { language } from "../../utilities/language";
 import Button from "../../components/Button";
 
 export default function Fallback() {

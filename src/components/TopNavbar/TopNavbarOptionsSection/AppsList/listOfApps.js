@@ -1,4 +1,4 @@
-import { language } from "../../../../language";
+import { language } from "../../../../utilities/language";
 
 export const listOfApps = [
   { label: language.lab, icon: "/lab.png", link: "lab", key: 1 },

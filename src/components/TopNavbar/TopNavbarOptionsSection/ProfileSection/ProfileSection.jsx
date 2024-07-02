@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import classes from "../../TopNavbar.module.css";
 import { useContext, useEffect, useRef, useState } from "react";
 import { LanguageContext } from "../../../../App";
-import { language } from "../../../../language";
+import { language } from "../../../../utilities/language";
 
 export default function ProfileSection({ changeAuth }) {
   const [menuActive, setMenuActive] = useState(false);

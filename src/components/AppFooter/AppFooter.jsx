@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { language } from "../../language";
+import { language } from "../../utilities/language";
 import classes from "./AppFooter.module.css";
 import { LanguageContext } from "../../App";
 import { useNavigate } from "react-router-dom";

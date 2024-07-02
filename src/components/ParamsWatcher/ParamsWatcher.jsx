@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { LanguageContext } from "../../App";
 import styles from "./ParamsWatcher.module.css";
-import { titles } from "../../titles";
+import { titles } from "../../utilities/titles";
 
 export default function ParamsWatcher() {
   const currentLanguage = useContext(LanguageContext);

@@ -5,9 +5,11 @@ import { Route, Routes } from "react-router-dom";
 import Fallback from "./pages/Fallback/Fallback";
 import { ErrorBoundary } from "react-error-boundary";
 import toast, { Toaster } from "react-hot-toast";
-import { language as languageTexts } from "./language";
+import { language as languageTexts } from "./utilities/language";
 import NotFound from "./pages/NotFound/NotFound";
 import Loading from "./components/Loading/Loading";
+import { initAuthentication } from "./utilities/auth";
+import axios from "axios";
 
 const Medilight = lazy(() => import("./pages/Medilight/Medilight"));
 
@@ -19,6 +21,9 @@ function App() {
   const alreadyChoosedLanguage = localStorage.getItem("lang") || "en";
   const [language, setLanguage] = useState(alreadyChoosedLanguage);
   const [userInfo, setUserInfo] = useState(null);
+  // setting language headers
+  axios.defaults.headers.common["Accept-Language"] =
+    language == "ar" ? "ar-EG" : "en-US";
 
   // this ref is used to get the app div element and give it the correct font (arabic | english)
   const appRef = useRef(null);
@@ -45,6 +50,8 @@ function App() {
 
     setLanguage(lang);
   };
+
+  initAuthentication();
 
   const changeAuth = (data) => {
     setUserInfo(data);

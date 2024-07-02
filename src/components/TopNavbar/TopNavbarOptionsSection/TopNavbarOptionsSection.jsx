@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { language } from "../../../language";
+import { language } from "../../../utilities/language";
 import classes from "../TopNavbar.module.css";
 import ProfileSection from "./ProfileSection/ProfileSection";
 import { LanguageContext } from "../../../App";

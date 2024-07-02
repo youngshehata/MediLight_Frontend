@@ -1,6 +1,6 @@
 import axios from "axios";
 import toast from "react-hot-toast";
-import { language } from "../language";
+import { language } from "../utilities/language";
 
 export const fetchFromApi = async (url, method, data) => {
   const currentLanguage = localStorage.getItem("lang") || "en";
@@ -33,12 +33,12 @@ export const fetchFromApi = async (url, method, data) => {
   } catch (err) {
     // the following checking because maybe an endpoint does not have a reply message, or the developer accidentally gave it null,
     // we dont wanna the client to get empty toast message
-    let errorMessage = err.response?.data?.message;
-    if (errorMessage) {
-      toast.error(errorMessage);
-    } else {
-      toast.error(language.internalError[currentLanguage]);
-    }
+    // let errorMessage = err.response?.data?.message;
+    // if (errorMessage) {
+    //   toast.error(errorMessage);
+    // } else {
+    //   toast.error(language.internalError[currentLanguage]);
+    // }
     throw err;
   }
 };

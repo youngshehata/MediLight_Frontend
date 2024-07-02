@@ -1,12 +1,13 @@
 import { useContext, useState } from "react";
 import classes from "./LoginForm.module.css";
 import { LanguageContext } from "../../App";
-import { language } from "../../language";
+import { language } from "../../utilities/language";
 import Button from "../Button";
 import Loading from "../Loading/Loading";
 import { validation_login } from "./LoginFormValidation";
 import { fetchFromApi } from "../../api/fetcher";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function LoginForm({ changeAuth }) {
   const currentLanguage = useContext(LanguageContext);
@@ -56,6 +57,12 @@ export default function LoginForm({ changeAuth }) {
           username: response.data.data.userName,
           id: response.data.data.id,
         });
+        // Setting default header auth
+        axios.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${response.data.data.acces_token}`;
+        sessionStorage.setItem("access", response.data.data.acces_token);
+        // ****************************
         setLoading(false);
         navigate("medilight");
       })

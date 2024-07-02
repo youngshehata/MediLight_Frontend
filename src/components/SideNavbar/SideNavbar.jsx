@@ -2,7 +2,7 @@ import { useContext } from "react";
 import SideCategory from "./SideCategory/SideCategory";
 import classes from "./SideNavbar.module.css";
 import { LanguageContext } from "../../App";
-import { language } from "../../language";
+import { language } from "../../utilities/language";
 
 export default function SideNavbar({
   changeSecondSidebarData,
@@ -20,9 +20,7 @@ export default function SideNavbar({
         title={language.client[currentLanguage]}
         listItems={[
           {
-            label: { en: "Add Organization", ar: "إضافة منظمة" }[
-              currentLanguage
-            ],
+            label: { en: "Organizations", ar: "المنظمات" }[currentLanguage],
             link: "client/organization",
           },
         ]}

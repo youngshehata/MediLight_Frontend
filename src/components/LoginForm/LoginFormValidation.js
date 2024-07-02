@@ -1,5 +1,5 @@
 import toast from "react-hot-toast";
-import { language } from "../../language";
+import { language } from "../../utilities/language";
 
 export const validation_login = (username, password) => {
   const currentLanguage = localStorage.getItem("lang") || "en";

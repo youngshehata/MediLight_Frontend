@@ -1,12 +1,13 @@
 import { useParams } from "react-router-dom";
-import { setPageTitle } from "../../../titles";
+import { setPageTitle } from "../../../utilities/titles";
 import { useContext, useEffect, useRef, useState } from "react";
 import classes from "./OrganizationForm.module.css";
-import { language } from "../../../language";
+import { language } from "../../../utilities/language";
 import { LanguageContext } from "../../../App";
 import { fetchFromApi } from "../../../api/fetcher";
 import toast from "react-hot-toast";
 import Loading from "../../../components/Loading/Loading";
+import { handleErrors } from "../../../utilities/errors";
 
 export default function OrganizationForm() {
   setPageTitle("Create New Organization", "إنشاء منظمة جديدة");
@@ -15,7 +16,11 @@ export default function OrganizationForm() {
 
   const params = useParams();
   const [editMode, setEditMode] = useState(params.id ? true : false);
-  const [dataObject, setDataObject] = useState({ individuals: true });
+  const [dataObject, setDataObject] = useState({
+    individuals: true,
+    enName: "english",
+    secUserAccountID: 2,
+  });
   const [loading, setLoading] = useState(true);
   const [governorates, setGovernorates] = useState([]);
   const [areas, setAreas] = useState([]);
@@ -87,10 +92,12 @@ export default function OrganizationForm() {
     reader.readAsDataURL(file);
 
     reader.onload = () => {
-      console.log("called: ", reader);
       let x = reader.result;
-      // setBase64IMG(reader.result)
-      console.log(reader);
+      let v = x.indexOf(",");
+      console.log(v);
+      x = x.substring(v + 1, x.length - 1);
+      console.log(x);
+      setDataObject({ ...dataObject, logo: x });
     };
   };
 
@@ -108,8 +115,8 @@ export default function OrganizationForm() {
         toast.success(language.addedSuccessfully[currentLanguage]);
       })
       .catch((err) => {
+        handleErrors(err);
         setLoading(false);
-        toast.error(err?.data?.message);
       });
   };
 

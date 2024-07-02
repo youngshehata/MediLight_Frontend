@@ -4,7 +4,7 @@ import { listOfApps } from "./listOfApps";
 import { LanguageContext } from "../../../../App";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../Button";
-import { language } from "../../../../language";
+import { language } from "../../../../utilities/language";
 
 export default function AppsList() {
   const [menuActive, setMenuActive] = useState("");

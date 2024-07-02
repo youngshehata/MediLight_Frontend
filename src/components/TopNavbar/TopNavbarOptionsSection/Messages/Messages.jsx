@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import List from "../../../List/List";
 import { LanguageContext } from "../../../../App";
-import { language } from "../../../../language";
+import { language } from "../../../../utilities/language";
 import classes from "./Messages.module.css";
 import ShortMessage from "./ShortMessage/ShortMessage";
 import { convertDate } from "../../../../common/DateAndTime";

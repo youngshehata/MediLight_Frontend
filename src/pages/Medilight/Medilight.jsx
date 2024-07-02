@@ -6,7 +6,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import Dashboard from "../Dashboard/Dashboard";
 import toast from "react-hot-toast";
 import NotFound from "../NotFound/NotFound";
-import { language } from "../../language";
+import { language } from "../../utilities/language";
 import TopNavbar from "../../components/TopNavbar/TopNavbar";
 import classes from "./Medilight.module.css";
 import SideNavbar from "../../components/SideNavbar/SideNavbar";
