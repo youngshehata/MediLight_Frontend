@@ -20,18 +20,12 @@ export default function OrganizationForm() {
   const [editMode, setEditMode] = useState(params.id ? true : false);
   const [dataObject, setDataObject] = useState({
     individuals: true,
-    enName: "english",
-    secUserAccountID: 2,
   });
   const [loading, setLoading] = useState(true);
   const [governorates, setGovernorates] = useState([]);
   const [areas, setAreas] = useState([]);
   const [titles, setTitles] = useState([]);
-  const [currencies, setCurrencies] = useState([
-    { en: "EGP", ar: "جنيه" },
-    { en: "USD", ar: "دولار" },
-    { en: "EUR", ar: "يورو" },
-  ]);
+  const [currencies, setCurrencies] = useState([]);
 
   const governorateRef = useRef();
   const areaRef = useRef();
@@ -49,6 +43,15 @@ export default function OrganizationForm() {
   const gatherData = async () => {
     try {
       setLoading(true);
+      // Curruencies
+      if (currencies.length < 1) {
+        const fetchedCurrs = await fetchFromApi(
+          "V1/CodesRouting/CurrnciesList",
+          "GET"
+        );
+        setCurrencies(fetchedCurrs.data.data);
+      }
+
       // Titles
       if (titles.length < 1) {
         const fetchedTitles = await fetchFromApi(
@@ -56,10 +59,6 @@ export default function OrganizationForm() {
           "GET"
         );
         setTitles(fetchedTitles.data.data);
-        // setDataObject({
-        //   ...dataObject,
-        //   courtesy: fetchedTitles.data.data[0].id,
-        // });
       }
 
       // Governorates
@@ -69,10 +68,6 @@ export default function OrganizationForm() {
           "GET"
         );
         setGovernorates(fetchedGovernorates.data.data);
-        // setDataObject({
-        //   ...dataObject,
-        //   governorate: fetchedGovernorates.data.data[0].id,
-        // });
       }
 
       // Areas
@@ -81,7 +76,7 @@ export default function OrganizationForm() {
         "GET"
       );
       setAreas(fetchedAreas.data.data);
-      // setDataObject({ ...dataObject, area: fetchedAreas.data.data[0].id });
+
       setLoading(false);
     } catch (error) {
       toast(language.internalError[currentLanguage]);
@@ -107,8 +102,7 @@ export default function OrganizationForm() {
     dataObject.governorate = +governorateRef.current.value;
     dataObject.area = +areaRef.current.value;
     dataObject.courtesy = +courtesyRef.current.value;
-    dataObject.currency = currencyRef.current.value;
-    console.log(dataObject);
+    dataObject.defaultCurrency = +currencyRef.current.value;
     fetchFromApi("V1/Organization/Organization/Create", "POST", dataObject)
       .then(() => {
         setLoading(false);
@@ -135,7 +129,7 @@ export default function OrganizationForm() {
         <form className={`${classes.form}`}>
           {/* NAME */}
           <div className={`${classes.wrapper} ${classes.div1}`}>
-            <label htmlFor="orgName">{language.name[currentLanguage]}</label>
+            <label htmlFor="orgName">{language.nameAr[currentLanguage]}</label>
             <input
               spellCheck={false}
               name="name"
@@ -145,8 +139,22 @@ export default function OrganizationForm() {
             />
           </div>
           {/* ------------------------------------ */}
-          {/* Code */}
+          {/* English Name */}
           <div className={`${classes.wrapper} ${classes.div2}`}>
+            <label htmlFor="orgEngName">
+              {language.nameEn[currentLanguage]}
+            </label>
+            <input
+              spellCheck={false}
+              name="enName"
+              onChange={handleChange}
+              type="text"
+              id="orgEngName"
+            />
+          </div>
+          {/* ------------------------------------ */}
+          {/* Code */}
+          <div className={`${classes.wrapper} ${classes.div3}`}>
             <label htmlFor="orgCode">{language.code[currentLanguage]}</label>
             <input
               spellCheck={false}
@@ -158,7 +166,7 @@ export default function OrganizationForm() {
           </div>
           {/* ------------------------------------ */}
           {/* Governorates */}
-          <div className={`${classes.wrapper} ${classes.div3}`}>
+          <div className={`${classes.wrapper} ${classes.div4}`}>
             <label htmlFor="orgGovernorates">
               {language.governorate[currentLanguage]}
             </label>
@@ -180,7 +188,7 @@ export default function OrganizationForm() {
           {/* ------------------------------------ */}
 
           {/* Areas */}
-          <div className={`${classes.wrapper} ${classes.div4}`}>
+          <div className={`${classes.wrapper} ${classes.div5}`}>
             <label htmlFor="orgAreas">{language.area[currentLanguage]}</label>
             <select
               ref={areaRef}
@@ -201,7 +209,7 @@ export default function OrganizationForm() {
           </div>
           {/* ------------------------------------ */}
           {/* Address */}
-          <div className={`${classes.wrapper} ${classes.div5}`}>
+          <div className={`${classes.wrapper} ${classes.div6}`}>
             <label htmlFor="orgAddress">
               {language.address[currentLanguage]}
             </label>
@@ -215,7 +223,7 @@ export default function OrganizationForm() {
           </div>
           {/* ------------------------------------ */}
           {/* Key Person */}
-          <div className={`${classes.wrapper} ${classes.div6}`}>
+          <div className={`${classes.wrapper} ${classes.div7}`}>
             <label htmlFor="orgKeyPerson">
               {language.keyPerson[currentLanguage]}
             </label>
@@ -229,7 +237,7 @@ export default function OrganizationForm() {
           </div>
           {/* ------------------------------------ */}
           {/* Titles */}
-          <div className={`${classes.wrapper} ${classes.div7}`}>
+          <div className={`${classes.wrapper} ${classes.div8}`}>
             <label htmlFor="orgTitles">
               {language.titleName[currentLanguage]}
             </label>
@@ -252,7 +260,7 @@ export default function OrganizationForm() {
           </div>
           {/* ------------------------------------ */}
           {/* Job */}
-          <div className={`${classes.wrapper} ${classes.div8}`}>
+          <div className={`${classes.wrapper} ${classes.div9}`}>
             <label htmlFor="orgJob">{language.job[currentLanguage]}</label>
             <input
               spellCheck={false}
@@ -265,7 +273,7 @@ export default function OrganizationForm() {
           {/* ------------------------------------ */}
 
           {/* Currency */}
-          <div className={`${classes.wrapper} ${classes.div9}`}>
+          <div className={`${classes.wrapper} ${classes.div10}`}>
             <label htmlFor="orgCurrency">
               {language.defaultCurrency[currentLanguage]}
             </label>
@@ -275,12 +283,12 @@ export default function OrganizationForm() {
               name="defaultCurrency"
               id="orgCurrency"
             >
-              {currencies.map((defaultCurrency, index) => {
+              {currencies.map((curr, index) => {
                 return (
-                  <option key={index + 1} value={defaultCurrency.en}>
+                  <option key={index + 1} value={curr.id}>
                     {currentLanguage == "ar"
-                      ? defaultCurrency.ar
-                      : defaultCurrency.en}
+                      ? curr.currncueiesAr
+                      : curr.currncueiesEn}
                   </option>
                 );
               })}
@@ -290,7 +298,7 @@ export default function OrganizationForm() {
           {/* ------------------------------------ */}
 
           {/* Debit Account Number */}
-          <div className={`${classes.wrapper} ${classes.div10}`}>
+          <div className={`${classes.wrapper} ${classes.div11}`}>
             <label htmlFor="orgDebitAcoountNumber">
               {language.debitAccountNumber[currentLanguage]}
             </label>
@@ -303,9 +311,37 @@ export default function OrganizationForm() {
             />
           </div>
           {/* ------------------------------------ */}
+          {/* Debit Profit Center */}
+          <div className={`${classes.wrapper} ${classes.div12}`}>
+            <label htmlFor="orgDebitProfitCenter">
+              {language.debitProfitCenter[currentLanguage]}
+            </label>
+            <input
+              spellCheck={false}
+              name="debitProfitCenter"
+              onChange={handleChange}
+              type="text"
+              id="orgDebitProfitCenter"
+            />
+          </div>
+          {/* ------------------------------------ */}
+          {/* Agent */}
+          <div className={`${classes.wrapper} ${classes.div13}`}>
+            <label htmlFor="orgAgent">
+              {language.orgAgent[currentLanguage]}
+            </label>
+            <input
+              spellCheck={false}
+              name="secUserAccountID"
+              onChange={handleChange}
+              type="text"
+              id="orgAgent"
+            />
+          </div>
+          {/* ------------------------------------ */}
           {/* Type */}
           <div
-            className={`${classes.wrapper} ${classes.typeChecbox} ${classes.div11}`}
+            className={`${classes.wrapper} ${classes.typeChecbox} ${classes.div14}`}
           >
             <label htmlFor="orgType">
               {language.isOrganization[currentLanguage]}
@@ -324,24 +360,10 @@ export default function OrganizationForm() {
             />
           </div>
           {/* ------------------------------------ */}
-          {/* Debit Profit Center */}
-          <div className={`${classes.wrapper} ${classes.div12}`}>
-            <label htmlFor="orgDebitProfitCenter">
-              {language.debitProfitCenter[currentLanguage]}
-            </label>
-            <input
-              spellCheck={false}
-              name="debitProfitCenter"
-              onChange={handleChange}
-              type="text"
-              id="orgDebitProfitCenter"
-            />
-          </div>
-          {/* ------------------------------------ */}
 
           {/* LOGO */}
           <div
-            className={`${classes.logoContainer} ${classes.div14} flexCenterColumn`}
+            className={`${classes.logoContainer} ${classes.div15} flexCenterColumn`}
           >
             <img ref={logoImgRef} src="/organization.svg" alt="organization" />
             <span
@@ -370,7 +392,7 @@ export default function OrganizationForm() {
           {/* Submit Button */}
           <button
             onClick={handleSubmit}
-            className={`${classes.div13} ${classes.button}`}
+            className={`${classes.div16} ${classes.button}`}
             formAction="submit"
           >
             {language.add[currentLanguage]}

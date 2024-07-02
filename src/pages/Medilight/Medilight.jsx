@@ -1,12 +1,10 @@
 // This component will be working as router to the whole app for authorized user
 
-import { useContext, useEffect, useState } from "react";
-import { AuthContext, LanguageContext } from "../../App";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import { LanguageContext } from "../../App";
+import { Route, Routes } from "react-router-dom";
 import Dashboard from "../Dashboard/Dashboard";
-import toast from "react-hot-toast";
 import NotFound from "../NotFound/NotFound";
-import { language } from "../../utilities/language";
 import TopNavbar from "../../components/TopNavbar/TopNavbar";
 import classes from "./Medilight.module.css";
 import SideNavbar from "../../components/SideNavbar/SideNavbar";
@@ -16,10 +14,6 @@ import SecondSideBar from "../../components/SecondSideBar/SecondSideBar";
 import Client from "../Client/Client";
 
 export default function Medilight({ changeLanguage, changeAuth }) {
-  const navigate = useNavigate();
-
-  const userInfo = useContext(AuthContext);
-
   const [secondSideBarData, setSecondSideBarData] = useState({
     title: "",
     items: [],
@@ -59,14 +53,6 @@ export default function Medilight({ changeLanguage, changeAuth }) {
       setSecondSidebarClass("");
     }
   };
-
-  useEffect(() => {
-    // Unauthorized checking
-    if (!userInfo) {
-      toast.error(language.unauthorized[currentLanguage]);
-      return navigate("/");
-    }
-  }, []);
 
   return (
     <div className={`${classes.medilight}`}>

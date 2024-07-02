@@ -8,6 +8,7 @@ import { validation_login } from "./LoginFormValidation";
 import { fetchFromApi } from "../../api/fetcher";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { handleErrors } from "../../utilities/errors";
 
 export default function LoginForm({ changeAuth }) {
   const currentLanguage = useContext(LanguageContext);
@@ -41,13 +42,6 @@ export default function LoginForm({ changeAuth }) {
       return;
     }
 
-    // //! TEMP REPLACE FOR LOGIN REQUEST
-    // changeAuth({ username: "Shehata" });
-    // setLoading(false);
-    // toast.success("Logged in as Shehata");
-    // navigate("medilight");
-    //! TEMP REPLACE FOR LOGIN REQUEST
-
     fetchFromApi(`V1/Authentication/SignIn`, "POST", {
       userName: usernameInput,
       password: passwordInput,
@@ -66,8 +60,9 @@ export default function LoginForm({ changeAuth }) {
         setLoading(false);
         navigate("medilight");
       })
-      .catch(() => {
+      .catch((err) => {
         setLoading(false);
+        handleErrors(err);
       });
   };
 

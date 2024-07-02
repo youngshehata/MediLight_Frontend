@@ -24,6 +24,7 @@ export default function ProfileSection({ changeAuth }) {
 
   const logoutFunction = () => {
     changeAuth(null);
+    sessionStorage.removeItem("access");
     navigate("/");
   };
 

@@ -195,4 +195,16 @@ export const language = {
     en: "Added Successfully",
     ar: "تمت الإضافة بنجاح",
   },
+  nameEn: {
+    en: "Name in english",
+    ar: "الأسم باللغة الإنجليزية",
+  },
+  nameAr: {
+    en: "Name in arabic",
+    ar: "الأسم باللغة العربية",
+  },
+  orgAgent: {
+    en: "Organization's Agent",
+    ar: "ممثل المنظمة",
+  },
 };

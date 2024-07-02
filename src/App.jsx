@@ -8,7 +8,13 @@ import {
 } from "react";
 import "./App.css";
 import Homepage from "./pages/Homepage/Homepage";
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import {
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import Fallback from "./pages/Fallback/Fallback";
 import { ErrorBoundary } from "react-error-boundary";
 import toast, { Toaster } from "react-hot-toast";
@@ -65,6 +71,9 @@ function App() {
     setUserInfo(data);
   };
 
+  const locationHook = useLocation();
+  const navigate = useNavigate();
+
   const checkAuthentication = () => {
     const myToken = sessionStorage.getItem("access");
     if (myToken) {
@@ -77,11 +86,11 @@ function App() {
           setUserInfo(userInfoFromJWT);
         })
         .catch(() => {
-          if (useLocation().pathname == "/") {
+          if (locationHook.pathname == "/") {
             return;
           }
-          toast.error(languageTexts.unauthorized[changeLanguage]);
-          return Navigate("/");
+          toast.error(languageTexts.unauthorized[language]);
+          return navigate("/");
         });
     }
   };
