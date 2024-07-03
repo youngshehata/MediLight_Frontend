@@ -66,30 +66,32 @@ export default function DataTable({
           yesFunction={deleteOrganization}
         />
       ) : null}
-      <div>SEARCH</div>
+      <div className={`${classes.search}`}>SEARCH</div>
       <div className={`${classes.tableContainer} scroll`}>
-        <table className={`${classes.table}`}>
-          <tr>
-            {Object.keys(columnsObject).map((column) => {
+        <ul className={`${classes.table}`}>
+          <li className={`${classes.titles}`}>
+            <span className={`${classes.numbers}`}>#</span>
+            {Object.keys(columnsObject).map((column, index) => {
               if (columnsObject[column].skip) {
                 return;
               }
               return (
-                <th
+                <span
+                  key={index + 1}
                   style={{ width: `${columnsObject[column].widthPercentage}%` }}
                 >
                   {currentLanguage == "ar"
                     ? columnsObject[column].ar
                     : columnsObject[column].en}
-                </th>
+                </span>
               );
             })}
-          </tr>
+          </li>
           {data
             ? data.map((record, index) => {
-                console.log(record);
                 return (
-                  <tr key={record.id ? record.id : index + 1}>
+                  <li key={record.id ? record.id : index + 1}>
+                    <span className={`${classes.numbers}`}>{index + 1}</span>
                     {Object.keys(columnsObject).map((column) => {
                       if (columnsObject[column].skip) {
                         return;
@@ -97,7 +99,11 @@ export default function DataTable({
                       // checking for edit
                       if (column == "edit") {
                         return (
-                          <td>
+                          <span
+                            style={{
+                              width: `${columnsObject[column].widthPercentage}%`,
+                            }}
+                          >
                             <button
                               className={`${classes.edit}`}
                               onClick={() => {
@@ -106,13 +112,17 @@ export default function DataTable({
                             >
                               {columnsObject[column][currentLanguage]}
                             </button>
-                          </td>
+                          </span>
                         );
                       }
                       // checking for delete
                       if (column == "delete") {
                         return (
-                          <td>
+                          <span
+                            style={{
+                              width: `${columnsObject[column].widthPercentage}%`,
+                            }}
+                          >
                             <button
                               className={`${classes.delete}`}
                               onClick={() => {
@@ -121,18 +131,26 @@ export default function DataTable({
                             >
                               {columnsObject[column][currentLanguage]}
                             </button>
-                          </td>
+                          </span>
                         );
                       }
-                      return <td>{record[column]}</td>;
+                      return (
+                        <span
+                          style={{
+                            width: `${columnsObject[column].widthPercentage}%`,
+                          }}
+                        >
+                          {record[column]}
+                        </span>
+                      );
                     })}
-                  </tr>
+                  </li>
                 );
               })
             : null}
-        </table>
+        </ul>
       </div>
-      <div>PAGES</div>
+      <div className={`${classes.pages}`}>Pages</div>
     </div>
   );
 }
