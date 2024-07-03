@@ -123,6 +123,10 @@ export const language = {
     en: "Add New Organization",
     ar: "إضافة منظمة جديدة",
   },
+  editOrganization: {
+    en: "Edit Organization",
+    ar: "تعديل منظمة",
+  },
   name: {
     en: "Name",
     ar: "الأسم",

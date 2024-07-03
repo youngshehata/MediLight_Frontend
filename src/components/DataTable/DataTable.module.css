@@ -36,3 +36,25 @@ table tr:nth-child(even) {
   height: 50%;
   padding: 0.5vmax;
 }
+
+.edit,
+.delete {
+  background-color: #001572;
+  border-radius: 0.2vmax;
+  color: #fff;
+  border: none;
+  outline: none;
+  padding: 0.3vmax 1vmax;
+  min-width: 80%;
+  font-size: 0.9 vmax;
+  transition: background-color 0.2s ease-in-out;
+}
+.delete {
+  background-color: #720000;
+}
+.delete:hover {
+  background-color: #9a0000;
+}
+.edit:hover {
+  background-color: #001ea5;
+}

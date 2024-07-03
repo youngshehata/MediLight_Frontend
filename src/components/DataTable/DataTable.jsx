@@ -15,6 +15,7 @@ export default function DataTable({
   columnsObject,
   editUrl,
   deleteUrl,
+  deleteMessageObject,
 }) {
   const navigate = useNavigate();
   const currentLanguage = useContext(LanguageContext);
@@ -54,11 +55,7 @@ export default function DataTable({
       {loading ? <Loading /> : null}
       {showModal ? (
         <Modal
-          message={
-            currentLanguage == "ar"
-              ? "هل أنت متأكد من حذف هذه المنظمة؟"
-              : "Are you sure you wanna delete this organization?"
-          }
+          message={deleteMessageObject[currentLanguage]}
           noFunction={() => {
             setShowModal(false);
           }}
@@ -102,6 +99,7 @@ export default function DataTable({
                         return (
                           <td>
                             <button
+                              className={`${classes.edit}`}
                               onClick={() => {
                                 navigate(`${editUrl}/${record.id}`);
                               }}
@@ -116,6 +114,7 @@ export default function DataTable({
                         return (
                           <td>
                             <button
+                              className={`${classes.delete}`}
                               onClick={() => {
                                 setShowModal(record.id);
                               }}

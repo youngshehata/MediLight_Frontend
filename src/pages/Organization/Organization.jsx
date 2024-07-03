@@ -1,23 +1,14 @@
 import { setPageTitle } from "../../utilities/titles";
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import classes from "./Organization.module.css";
-import { language } from "../../utilities/language";
-import { LanguageContext } from "../../App";
 import { fetchFromApi } from "../../api/fetcher";
-import toast from "react-hot-toast";
 import Loading from "../../components/Loading/Loading";
-import { useNavigate } from "react-router-dom";
 import DataTable from "../../components/DataTable/DataTable";
 import { handleErrors } from "../../utilities/errors";
 
 export default function Organization() {
   setPageTitle("Create New Organization", "إنشاء منظمة جديدة");
-  const currentLanguage = useContext(LanguageContext);
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {}, []);
-
-  const navigate = useNavigate();
 
   const fetchOrgnizations = async (pageNumber, pageSize) => {
     try {
@@ -170,6 +161,10 @@ export default function Organization() {
           columnsObject={columnsObject}
           editUrl={"/medilight/client/organization/edit"}
           deleteUrl={"V1/Organization/OrganizationDelete"}
+          deleteMessageObject={{
+            ar: "هل أنت متأكد من حذف هذه المنظمة؟",
+            en: "Are you sure you wanna delete this organization?",
+          }}
         />
       </div>
     </>

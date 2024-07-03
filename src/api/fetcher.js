@@ -1,10 +1,6 @@
 import axios from "axios";
-import toast from "react-hot-toast";
-import { language } from "../utilities/language";
 
 export const fetchFromApi = async (url, method, data) => {
-  const currentLanguage = localStorage.getItem("lang") || "en";
-
   // skip the host name and just provide the endpoint like (branches/create) and it will be added on the line below,
   // to avoid importing the API_KEY everywhere we fetch data
   url = import.meta.env.VITE_API_KEY + url;

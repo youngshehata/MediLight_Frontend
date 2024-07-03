@@ -10,14 +10,16 @@ import Loading from "../../../components/Loading/Loading";
 import { handleErrors } from "../../../utilities/errors";
 
 export default function OrganizationForm() {
-  setPageTitle("Create New Organization", "إنشاء منظمة جديدة");
-
   const currentLanguage = useContext(LanguageContext);
-
+  const containerRef = useRef();
   const navigate = useNavigate();
 
   const params = useParams();
   const [editMode, setEditMode] = useState(params.id ? true : false);
+  let title = editMode
+    ? language.editOrganization
+    : language.addNewOrganization;
+  setPageTitle(title.en, title.ar);
   const [dataObject, setDataObject] = useState({
     individuals: true,
   });
@@ -37,7 +39,6 @@ export default function OrganizationForm() {
   const handleChange = (event) => {
     const { name, value } = event.target;
     setDataObject({ ...dataObject, [name]: value });
-    console.log(name, " - ", value);
   };
 
   const gatherData = async () => {
@@ -97,6 +98,7 @@ export default function OrganizationForm() {
   };
 
   const handleSubmit = (e) => {
+    console.log(dataObject);
     setLoading(true);
     e.preventDefault();
     dataObject.governorate = +governorateRef.current.value;
@@ -115,16 +117,57 @@ export default function OrganizationForm() {
       });
   };
 
+  const fillData = async (id) => {
+    try {
+      const response = await fetchFromApi(
+        `V1/Organization/Organization/SearchOrg?id=${id}`,
+        "GET"
+      );
+      const record = response?.data?.data?.data[0];
+      setDataObject({ ...dataObject, id: record.id });
+      Object.keys(record).forEach((key) => {
+        var selectElement =
+          containerRef.current.querySelector(`input[name="${key}"]`) ||
+          containerRef.current.querySelector(`select[name="${key}"]`);
+        if (selectElement) {
+          if (selectElement.name == "individuals") {
+            selectElement.value = record.individuals;
+            selectElement.checked = record.individuals;
+            setDataObject({ ...dataObject, individuals: record.individuals });
+            return;
+          }
+          if (selectElement.name == "logo" && record.logo) {
+            logoImgRef.current.src = `${import.meta.env.VITE_API_KEY.replace(
+              "/api/",
+              ""
+            )}/Storage/Logo/${record.logo}`;
+
+            return;
+          }
+          selectElement.value = record[key];
+        }
+      });
+    } catch (error) {
+      console.log(error);
+      handleErrors(error);
+    }
+  };
+
   useEffect(() => {
     gatherData();
+    if (editMode) {
+      fillData(params.id);
+    }
   }, [dataObject?.governorate]);
 
   return (
     <>
       {loading ? <Loading /> : null}
-      <div className={`${classes.container}`}>
+      <div ref={containerRef} className={`${classes.container}`}>
         <span className={`${classes.title}`}>
-          {language.addNewOrganization[currentLanguage]}
+          {editMode
+            ? language.editOrganization[currentLanguage]
+            : language.addNewOrganization[currentLanguage]}
         </span>
         <form className={`${classes.form}`}>
           {/* NAME */}
@@ -348,7 +391,7 @@ export default function OrganizationForm() {
             </label>
             <input
               spellCheck={false}
-              name="type"
+              name="individuals"
               onChange={(e) => {
                 setDataObject({
                   ...dataObject,
@@ -395,7 +438,9 @@ export default function OrganizationForm() {
             className={`${classes.div16} ${classes.button}`}
             formAction="submit"
           >
-            {language.add[currentLanguage]}
+            {editMode
+              ? language.edit[currentLanguage]
+              : language.add[currentLanguage]}
           </button>
         </form>
       </div>
