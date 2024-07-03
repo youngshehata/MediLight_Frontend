@@ -1,0 +1,104 @@
+.comp_modal_section_blur {
+  height: 100%;
+  width: 100%;
+  /* backdrop-filter: blur(2.5px); */
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 1vmax;
+  position: absolute;
+  z-index: 50;
+  transition: all 0.2s ease-in-out;
+}
+
+.comp_modal_container {
+  position: relative;
+  min-width: 60%;
+  max-width: 70%;
+  background-color: #fff;
+  background-color: #000;
+  background-color: #022432;
+  border: 0.3vmax rgb(200, 200, 200) solid;
+  border-radius: 1vmax;
+  font-weight: 500;
+  opacity: 0;
+  transition: all 0.2s ease-in-out;
+  transform: translateX(1vmax) translateY(1vmax);
+}
+.comp_modal_container_active {
+  opacity: 1;
+  transform: translateX(0vmax) translateY(0vmax);
+}
+
+.comp_modal_titleBar {
+  background-color: rgb(200, 200, 200);
+  color: #000;
+  width: 50%;
+  border-bottom-left-radius: 0.5vmax;
+  border-bottom-right-radius: 0.5vmax;
+  margin-bottom: 1vmax;
+  font-size: 1vmax;
+  font-weight: 600;
+}
+
+.comp_modal_img {
+  height: 5vmax;
+  width: 5vmax;
+  margin-bottom: 1vmax;
+}
+
+.comp_modal_message {
+  padding: 1vmax;
+  font-size: 1.3vmax;
+  color: #fff;
+}
+
+.comp_modal_buttonsContainer {
+  margin-top: 1vmax;
+  margin-bottom: 1.5vmax;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 50%;
+  position: relative;
+}
+
+.comp_modal_button {
+  padding: 0.2vmax 1vmax;
+  background-color: #000;
+  background-color: #fff;
+  color: #fff;
+  color: #000;
+  font-size: 1.5vmax;
+  border-radius: 0.5vmax;
+  min-width: 30%;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: rgba(0, 0, 0, 0.35) 2.95px 2.95px 4.6px;
+}
+.comp_modal_button:hover {
+  transform: translateX(-0.15vmax) translateY(-0.2vmax);
+  box-shadow: rgba(0, 0, 0, 0.65) 3.95px 3.95px 5.6px;
+}
+
+.comp_modal_button_cancel {
+  background-color: transparent;
+  border: 0.25vmax #000 solid;
+  color: #000;
+  border: 0.25vmax #fff solid;
+  color: #fff;
+}
+
+.comp_modal_closeImg {
+  height: 1.5vmax;
+  width: 1.5vmax;
+  position: absolute;
+  top: 2%;
+  left: 96%;
+  cursor: pointer;
+  background-color: #fff;
+  border-radius: 50%;
+  padding: 0.1vmax;
+  transition: all 0.2s ease-in-out;
+}
+.comp_modal_closeImg:hover {
+  transform: rotate(90deg);
+}

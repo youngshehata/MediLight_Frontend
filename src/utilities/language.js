@@ -207,4 +207,20 @@ export const language = {
     en: "Organization's Agent",
     ar: "ممثل المنظمة",
   },
+  cancel: {
+    en: "Cancel",
+    ar: "إلغاء",
+  },
+  confirm: {
+    en: "Confirm",
+    ar: "تأكيد",
+  },
+  warning: {
+    en: "Warning",
+    ar: "تنبيه",
+  },
+  deletedSuccessfully: {
+    en: "Deleted Successfully",
+    ar: "تم الحذف بنجاح",
+  },
 };

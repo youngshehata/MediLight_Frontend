@@ -169,6 +169,7 @@ export default function Organization() {
           fetchFunction={fetchOrgnizations}
           columnsObject={columnsObject}
           editUrl={"/medilight/client/organization/edit"}
+          deleteUrl={"V1/Organization/OrganizationDelete"}
         />
       </div>
     </>

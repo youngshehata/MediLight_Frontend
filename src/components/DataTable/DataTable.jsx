@@ -3,26 +3,47 @@ import classes from "./DataTable.module.css";
 import { useEffect } from "react";
 import { LanguageContext } from "../../App";
 import { useNavigate } from "react-router-dom";
+import Modal from "../Modal/Modal";
+import { language } from "../../utilities/language";
+import { fetchFromApi } from "../../api/fetcher";
+import { handleErrors } from "../../utilities/errors";
+import toast from "react-hot-toast";
+import Loading from "../Loading/Loading";
 
 export default function DataTable({
   fetchFunction,
   columnsObject,
-  skipColumns,
   editUrl,
   deleteUrl,
 }) {
   const navigate = useNavigate();
   const currentLanguage = useContext(LanguageContext);
 
+  const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [pageSize, setPageSize] = useState(10);
 
   const retriveData = async () => {
     const res = await fetchFunction(pageNumber, pageSize);
-    console.log(res.data.data);
     setData(res.data.data);
-    console.log(data);
+  };
+
+  const deleteOrganization = () => {
+    setLoading(true);
+    let id = showModal;
+    fetchFromApi(`${deleteUrl}/${id}`, "POST")
+      .then(async () => {
+        setShowModal(false);
+        setLoading(false);
+        await retriveData();
+        toast.success(language.deletedSuccessfully[currentLanguage]);
+      })
+      .catch((err) => {
+        setLoading(false);
+        handleErrors(err);
+      });
   };
 
   useEffect(() => {
@@ -30,6 +51,24 @@ export default function DataTable({
   }, [currentLanguage]);
   return (
     <div className={`${classes.gridContainer}`}>
+      {loading ? <Loading /> : null}
+      {showModal ? (
+        <Modal
+          message={
+            currentLanguage == "ar"
+              ? "هل أنت متأكد من حذف هذه المنظمة؟"
+              : "Are you sure you wanna delete this organization?"
+          }
+          noFunction={() => {
+            setShowModal(false);
+          }}
+          noText={language.cancel[currentLanguage]}
+          title={language.warning[currentLanguage]}
+          type={"warning"}
+          yesText={language.confirm[currentLanguage]}
+          yesFunction={deleteOrganization}
+        />
+      ) : null}
       <div>SEARCH</div>
       <div className={`${classes.tableContainer} scroll`}>
         <table className={`${classes.table}`}>
@@ -76,7 +115,11 @@ export default function DataTable({
                       if (column == "delete") {
                         return (
                           <td>
-                            <button>
+                            <button
+                              onClick={() => {
+                                setShowModal(record.id);
+                              }}
+                            >
                               {columnsObject[column][currentLanguage]}
                             </button>
                           </td>
@@ -89,13 +132,6 @@ export default function DataTable({
               })
             : null}
         </table>
-
-        {/* <ul className={`${classes.ul}`}>
-        {data &&
-        data.map((record, index) => {
-            return <li key={record.id ? record.id : index + 1}></li>;
-            })}
-            </ul> */}
       </div>
       <div>PAGES</div>
     </div>
