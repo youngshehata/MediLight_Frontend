@@ -16,13 +16,16 @@ export default function OrganizationForm() {
 
   const params = useParams();
   const [editMode, setEditMode] = useState(params.id ? true : false);
+  const [objectEdited, setObjectEditied] = useState(false);
   let title = editMode
     ? language.editOrganization
     : language.addNewOrganization;
   setPageTitle(title.en, title.ar);
+
   const [dataObject, setDataObject] = useState({
     individuals: true,
   });
+
   const [loading, setLoading] = useState(true);
   const [governorates, setGovernorates] = useState([]);
   const [areas, setAreas] = useState([]);
@@ -35,6 +38,26 @@ export default function OrganizationForm() {
   const currencyRef = useRef();
   const logoInputRef = useRef();
   const logoImgRef = useRef();
+
+  const keys = [
+    "id",
+    "organizationCode",
+    "name",
+    "address",
+    "enName",
+    "governorate",
+    "area",
+    "courtesy",
+    "keyperson",
+    "individuals",
+    "defaultCurrency",
+    "debitProfitCenter",
+    "debitAccountNo",
+    "secUserAccountID",
+    // "logo",
+    // "title",
+    // "savedToFMIS",
+  ];
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -98,23 +121,43 @@ export default function OrganizationForm() {
   };
 
   const handleSubmit = (e) => {
-    console.log(dataObject);
-    setLoading(true);
-    e.preventDefault();
-    dataObject.governorate = +governorateRef.current.value;
-    dataObject.area = +areaRef.current.value;
-    dataObject.courtesy = +courtesyRef.current.value;
-    dataObject.defaultCurrency = +currencyRef.current.value;
-    fetchFromApi("V1/Organization/Organization/Create", "POST", dataObject)
-      .then(() => {
-        setLoading(false);
-        toast.success(language.addedSuccessfully[currentLanguage]);
-        navigate("/medilight/client/organization");
-      })
-      .catch((err) => {
-        handleErrors(err);
-        setLoading(false);
-      });
+    if (editMode) {
+      console.log(dataObject);
+      setLoading(true);
+      e.preventDefault();
+      dataObject.governorate = +governorateRef.current.value;
+      dataObject.area = +areaRef.current.value;
+      dataObject.courtesy = +courtesyRef.current.value;
+      dataObject.defaultCurrency = +currencyRef.current.value;
+      fetchFromApi("V1/Organization/Organization/Edit", "POST", dataObject)
+        .then(() => {
+          setLoading(false);
+          toast.success(language.editedSuccessfully[currentLanguage]);
+          navigate("/medilight/client/organization");
+        })
+        .catch((err) => {
+          handleErrors(err);
+          setLoading(false);
+        });
+    } else {
+      console.log(dataObject);
+      setLoading(true);
+      e.preventDefault();
+      dataObject.governorate = +governorateRef.current.value;
+      dataObject.area = +areaRef.current.value;
+      dataObject.courtesy = +courtesyRef.current.value;
+      dataObject.defaultCurrency = +currencyRef.current.value;
+      fetchFromApi("V1/Organization/Organization/Create", "POST", dataObject)
+        .then(() => {
+          setLoading(false);
+          toast.success(language.addedSuccessfully[currentLanguage]);
+          navigate("/medilight/client/organization");
+        })
+        .catch((err) => {
+          handleErrors(err);
+          setLoading(false);
+        });
+    }
   };
 
   const fillData = async (id) => {
@@ -123,8 +166,22 @@ export default function OrganizationForm() {
         `V1/Organization/Organization/SearchOrg?id=${id}`,
         "GET"
       );
+      setObjectEditied(true);
       const record = response?.data?.data?.data[0];
-      setDataObject({ ...dataObject, id: record.id });
+      // Update dataObject using
+      let newDataObject = {};
+      Object.keys(record).forEach((k) => {
+        let keyIncluded = keys.find((x) => {
+          return x == k;
+        });
+        if (keyIncluded && k !== "logo") {
+          // logo gonna be added on change
+          newDataObject[k] = record[k];
+        }
+      });
+      setDataObject({ ...newDataObject });
+
+      console.log(dataObject);
       Object.keys(record).forEach((key) => {
         var selectElement =
           containerRef.current.querySelector(`input[name="${key}"]`) ||
@@ -133,7 +190,6 @@ export default function OrganizationForm() {
           if (selectElement.name == "individuals") {
             selectElement.value = record.individuals;
             selectElement.checked = record.individuals;
-            setDataObject({ ...dataObject, individuals: record.individuals });
             return;
           }
           if (selectElement.name == "logo" && record.logo) {
@@ -155,10 +211,11 @@ export default function OrganizationForm() {
 
   useEffect(() => {
     gatherData();
-    if (editMode) {
+    if (editMode && !objectEdited) {
       fillData(params.id);
     }
   }, [dataObject?.governorate]);
+  // }, [dataObject?.governorate]);
 
   return (
     <>

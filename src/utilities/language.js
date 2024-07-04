@@ -199,6 +199,10 @@ export const language = {
     en: "Added Successfully",
     ar: "تمت الإضافة بنجاح",
   },
+  editedSuccessfully: {
+    en: "Edited Successfully",
+    ar: "تم التعديل بنجاح",
+  },
   nameEn: {
     en: "Name in english",
     ar: "الأسم باللغة الإنجليزية",

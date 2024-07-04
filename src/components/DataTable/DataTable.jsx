@@ -69,8 +69,10 @@ export default function DataTable({
       <div className={`${classes.search}`}>SEARCH</div>
       <div className={`${classes.tableContainer} scroll`}>
         <ul className={`${classes.table}`}>
-          <li className={`${classes.titles}`}>
-            <span className={`${classes.numbers}`}>#</span>
+          <li key={333} className={`${classes.titles}`}>
+            <span key={444} className={`${classes.numbers}`}>
+              #
+            </span>
             {Object.keys(columnsObject).map((column, index) => {
               if (columnsObject[column].skip) {
                 return;
@@ -90,8 +92,10 @@ export default function DataTable({
           {data
             ? data.map((record, index) => {
                 return (
-                  <li key={record.id ? record.id : index + 1}>
-                    <span className={`${classes.numbers}`}>{index + 1}</span>
+                  <li key={record?.id ? record?.id : index + 1}>
+                    <span key={963} className={`${classes.numbers}`}>
+                      {index + 1}
+                    </span>
                     {Object.keys(columnsObject).map((column) => {
                       if (columnsObject[column].skip) {
                         return;
