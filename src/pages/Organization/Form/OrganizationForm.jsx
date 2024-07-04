@@ -167,6 +167,9 @@ export default function OrganizationForm() {
         "GET"
       );
       setObjectEditied(true);
+      if (response?.data?.data?.data?.length < 1) {
+        return navigate("/medilight/client/organization");
+      }
       const record = response?.data?.data?.data[0];
       // Update dataObject using
       let newDataObject = {};
@@ -181,7 +184,6 @@ export default function OrganizationForm() {
       });
       setDataObject({ ...newDataObject });
 
-      console.log(dataObject);
       Object.keys(record).forEach((key) => {
         var selectElement =
           containerRef.current.querySelector(`input[name="${key}"]`) ||
@@ -204,7 +206,6 @@ export default function OrganizationForm() {
         }
       });
     } catch (error) {
-      console.log(error);
       handleErrors(error);
     }
   };

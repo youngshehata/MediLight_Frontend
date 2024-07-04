@@ -5,6 +5,7 @@ import { fetchFromApi } from "../../api/fetcher";
 import Loading from "../../components/Loading/Loading";
 import DataTable from "../../components/DataTable/DataTable";
 import { handleErrors } from "../../utilities/errors";
+import { language } from "../../utilities/language";
 
 export default function Organization() {
   setPageTitle("Create New Organization", "إنشاء منظمة جديدة");
@@ -165,6 +166,8 @@ export default function Organization() {
             ar: "هل أنت متأكد من حذف هذه المنظمة؟",
             en: "Are you sure you wanna delete this organization?",
           }}
+          addNewLanguageObject={language.addNewOrganization}
+          addNewUrl={"/medilight/client/organization/add"}
         />
       </div>
     </>

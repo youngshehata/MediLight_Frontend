@@ -9,6 +9,7 @@ import { fetchFromApi } from "../../api/fetcher";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { handleErrors } from "../../utilities/errors";
+import { decodeJWT_Roles } from "../../utilities/auth";
 
 export default function LoginForm({ changeAuth }) {
   const currentLanguage = useContext(LanguageContext);
@@ -47,10 +48,14 @@ export default function LoginForm({ changeAuth }) {
       password: passwordInput,
     })
       .then((response) => {
-        changeAuth({
-          username: response.data.data.userName,
-          id: response.data.data.id,
-        });
+        let roles = decodeJWT_Roles(response.data.data.acces_token);
+        changeAuth(
+          {
+            username: response.data.data.userName,
+            id: response.data.data.id,
+          },
+          roles
+        );
         // Setting default header auth
         axios.defaults.headers.common[
           "Authorization"

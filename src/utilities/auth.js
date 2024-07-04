@@ -80,3 +80,60 @@ export const decodeJWT = (token) => {
     return null;
   }
 };
+export const decodeJWT_Roles = (token) => {
+  try {
+    const decodedJWT = jwtDecode(token);
+    return decodedJWT[
+      "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+    ];
+  } catch (err) {
+    return null;
+  }
+};
+
+export const authorizeURL = (url, rolesArray) => {
+  const rolesLowerCase = [...rolesArray].map((r) => {
+    return r.toString().toLowerCase();
+  });
+  const authorized = rolesLowerCase.find((r) => {
+    return r === url.toString().toLowerCase();
+  });
+  if (authorized) {
+    return true;
+  }
+  return false;
+};
+
+export const authorizeParam = (paramAsArray, rolesArray) => {
+  // get rid of ids
+  const paramsWithouIds = [...paramAsArray].map((p) => {
+    if (!parseInt(p)) {
+      return p;
+    }
+  });
+  let convertedToString = paramsWithouIds.join("-");
+  // add medilight to the start of string
+  convertedToString = `medilight-${convertedToString}`;
+  const isLastCharDash =
+    convertedToString.charAt(convertedToString.length - 1) == "-"
+      ? true
+      : false;
+  if (isLastCharDash) {
+    convertedToString = convertedToString.slice(
+      0,
+      convertedToString.length - 1
+    );
+  }
+
+  if (convertedToString == "medilight") {
+    return true;
+  }
+
+  const authorized = rolesArray.find((role) => {
+    return `medilight-${role.toString().toLowerCase()}` === convertedToString;
+  });
+  if (authorized) {
+    return true;
+  }
+  return false;
+};

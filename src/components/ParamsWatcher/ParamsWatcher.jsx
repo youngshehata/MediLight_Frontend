@@ -1,11 +1,15 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { LanguageContext } from "../../App";
+import { LanguageContext, RolesContext } from "../../App";
 import styles from "./ParamsWatcher.module.css";
 import { titles } from "../../utilities/titles";
+import { authorizeParam } from "../../utilities/auth";
+import toast from "react-hot-toast";
+import { language } from "../../utilities/language";
 
 export default function ParamsWatcher() {
   const currentLanguage = useContext(LanguageContext);
+  const roles = useContext(RolesContext);
   const navigate = useNavigate();
 
   const imgUrl =
@@ -13,7 +17,8 @@ export default function ParamsWatcher() {
 
   const params = useParams();
   const paramsArray = params["*"]?.split("/");
-
+  // Check if auth
+  const [isAuthorized, setIsAuthorized] = useState(true);
   // Getting the current title
   let url = "medilight";
   for (let i = 0; i < paramsArray.length; i++) {
@@ -40,6 +45,15 @@ export default function ParamsWatcher() {
     }
     navigate(url);
   };
+
+  useEffect(() => {
+    let authBoolean = authorizeParam(paramsArray, roles);
+    setIsAuthorized(authBoolean);
+    if (!isAuthorized) {
+      toast.error(language.unauthorized[currentLanguage]);
+      navigate("/");
+    }
+  }, [isAuthorized, params]);
 
   return (
     <div className={`${styles.container}`}>

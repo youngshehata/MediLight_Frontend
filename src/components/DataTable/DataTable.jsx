@@ -14,8 +14,13 @@ export default function DataTable({
   fetchFunction,
   columnsObject,
   editUrl,
+  editRole,
   deleteUrl,
+  deleteRole,
   deleteMessageObject,
+  addNewLanguageObject,
+  addNewUrl,
+  addRole,
 }) {
   const navigate = useNavigate();
   const currentLanguage = useContext(LanguageContext);
@@ -66,7 +71,17 @@ export default function DataTable({
           yesFunction={deleteOrganization}
         />
       ) : null}
-      <div className={`${classes.search}`}>SEARCH</div>
+      <div className={`${classes.search}`}>
+        <div
+          className={`${classes.addNewButton}`}
+          onClick={() => {
+            navigate(addNewUrl);
+          }}
+        >
+          <span>{addNewLanguageObject[currentLanguage]}</span>
+          <img src="/whitePlus.svg" alt="add" />
+        </div>
+      </div>
       <div className={`${classes.tableContainer} scroll`}>
         <ul className={`${classes.table}`}>
           <li key={333} className={`${classes.titles}`}>

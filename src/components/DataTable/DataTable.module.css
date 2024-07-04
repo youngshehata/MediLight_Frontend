@@ -11,8 +11,8 @@
 .search {
   height: 100%;
   width: 100%;
-  background-color: gold;
-  visibility: hidden;
+  /* background-color: gold; */
+  /* visibility: hidden; */
 }
 .pages {
   height: 100%;
@@ -122,4 +122,35 @@
 }
 .edit:hover {
   background-color: #006556;
+}
+
+.addNewButton {
+  position: absolute;
+  width: 15%;
+  font-size: 1vmax;
+  padding: 0.3vmax 1vmax;
+  left: 84%;
+  border-radius: 0.25vmax;
+  background-color: #002b47;
+  color: #fff;
+  outline: none;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.4) 2px 2px 3px;
+  transition: background-color 0.2s ease-in-out;
+}
+.addNewButton:hover {
+  background-color: rgb(0, 100, 0);
+}
+.addNewButton:hover img {
+  transform: rotate(90deg);
+}
+.addNewButton img {
+  height: 1vmax;
+  width: 1vmax;
+  margin: 0 0.3vmax;
+  transition: transform 0.2s ease-in-out;
 }
