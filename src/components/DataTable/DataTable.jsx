@@ -9,6 +9,7 @@ import { fetchFromApi } from "../../api/fetcher";
 import { handleErrors } from "../../utilities/errors";
 import toast from "react-hot-toast";
 import Loading from "../Loading/Loading";
+import Auth from "../Auth/Auth";
 
 export default function DataTable({
   fetchFunction,
@@ -71,16 +72,22 @@ export default function DataTable({
           yesFunction={deleteOrganization}
         />
       ) : null}
+
       <div className={`${classes.search}`}>
-        <div
-          className={`${classes.addNewButton}`}
-          onClick={() => {
-            navigate(addNewUrl);
-          }}
-        >
-          <span>{addNewLanguageObject[currentLanguage]}</span>
-          <img src="/whitePlus.svg" alt="add" />
-        </div>
+        <Auth
+          authRole={addRole}
+          componentJSX={
+            <div
+              className={`${classes.addNewButton}`}
+              onClick={() => {
+                navigate(addNewUrl);
+              }}
+            >
+              <span>{addNewLanguageObject[currentLanguage]}</span>
+              <img src="/whitePlus.svg" alt="add" />
+            </div>
+          }
+        />
       </div>
       <div className={`${classes.tableContainer} scroll`}>
         <ul className={`${classes.table}`}>
@@ -123,14 +130,19 @@ export default function DataTable({
                               width: `${columnsObject[column].widthPercentage}%`,
                             }}
                           >
-                            <button
-                              className={`${classes.edit}`}
-                              onClick={() => {
-                                navigate(`${editUrl}/${record.id}`);
-                              }}
-                            >
-                              {columnsObject[column][currentLanguage]}
-                            </button>
+                            <Auth
+                              authRole={editRole}
+                              componentJSX={
+                                <button
+                                  className={`${classes.edit}`}
+                                  onClick={() => {
+                                    navigate(`${editUrl}/${record.id}`);
+                                  }}
+                                >
+                                  {columnsObject[column][currentLanguage]}
+                                </button>
+                              }
+                            />
                           </span>
                         );
                       }
@@ -142,14 +154,19 @@ export default function DataTable({
                               width: `${columnsObject[column].widthPercentage}%`,
                             }}
                           >
-                            <button
-                              className={`${classes.delete}`}
-                              onClick={() => {
-                                setShowModal(record.id);
-                              }}
-                            >
-                              {columnsObject[column][currentLanguage]}
-                            </button>
+                            <Auth
+                              authRole={deleteRole}
+                              componentJSX={
+                                <button
+                                  className={`${classes.delete}`}
+                                  onClick={() => {
+                                    setShowModal(record.id);
+                                  }}
+                                >
+                                  {columnsObject[column][currentLanguage]}
+                                </button>
+                              }
+                            />
                           </span>
                         );
                       }

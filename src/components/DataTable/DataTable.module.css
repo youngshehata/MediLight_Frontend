@@ -126,8 +126,8 @@
 
 .addNewButton {
   position: absolute;
-  width: 15%;
-  font-size: 1vmax;
+  max-width: 15%;
+  font-size: 0.9vmax;
   padding: 0.3vmax 1vmax;
   left: 84%;
   border-radius: 0.25vmax;
@@ -141,6 +141,7 @@
   cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.4) 2px 2px 3px;
   transition: background-color 0.2s ease-in-out;
+  white-space: nowrap;
 }
 .addNewButton:hover {
   background-color: rgb(0, 100, 0);

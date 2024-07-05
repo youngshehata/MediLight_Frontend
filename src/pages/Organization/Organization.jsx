@@ -168,6 +168,9 @@ export default function Organization() {
           }}
           addNewLanguageObject={language.addNewOrganization}
           addNewUrl={"/medilight/client/organization/add"}
+          addRole={"client-organization-add"}
+          editRole={"client-organization-edit"}
+          deleteRole={"client-organization-delete"}
         />
       </div>
     </>
