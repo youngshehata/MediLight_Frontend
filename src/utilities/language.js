@@ -231,4 +231,8 @@ export const language = {
     en: "Deleted Successfully",
     ar: "تم الحذف بنجاح",
   },
+  administration: {
+    en: "Administration",
+    ar: "الإدارة",
+  },
 };

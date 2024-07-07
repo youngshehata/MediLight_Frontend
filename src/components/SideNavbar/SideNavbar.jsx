@@ -20,12 +20,32 @@ export default function SideNavbar({
             changeSecondSidebarData={changeSecondSidebarData}
             toggleSecond={handleSecondSideBarClassChange}
             isExpanded={sidebarClass == "" ? false : true}
-            icon={"/person.svg"}
+            icon={"/clientApps.svg"}
             title={language.client[currentLanguage]}
             listItems={[
               {
                 label: { en: "Organizations", ar: "المنظمات" }[currentLanguage],
                 link: "client/organization",
+              },
+            ]}
+          />
+        }
+      />
+      <Auth
+        authRole={"admin"}
+        componentJSX={
+          <SideCategory
+            changeSecondSidebarData={changeSecondSidebarData}
+            toggleSecond={handleSecondSideBarClassChange}
+            isExpanded={sidebarClass == "" ? false : true}
+            icon={"/usersManage.svg"}
+            title={language.administration[currentLanguage]}
+            listItems={[
+              {
+                label: { en: "Users Management", ar: "إدارة المستخدمين" }[
+                  currentLanguage
+                ],
+                link: "admin/users",
               },
             ]}
           />

@@ -29,16 +29,29 @@ export default function Medilight({ changeLanguage, changeAuth }) {
   const handleSideBarClassChange = () => {
     sidebarClass == "" ? setSidebarClass("sideExpanded") : setSidebarClass("");
   };
-  const handleSecondSideBarClassChange = () => {
-    secondSidebarClass == ""
-      ? setSecondSidebarClass(
-          `${
-            currentLanguage == "ar"
-              ? "secondSideExpanded secondSideExpandedAr"
-              : "secondSideExpanded"
-          }`
-        )
-      : setSecondSidebarClass("");
+  const handleSecondSideBarClassChange = (stay) => {
+    // stay is used so you can click on sidebar icons wihtout collapsing the sidebar
+    if (stay) {
+      secondSidebarClass == ""
+        ? setSecondSidebarClass(
+            `${
+              currentLanguage == "ar"
+                ? "secondSideExpanded secondSideExpandedAr"
+                : "secondSideExpanded"
+            }`
+          )
+        : null;
+    } else {
+      secondSidebarClass == ""
+        ? setSecondSidebarClass(
+            `${
+              currentLanguage == "ar"
+                ? "secondSideExpanded secondSideExpandedAr"
+                : "secondSideExpanded"
+            }`
+          )
+        : setSecondSidebarClass(""); // this makes it toggles
+    }
   };
 
   const changeSecondSidebarData = (title, items) => {

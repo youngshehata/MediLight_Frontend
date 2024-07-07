@@ -16,6 +16,7 @@
   padding-top: 1vmax;
   padding-left: 0.5vmax;
   padding-right: 0.5vmax;
+  padding-bottom: 0.5vmax;
 }
 .ul {
   list-style: disc;
@@ -33,6 +34,7 @@
   margin: 0.5vmax 0;
   cursor: pointer;
   width: 100%;
+  white-space: nowrap;
 }
 
 .li::after {

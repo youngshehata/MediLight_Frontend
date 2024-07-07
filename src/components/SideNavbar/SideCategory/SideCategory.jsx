@@ -19,7 +19,7 @@ export default function SideCategory({
       <img
         onClick={() => {
           changeSecondSidebarData(title, listItems);
-          toggleSecond();
+          toggleSecond(true);
         }}
         className={`${styles.categoryImg}`}
         src={icon}

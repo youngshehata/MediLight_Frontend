@@ -33,7 +33,6 @@ export function initAuthentication() {
         !originalRequest._retry &&
         unAuthorizedAtteptDone.current < 5 // 5 attempts are enough
       ) {
-        console.log("Unauthorized");
         originalRequest._retry = true;
 
         unAuthorizedAtteptDone = unAuthorizedAtteptDone + 1;
@@ -83,6 +82,7 @@ export const decodeJWT = (token) => {
 export const decodeJWT_Roles = (token) => {
   try {
     const decodedJWT = jwtDecode(token);
+    // console.log(decodedJWT);
     return decodedJWT[
       "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
     ];
