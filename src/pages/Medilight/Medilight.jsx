@@ -12,6 +12,7 @@ import AppFooter from "../../components/AppFooter/AppFooter";
 import ParamsWatcher from "../../components/ParamsWatcher/ParamsWatcher";
 import SecondSideBar from "../../components/SecondSideBar/SecondSideBar";
 import Client from "../Client/Client";
+import Admin from "../Admin/Admin";
 
 export default function Medilight({ changeLanguage, changeAuth }) {
   const [secondSideBarData, setSecondSideBarData] = useState({
@@ -101,6 +102,7 @@ export default function Medilight({ changeLanguage, changeAuth }) {
           <div className={`${classes.routesDiv}`}>
             <Routes>
               <Route path="/client/*" element={<Client />} />
+              <Route path="/admin/*" element={<Admin />} />
               {/* Dashboard Just Before Last Route */}
               <Route path="/" element={<Dashboard />} />
               {/* LAST ROUTE */}

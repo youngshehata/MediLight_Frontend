@@ -126,7 +126,7 @@
 
 .addNewButton {
   position: absolute;
-  max-width: 15%;
+  width: fit-content;
   font-size: 0.9vmax;
   padding: 0.3vmax 1vmax;
   left: 84%;

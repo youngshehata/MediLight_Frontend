@@ -22,4 +22,17 @@ export const titles = {
     en: "Edit Organization",
     ar: "تعديل منظمة",
   },
+  medilight_admin: { en: "Admin", ar: "المدير" },
+  medilight_admin_users: {
+    en: "Users",
+    ar: "المستخدمين",
+  },
+  medilight_admin_users_add: {
+    en: "Add New User",
+    ar: "إضافة مستخدم جديد",
+  },
+  medilight_admin_users_edit: {
+    en: "Edit User",
+    ar: "تعديل مستخدم",
+  },
 };

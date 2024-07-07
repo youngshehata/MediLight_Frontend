@@ -235,4 +235,12 @@ export const language = {
     en: "Administration",
     ar: "الإدارة",
   },
+  addNewUser: {
+    en: "Add New User",
+    ar: "إضافة مستخدم جديد",
+  },
+  editUser: {
+    en: "Edit User",
+    ar: "تعديل مستخدم",
+  },
 };

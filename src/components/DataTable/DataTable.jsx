@@ -34,7 +34,14 @@ export default function DataTable({
 
   const retriveData = async () => {
     const res = await fetchFunction(pageNumber, pageSize);
-    setData(res.data.data);
+    if (res.data.constructor === Array) {
+      setData(res.data);
+      return;
+    }
+    if (res.data.data.constructor === Array) {
+      setData(res.data.data);
+      return;
+    }
   };
 
   const deleteOrganization = () => {
