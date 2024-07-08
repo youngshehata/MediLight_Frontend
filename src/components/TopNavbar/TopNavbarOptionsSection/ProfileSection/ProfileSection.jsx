@@ -1,13 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
 import classes from "../../TopNavbar.module.css";
 import { useContext, useEffect, useRef, useState } from "react";
-import { LanguageContext } from "../../../../App";
+import { LanguageContext, AuthContext } from "../../../../App";
 import { language } from "../../../../utilities/language";
 
 export default function ProfileSection({ changeAuth }) {
   const [menuActive, setMenuActive] = useState(false);
 
   const currentLanguage = useContext(LanguageContext);
+  const currentUser = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -45,7 +46,7 @@ export default function ProfileSection({ changeAuth }) {
         className="flexCenterRow"
       >
         <img className={`${classes.userImage}`} src="/user.jpg" alt="user" />
-        <span className={`${classes.userText}`}>Islam Ali</span>
+        <span className={`${classes.userText}`}>{currentUser.username}</span>
         <img
           className={`${classes.expandArrow}`}
           src="/downArrow.svg"

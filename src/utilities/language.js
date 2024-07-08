@@ -187,6 +187,10 @@ export const language = {
     en: "Edit",
     ar: "تعديل",
   },
+  delete: {
+    en: "Delete",
+    ar: "حذف",
+  },
   isOrganization: {
     en: "Is Organization?",
     ar: "منظمة؟",

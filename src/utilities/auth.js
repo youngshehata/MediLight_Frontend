@@ -92,16 +92,18 @@ export const decodeJWT_Roles = (token) => {
 };
 
 export const authorizeURL = (url, rolesArray) => {
-  const rolesLowerCase = [...rolesArray].map((r) => {
-    return r.toString().toLowerCase();
-  });
-  const authorized = rolesLowerCase.find((r) => {
-    return r === url.toString().toLowerCase();
-  });
-  if (authorized) {
-    return true;
+  if (rolesArray) {
+    const rolesLowerCase = [...rolesArray].map((r) => {
+      return r.toString().toLowerCase();
+    });
+    const authorized = rolesLowerCase.find((r) => {
+      return r === url.toString().toLowerCase();
+    });
+    if (authorized) {
+      return true;
+    }
+    return false;
   }
-  return false;
 };
 
 export const authorizeParam = (paramAsArray, rolesArray) => {

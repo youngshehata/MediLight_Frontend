@@ -121,11 +121,11 @@ export default function DataTable({
           {data
             ? data.map((record, index) => {
                 return (
-                  <li key={record?.id ? record?.id : index + 1}>
-                    <span key={963} className={`${classes.numbers}`}>
+                  <li key={index + 1}>
+                    <span key={"963"} className={`${classes.numbers}`}>
                       {index + 1}
                     </span>
-                    {Object.keys(columnsObject).map((column) => {
+                    {Object.keys(columnsObject).map((column, index) => {
                       if (columnsObject[column].skip) {
                         return;
                       }
@@ -133,6 +133,7 @@ export default function DataTable({
                       if (column == "edit") {
                         return (
                           <span
+                            key={index + 1}
                             style={{
                               width: `${columnsObject[column].widthPercentage}%`,
                             }}
@@ -146,7 +147,7 @@ export default function DataTable({
                                     navigate(`${editUrl}/${record.id}`);
                                   }}
                                 >
-                                  {columnsObject[column][currentLanguage]}
+                                  {language.edit[currentLanguage]}
                                 </button>
                               }
                             />
@@ -157,6 +158,7 @@ export default function DataTable({
                       if (column == "delete") {
                         return (
                           <span
+                            key={index + 1}
                             style={{
                               width: `${columnsObject[column].widthPercentage}%`,
                             }}
@@ -170,7 +172,7 @@ export default function DataTable({
                                     setShowModal(record.id);
                                   }}
                                 >
-                                  {columnsObject[column][currentLanguage]}
+                                  {language.delete[currentLanguage]}
                                 </button>
                               }
                             />
@@ -179,6 +181,7 @@ export default function DataTable({
                       }
                       return (
                         <span
+                          key={index + 1}
                           style={{
                             width: `${columnsObject[column].widthPercentage}%`,
                           }}
