@@ -8,7 +8,7 @@ import { handleErrors } from "../../utilities/errors";
 import { language } from "../../utilities/language";
 
 export default function Users() {
-  setPageTitle("Create New User", "إنشاء مستخدم جديدة");
+  setPageTitle("Create New User", "إنشاء مستخدم جديد");
   const [loading, setLoading] = useState(false);
 
   const fetchOrgnizations = async (pageNumber, pageSize) => {
@@ -61,6 +61,7 @@ export default function Users() {
           fetchFunction={fetchOrgnizations}
           columnsObject={columnsObject}
           editUrl={"/medilight/admin/users/edit"}
+          viewUrl={"/medilight/admin/users"}
           deleteUrl={"ApplicationUser/Api/V1/User"}
           deleteMessageObject={{
             ar: "هل أنت متأكد من حذف هذا المستخدم؟",

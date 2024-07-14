@@ -32,10 +32,13 @@
 }
 
 .routesDiv {
+  position: relative;
   height: 100%;
   width: 100%;
+  display: grid;
+  padding: 0;
   padding: 1vmax;
-  overflow: hidden;
+  margin: 0;
 }
 
 .paramsDiv {

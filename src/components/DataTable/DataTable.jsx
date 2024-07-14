@@ -22,6 +22,7 @@ export default function DataTable({
   addNewLanguageObject,
   addNewUrl,
   addRole,
+  viewUrl,
 }) {
   const navigate = useNavigate();
   const currentLanguage = useContext(LanguageContext);
@@ -121,7 +122,12 @@ export default function DataTable({
           {data
             ? data.map((record, index) => {
                 return (
-                  <li key={index + 1}>
+                  <li
+                    key={index + 1}
+                    onDoubleClick={() => {
+                      navigate(`${viewUrl}/${record.id}`);
+                    }}
+                  >
                     <span key={"963"} className={`${classes.numbers}`}>
                       {index + 1}
                     </span>

@@ -47,6 +47,12 @@ export default function SideNavbar({
                 ],
                 link: "admin/users",
               },
+              {
+                label: { en: "Users Groups", ar: "إدارة المجموعات" }[
+                  currentLanguage
+                ],
+                link: "admin/groups",
+              },
             ]}
           />
         }

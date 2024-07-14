@@ -247,4 +247,12 @@ export const language = {
     en: "Edit User",
     ar: "تعديل مستخدم",
   },
+  groups: {
+    en: "Groups",
+    ar: "المجموعات",
+  },
+  viewUsers: {
+    en: "View Users",
+    ar: "عرض المستخدمين",
+  },
 };

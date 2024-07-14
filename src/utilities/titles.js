@@ -35,4 +35,8 @@ export const titles = {
     en: "Edit User",
     ar: "تعديل مستخدم",
   },
+  medilight_admin_groups: {
+    en: "Users Groups",
+    ar: "مجموعات المستخدمين",
+  },
 };

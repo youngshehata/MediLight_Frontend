@@ -31,6 +31,10 @@
   direction: ltr;
 }
 
+.displayNone {
+  display: none;
+}
+
 .buttonTranslateHover {
   transition: all 0.2s ease-in-out;
   box-shadow: rgba(0, 0, 0, 0.4) 3.95px 3.95px 5.6px;
@@ -74,4 +78,37 @@
 .topBarListActive {
   opacity: 1 !important;
   visibility: visible !important;
+}
+
+.passwordContainer {
+  position: absolute;
+  left: 94%;
+  opacity: 0.8;
+  cursor: pointer;
+  z-index: 9;
+}
+.passwordContainer::after {
+  position: absolute;
+  content: "";
+  transition: all 0.15s ease-in-out;
+  display: block;
+  width: 0.2vmax;
+  height: 1.7vmax;
+  border-radius: 1vmax;
+  transform: rotate(45deg);
+  background-color: #000;
+}
+
+.passwordContainerActive::after {
+  height: 0vmax;
+}
+
+.routerDiv {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  /* overflow: hidden; */
+  display: grid;
+  padding: 0;
+  margin: 0;
 }

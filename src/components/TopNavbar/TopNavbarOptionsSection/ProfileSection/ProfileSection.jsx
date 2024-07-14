@@ -46,7 +46,9 @@ export default function ProfileSection({ changeAuth }) {
         className="flexCenterRow"
       >
         <img className={`${classes.userImage}`} src="/user.jpg" alt="user" />
-        <span className={`${classes.userText}`}>{currentUser.username}</span>
+        <span className={`${classes.userText}`}>
+          {currentUser?.username ? currentUser?.username : "---"}
+        </span>
         <img
           className={`${classes.expandArrow}`}
           src="/downArrow.svg"
