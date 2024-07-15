@@ -75,31 +75,35 @@ export default function GroupsList({
   }, [data]);
 
   return (
-    <div className={classes.groupListContainer}>
+    <div className={`${classes.groupListContainer} scroll`}>
       <SearchInput
         searchFunction={filterList}
         containerCSS={`${classes.searchInput}`}
       />
       <ul className={`${classes.groupUl} scroll`}>
-        {data.map((record, index) => {
-          {
-            return (
-              <li className={classes.li} key={index + 1}>
-                <span className={`${classes.recordName} flexCenterRow`}>
-                  {record?.name}
-                </span>
-                <div className={classes.optionsContainer}>
-                  <button>{language.viewUsers[currentLanguage]}</button>
-                  <OptionsDots
-                    selectGroupFunction={selectGroup}
-                    parentObject={record}
-                    dataArray={optionsArray}
-                  />
-                </div>
-              </li>
-            );
-          }
-        })}
+        {data.length > 0 ? (
+          data.map((record, index) => {
+            {
+              return (
+                <li className={classes.li} key={index + 1}>
+                  <span className={`${classes.recordName} flexCenterRow`}>
+                    {record?.name}
+                  </span>
+                  <div className={classes.optionsContainer}>
+                    <button>{language.viewUsers[currentLanguage]}</button>
+                    <OptionsDots
+                      selectGroupFunction={selectGroup}
+                      parentObject={record}
+                      dataArray={optionsArray}
+                    />
+                  </div>
+                </li>
+              );
+            }
+          })
+        ) : (
+          <div>{language.noRecords[currentLanguage]}</div>
+        )}
       </ul>
     </div>
   );

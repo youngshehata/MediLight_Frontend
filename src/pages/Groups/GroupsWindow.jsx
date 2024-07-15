@@ -44,7 +44,9 @@ export default function GroupsWindow({ isNew, excuteFunction, closeFunction }) {
         />
         <button
           className={`${classes.groupsWindowButton} buttonTranslateHover`}
-          onClick={excuteFunction}
+          onClick={() => {
+            excuteFunction(inputValue);
+          }}
         >
           {isNew
             ? language.add[currentLanguage]

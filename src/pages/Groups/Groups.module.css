@@ -96,16 +96,17 @@
 
 .groupUl {
   position: relative;
-  margin: 0;
   padding: 0;
+  margin: 1.5vmax 0;
   list-style: none;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  height: fit-content;
+  min-height: fit-content;
   align-self: flex-start;
   width: 90%;
+  max-height: 90%;
   border-radius: 0.8vmax;
   /* box-shadow: rgba(0, 0, 0, 0.3) 2px 2px 3px 3px; */
   border: 0.15vmax rgb(200, 200, 200) solid;
@@ -156,15 +157,20 @@
   z-index: 30;
   display: grid;
   place-items: center;
-  transform: translateX(1vmax) translateY(1vmax);
   opacity: 0;
   visibility: hidden;
   transition: all 0.2s ease-in-out;
 }
+
+.windowContainer .groupsWindow {
+  transform: translateX(1vmax) translateY(1vmax);
+}
 .windowContainerActive {
-  transform: translateX(0) translateY(0);
   opacity: 1;
   visibility: visible;
+}
+.windowContainerActive .groupsWindow {
+  transform: translateX(0) translateY(0);
 }
 
 .groupsWindow {
@@ -178,6 +184,7 @@
   align-items: center;
   flex-direction: column;
   position: relative;
+  transition: transform 0.2s ease-in-out;
 }
 
 .groupsWindowClose {
@@ -201,7 +208,7 @@
   margin-top: 2vmax;
   /* margin-bottom: 1vmax; */
   padding: 0.5svmax 0;
-  background-color: rgba(180, 180, 180, 0.4);
+  background-color: rgb(169 183 255 / 40%);
 }
 .groupsWindowInput {
   margin: 2vmax 1vmax;

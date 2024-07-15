@@ -263,4 +263,8 @@ export const language = {
     en: "Edit Group",
     ar: "تعديل مجموعة",
   },
+  noRecords: {
+    en: "No recorods were found...",
+    ar: "لم يتم العثور على أى عناصر",
+  },
 };

@@ -99,7 +99,7 @@ export default function Medilight({ changeLanguage, changeAuth }) {
           <div className={`${classes.paramsDiv}`}>
             <ParamsWatcher />
           </div>
-          <div className={`${classes.routesDiv}`}>
+          <div className={`routerDiv scroll`}>
             <Routes>
               <Route path="/client/*" element={<Client />} />
               <Route path="/admin/*" element={<Admin />} />
