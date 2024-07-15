@@ -4,15 +4,17 @@ import { language } from "../../utilities/language";
 import { LanguageContext } from "../../App";
 import OptionsDots from "../../components/OptionsDots/OptionsDots";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 import SearchInput from "../../components/SearchInput/SearchInput";
 
-export default function GroupsList({ fetchFunction }) {
+export default function GroupsList({
+  fetchFunction,
+  showDeleteModal,
+  showModifyWindow,
+  selectGroup,
+}) {
   const [originalData, setOriginalData] = useState([]);
   const [data, setData] = useState([]);
   const currentLanguage = useContext(LanguageContext);
-
-  const navigate = useNavigate();
 
   const gatherData = async () => {
     const fetchedData = await fetchFunction();
@@ -48,8 +50,8 @@ export default function GroupsList({ fetchFunction }) {
     {
       labelEn: "Edit",
       labelAr: "تعديل",
-      onClickFunction: (id) => {
-        navigate(`V1/AuthorizationRouting/Roles/Edit/${id}`);
+      onClickFunction: () => {
+        showModifyWindow();
       },
       backgroundColor: "#2F5597",
       color: "#fff",
@@ -57,10 +59,10 @@ export default function GroupsList({ fetchFunction }) {
     {
       labelEn: "Delete",
       labelAr: "حذف",
-      onClickFunction: () => {
-        // functions with Modal coming from the parent Group component
-        toast.error("Delete Users");
-      },
+      onClickFunction: showDeleteModal,
+      // onClickFunction: () => {
+      //   showDeleteModal();
+      // },
       backgroundColor: "#C00000",
       color: "#fff",
     },
@@ -88,7 +90,11 @@ export default function GroupsList({ fetchFunction }) {
                 </span>
                 <div className={classes.optionsContainer}>
                   <button>{language.viewUsers[currentLanguage]}</button>
-                  <OptionsDots parentId={record.id} dataArray={optionsArray} />
+                  <OptionsDots
+                    selectGroupFunction={selectGroup}
+                    parentObject={record}
+                    dataArray={optionsArray}
+                  />
                 </div>
               </li>
             );

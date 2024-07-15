@@ -255,4 +255,12 @@ export const language = {
     en: "View Users",
     ar: "عرض المستخدمين",
   },
+  addNewGroup: {
+    en: "Add New Group",
+    ar: "إضافة مجموعة جديدة",
+  },
+  editGroup: {
+    en: "Edit Group",
+    ar: "تعديل مجموعة",
+  },
 };

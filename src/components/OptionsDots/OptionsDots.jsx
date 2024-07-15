@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import classes from "./OptionsDots.module.css";
 import { LanguageContext } from "../../App";
 
-const OptionsDots = ({ dataArray, parentId }, ref) => {
+const OptionsDots = ({ dataArray, parentObject, selectGroupFunction }, ref) => {
   // data array should contain array of objects like following
   // [ {labelEn:"Add New", labelAr:"إضافة جديدة", onClickFunction: ()=>{return 10}, backgroundColor:"#LMEEE32" colo:"#fff"} ]
 
@@ -34,6 +34,7 @@ const OptionsDots = ({ dataArray, parentId }, ref) => {
         src="/optionsDots.svg"
         alt="options"
         onClick={() => {
+          selectGroupFunction(parentObject);
           setListActive(!listActive);
         }}
       />
@@ -47,7 +48,7 @@ const OptionsDots = ({ dataArray, parentId }, ref) => {
               className={classes.option}
               key={index + 1}
               onClick={() => {
-                opt.onClickFunction(parentId);
+                opt.onClickFunction(parentObject.id);
               }}
             >
               {currentLanguage == "ar" ? opt.labelAr : opt.labelEn}
