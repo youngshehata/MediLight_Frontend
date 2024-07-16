@@ -23,7 +23,8 @@
   grid-template-rows: 10% 90%;
 }
 
-.groupsContainer {
+.groupsContainer,
+.usersContainer {
   position: relative;
   height: 90%;
   width: 90%;
@@ -85,13 +86,6 @@
 }
 .searchInput img:hover {
   transform: scale(1.1);
-}
-.usersContainer {
-  position: relative;
-  height: 90%;
-  width: 90%;
-  background-color: blueviolet;
-  overflow: hidden;
 }
 
 .groupUl {
@@ -228,4 +222,11 @@
   border-radius: 0.2vmax;
   background-color: #002339;
   color: #fff;
+}
+
+.usersContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

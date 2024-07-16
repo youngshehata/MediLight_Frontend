@@ -18,7 +18,6 @@ export default function GroupsList({
 
   const gatherData = async () => {
     const fetchedData = await fetchFunction();
-    console.log(fetchedData);
     setOriginalData(fetchedData);
     setData(fetchedData);
   };
@@ -60,9 +59,6 @@ export default function GroupsList({
       labelEn: "Delete",
       labelAr: "حذف",
       onClickFunction: showDeleteModal,
-      // onClickFunction: () => {
-      //   showDeleteModal();
-      // },
       backgroundColor: "#C00000",
       color: "#fff",
     },
@@ -73,6 +69,10 @@ export default function GroupsList({
       gatherData();
     }
   }, [data]);
+
+  useEffect(() => {
+    gatherData();
+  }, [fetchFunction]);
 
   return (
     <div className={`${classes.groupListContainer} scroll`}>

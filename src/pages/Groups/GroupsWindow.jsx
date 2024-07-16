@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import classes from "./Groups.module.css";
 import { LanguageContext } from "../../App";
 import { language } from "../../utilities/language";
@@ -8,7 +8,10 @@ export default function GroupsWindow({ isNew, excuteFunction, closeFunction }) {
   const [inputValue, setInputValue] = useState("");
   const [activeClass, setActiveClass] = useState("");
 
+  const inputRef = useRef();
+
   useEffect(() => {
+    inputRef.current.select();
     const controller = new AbortController();
     setActiveClass(classes.windowContainerActive);
     return () => {
@@ -30,6 +33,7 @@ export default function GroupsWindow({ isNew, excuteFunction, closeFunction }) {
             : language.editGroup[currentLanguage]}
         </span>
         <input
+          ref={inputRef}
           onKeyDown={(e) => {
             if (e.key == "Enter") {
               excuteFunction();

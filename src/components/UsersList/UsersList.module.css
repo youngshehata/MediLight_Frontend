@@ -1,0 +1,14 @@
+.container {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  grid-template-columns: 100%;
+  grid-template-rows: 10% 10% 80%;
+  background-color: rgb(169, 167, 160);
+}
+.SearchInput img {
+  height: 1.5vmax;
+}

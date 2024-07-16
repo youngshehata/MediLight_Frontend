@@ -23,10 +23,10 @@ const OptionsDots = ({ dataArray, parentObject, selectGroupFunction }, ref) => {
   };
 
   useEffect(() => {
-    console.log(dataArray);
     document.addEventListener("click", handleClickOutside);
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
+
   return (
     <div ref={dropDownContainer} className={classes.container}>
       <img
@@ -39,7 +39,15 @@ const OptionsDots = ({ dataArray, parentObject, selectGroupFunction }, ref) => {
         }}
       />
       <div
-        className={`${listActive ? classes.listActive : classes.list} scroll`}
+        className={`${
+          listActive
+            ? `${
+                currentLanguage == "ar"
+                  ? classes.listActive_ar
+                  : classes.listActive_en
+              }`
+            : classes.list
+        } scroll`}
       >
         {data.map((opt, index) => {
           return (

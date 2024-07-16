@@ -1,5 +1,5 @@
 import { setPageTitle } from "../../utilities/titles";
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import classes from "./Groups.module.css";
 import { fetchFromApi } from "../../api/fetcher";
 import Loading from "../../components/Loading/Loading";
@@ -10,6 +10,7 @@ import GroupsList from "./GroupsList";
 import Modal from "../../components/Modal/Modal";
 import toast from "react-hot-toast";
 import GroupsWindow from "./GroupsWindow";
+import UsersList from "../../components/UsersList/UsersList";
 
 export default function Groups() {
   setPageTitle("Create New Group", "إنشاء مجموعة جديدة");
@@ -18,6 +19,11 @@ export default function Groups() {
   const [showModal, setShowModal] = useState(false);
   // const [selectedGroup, setSelectedGroup] = useState({ name: null, id: null });
   const [selectedGroup, setSelectedGroup] = useState(null);
+  // i dont like the following solution for triggering fetch function...
+  const [updates, setUpdates] = useState(false);
+
+  // Mode for users list (Add || REMOVE)
+  const [listMode, setListMode] = useState("");
 
   const currentLanguage = useContext(LanguageContext);
 
@@ -34,70 +40,87 @@ export default function Groups() {
       setLoading(false);
       handleErrors(error);
     }
-  }, []);
+  }, [updates]);
 
-  const deleteFunction = () => {
+  const deleteFunction = useCallback(() => {
     fetchFromApi(
       `V1/AuthorizationRouting/Roles/Delete/${selectedGroup.id}`,
       "DELETE"
     )
       .then(() => {
         setShowModal(false);
-        fetchAllGroups();
+        // fetchAllGroups();
         toast.success(language.deletedSuccessfully[currentLanguage]);
+        setUpdates(!updates);
+        return;
       })
       .catch((err) => {
         setShowModal(false);
         handleErrors(err);
       });
-  };
+  }, [selectedGroup, updates]);
 
-  const selectGroup = (group) => {
+  const selectGroup = useCallback((group) => {
     setSelectedGroup(group);
-  };
+  }, []);
 
-  const showDeleteModal = () => {
+  const showDeleteModal = useCallback(() => {
     setShowModal(true);
-  };
-  const showAddEditWindow = () => {
+  }, []);
+  const showAddEditWindow = useCallback(() => {
     setShowModifyWindow(true);
-  };
+  }, []);
 
-  const handleWindowExcute = (newData) => {
-    setLoading(true);
-    if (selectedGroup) {
-      // Edit
-      fetchFromApi("V1/AuthorizationRouting/Roles/Edit", "POST", {
-        Id: selectedGroup.id,
-        RoleName: newData,
-      })
-        .then(() => {
-          setLoading(false);
-          toast.success(language.editedSuccessfully[currentLanguage]);
-          return;
+  const handleWindowExcute = useCallback(
+    (newData) => {
+      setLoading(true);
+      if (selectedGroup) {
+        // Edit
+        fetchFromApi("V1/AuthorizationRouting/Roles/Edit", "POST", {
+          id: selectedGroup.id,
+          name: newData,
         })
-        .catch((err) => {
-          setLoading(false);
-          handleErrors(err);
-          return;
-        });
-    } else {
-      // Add
-      fetchFromApi("V1/AuthorizationRouting/Roles/Create", "POST", {
-        RoleName: newData,
-      })
-        .then(() => {
-          setLoading(false);
-          toast.success(language.addedSuccessfully[currentLanguage]);
-          return;
+          .then(() => {
+            setLoading(false);
+            toast.success(language.editedSuccessfully[currentLanguage]);
+            setShowModifyWindow(false);
+            setSelectedGroup(null); // trigger
+            setUpdates(!updates);
+            return;
+          })
+          .catch((err) => {
+            setLoading(false);
+            handleErrors(err);
+            return;
+          });
+      } else {
+        // Add
+        fetchFromApi("V1/AuthorizationRouting/Roles/Create", "POST", {
+          RoleName: newData,
         })
-        .catch((err) => {
-          setLoading(false);
-          handleErrors(err);
-          return;
-        });
-    }
-  };
+          .then(() => {
+            setLoading(false);
+            toast.success(language.addedSuccessfully[currentLanguage]);
+            setShowModifyWindow(false);
+            setSelectedGroup(null); // trigger
+            setUpdates(!updates);
+            return;
+          })
+          .catch((err) => {
+            setLoading(false);
+            handleErrors(err);
+            return;
+          });
+      }
+    },
+    [selectedGroup]
+  );
+
+  useEffect(() => {
+    setTimeout(() => {
+      setListMode("add");
+    }, 2000);
+  }, [updates]);
 
   return (
     <>
@@ -150,7 +173,13 @@ export default function Groups() {
             selectGroup={selectGroup}
           />
         </section>
-        <section className={`${classes.usersContainer}`}></section>
+        <section className={`${classes.usersContainer}`}>
+          <UsersList
+            titleText={`${language.users[currentLanguage]} ${
+              listMode != "" ? `(${language[listMode][currentLanguage]})` : ""
+            }`}
+          />
+        </section>
       </div>
     </>
   );

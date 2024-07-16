@@ -13,10 +13,10 @@
 }
 
 .list,
-.listActive {
+.listActive_ar,
+.listActive_en {
   position: absolute;
   top: 110%;
-  right: 0;
   background-color: #fff;
   border-radius: 0.3vmax;
   z-index: 20;
@@ -26,6 +26,7 @@
   justify-content: flex-start;
   align-items: center;
 }
+
 .list {
   opacity: 0;
   min-height: 0;
@@ -33,13 +34,20 @@
   border: none;
   visibility: hidden;
 }
-.listActive {
+.listActive_ar,
+.listActive_en {
   opacity: 1;
   min-height: 5vmax;
   max-height: 8vmax;
   min-width: 8vmax;
   border: 0.2vmax #002339 solid;
   visibility: visible;
+}
+.listActive_ar {
+  left: 50%;
+}
+.listActive_en {
+  right: 0%;
 }
 
 .option {

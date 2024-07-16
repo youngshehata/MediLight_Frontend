@@ -267,4 +267,8 @@ export const language = {
     en: "No recorods were found...",
     ar: "لم يتم العثور على أى عناصر",
   },
+  users: {
+    en: "Users",
+    ar: "المستخدمين",
+  },
 };
