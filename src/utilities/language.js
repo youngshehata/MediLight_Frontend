@@ -271,4 +271,20 @@ export const language = {
     en: "Users",
     ar: "المستخدمين",
   },
+  search: {
+    en: "Search",
+    ar: "البحث",
+  },
+  selected: {
+    en: "Selected",
+    ar: "محدد",
+  },
+  addSelected: {
+    en: "Add Selected",
+    ar: "إضافة المحدد",
+  },
+  removeSelected: {
+    en: "Remove Selected",
+    ar: "إزالة المحدد",
+  },
 };

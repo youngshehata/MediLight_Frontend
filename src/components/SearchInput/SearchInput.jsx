@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { language } from "../../utilities/language";
+import { LanguageContext } from "../../App";
 
 const SearchInput = ({ searchFunction, containerCSS }, ref) => {
   const [inputValue, setInputValue] = useState("");
+  const currentLanguage = useContext(LanguageContext);
   return (
     <div ref={ref} className={`${containerCSS} flexCenterRow`}>
       <input
+        placeholder={language.search[currentLanguage]}
         spellCheck={false}
         type="text"
         value={inputValue}

@@ -116,11 +116,7 @@ export default function Groups() {
     [selectedGroup]
   );
 
-  useEffect(() => {
-    setTimeout(() => {
-      setListMode("add");
-    }, 2000);
-  }, [updates]);
+  useEffect(() => {}, [updates]);
 
   return (
     <>
