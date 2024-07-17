@@ -82,6 +82,13 @@
   background-color: darkred;
 }
 
+.buttonDisabled {
+  background-color: gray;
+  color: #d5d5d5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
 .count {
   width: 30%;
   justify-self: flex-end;
@@ -92,9 +99,75 @@
 }
 
 .ul {
+  position: relative;
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.li {
+  min-height: 15%;
+  width: 90%;
+  margin: 1vmax 0;
+  box-shadow: rgba(0, 0, 0, 0.2) 3px 3px 4px 4px;
+  border-radius: 0.3vmax;
+  display: flex;
+  align-items: center;
+  padding: 0 1vmax;
+  font-size: 1.2vmax;
+  color: #002339;
+  transition: all 0.2s ease-in-out;
+  background-color: #fff;
+}
+
+.li:hover {
+  box-shadow: rgba(0, 0, 0, 0.4) 3px 3px 4px 4px;
+}
+
+.checkBoxDiv {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0.2vmax #002339 solid;
+  border-radius: 0.3vmax;
+  height: 1.5vmax;
+  width: 1.5vmax;
+  cursor: pointer;
+  transition: border-color 0.2s ease-in-out;
+}
+.checkBoxDiv img {
+  position: absolute;
+  height: 1.7vmax;
+  top: -40%;
+  left: 10%;
+  visibility: hidden;
+  transition: all 0.2s ease-in-out;
+  opacity: 0;
+}
+.liName {
+  margin: 0 1.5vmax;
+}
+.liGreen {
+  background-color: #00b050;
+  color: #fff;
+}
+.liRed {
+  background-color: #c00000;
+  color: #fff;
+}
+.liGreen .checkBoxDiv,
+.liRed .checkBoxDiv {
+  border-color: #fff;
+}
+.liGreen img,
+.liRed img {
+  opacity: 1;
+  height: 1.7vmax;
+  visibility: visible;
 }
