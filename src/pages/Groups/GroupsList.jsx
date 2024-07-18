@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import classes from "./Groups.module.css";
 import { language } from "../../utilities/language";
 import { LanguageContext } from "../../App";
@@ -11,6 +11,7 @@ export default function GroupsList({
   showDeleteModal,
   showModifyWindow,
   selectGroup,
+  showAllUsers,
 }) {
   const [originalData, setOriginalData] = useState([]);
   const [data, setData] = useState([]);
@@ -36,39 +37,41 @@ export default function GroupsList({
     setData(list);
   };
 
-  const optionsArray = [
-    {
-      labelEn: "Add Users",
-      labelAr: "إضافة مستخدمين",
-      onClickFunction: () => {
-        toast.success("Add Users");
+  const optionsArray = useMemo(() => {
+    return [
+      {
+        labelEn: "Add Users",
+        labelAr: "إضافة مستخدمين",
+        onClickFunction: (group) => {
+          showAllUsers(group);
+        },
+        backgroundColor: "#008000",
+        color: "#fff",
       },
-      backgroundColor: "#008000",
-      color: "#fff",
-    },
-    {
-      labelEn: "Edit",
-      labelAr: "تعديل",
-      onClickFunction: () => {
-        showModifyWindow();
+      {
+        labelEn: "Edit",
+        labelAr: "تعديل",
+        onClickFunction: () => {
+          showModifyWindow();
+        },
+        backgroundColor: "#2F5597",
+        color: "#fff",
       },
-      backgroundColor: "#2F5597",
-      color: "#fff",
-    },
-    {
-      labelEn: "Delete",
-      labelAr: "حذف",
-      onClickFunction: showDeleteModal,
-      backgroundColor: "#C00000",
-      color: "#fff",
-    },
-  ];
+      {
+        labelEn: "Delete",
+        labelAr: "حذف",
+        onClickFunction: showDeleteModal,
+        backgroundColor: "#C00000",
+        color: "#fff",
+      },
+    ];
+  }, [showAllUsers]);
 
   useEffect(() => {
     if (originalData.length < 1) {
       gatherData();
     }
-  }, [data]);
+  }, [data, showAllUsers]);
 
   useEffect(() => {
     gatherData();

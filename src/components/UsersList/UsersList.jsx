@@ -9,103 +9,121 @@ export default function UsersList({
   isAdding,
   list,
   excuteFunction,
+  updateUsersList,
 }) {
   const [originalData, setOriginalData] = useState([]);
   const [data, setData] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [count, setCount] = useState(0);
-  const [selectingClass, setSelectingClass] = useState(
-    isAdding ? "liGreen" : "liRed"
-  );
+  const [selectingClass, setSelectingClass] = useState("");
   const currentLanguage = useContext(LanguageContext);
 
-  const checkElement = (e, parentObject) => {
+  // ========================================================================
+  const checkElement = (parentObject) => {
     const foundInSelected = selectedUsers.find((x) => {
       return x.id == parentObject.id;
     });
     if (foundInSelected) {
       // Remove From List
       let theIndex = selectedUsers.indexOf(foundInSelected);
-      let clone = [...selectedUsers];
-      clone.splice(theIndex, 1);
-      setSelectedUsers(clone);
-
-      // CSS
-      if (e.target.nodeName == "DIV") {
-        e.target.parentElement.classList.remove(`${classes[selectingClass]}`);
-      } else {
-        e.target.parentElement.parentElement.classList.remove(
-          `${classes[selectingClass]}`
-        );
-      }
+      let newSelectedUsers = [...selectedUsers];
+      newSelectedUsers.splice(theIndex, 1);
+      setSelectedUsers(newSelectedUsers);
+      let clone = [...data];
+      const recordInData = data.find((r) => {
+        return r.id == parentObject.id;
+      });
+      const indexInData = data.indexOf(recordInData);
+      clone.splice(indexInData, 1, {
+        name: foundInSelected.name,
+        id: foundInSelected.id,
+        selected: false,
+      });
+      // setData(clone);
+      updateUsersList(clone);
     } else {
       // Add To List
-      setSelectedUsers([...selectedUsers, parentObject]);
-
-      // CSS
-      if (e.target.nodeName == "DIV") {
-        e.target.parentElement.classList.add(`${classes[selectingClass]}`);
-      } else {
-        e.target.parentElement.parentElement.classList.add(
-          `${classes[selectingClass]}`
-        );
-      }
+      const foundInData = data.find((x) => {
+        return x.id == parentObject.id;
+      });
+      const newItemToSelectedList = { ...foundInData, selected: true };
+      let theIndex = data.indexOf(foundInData);
+      let clone = [...data];
+      clone.splice(theIndex, 1, newItemToSelectedList);
+      let newSelectedUsers = [...selectedUsers];
+      newSelectedUsers.push(newItemToSelectedList);
+      console.log(clone);
+      setSelectedUsers(newSelectedUsers);
+      // setData(clone);
+      updateUsersList(clone);
     }
   };
+  // ========================================================================
 
   const filterList = (text) => {
     if (text == "") {
-      setData(originalData);
+      // check for every element in selected list
+      let newDataArray = [...originalData].map((r) => {
+        const foundInSelected = selectedUsers.find((x) => {
+          return x.id == r.id;
+        });
+        if (foundInSelected) {
+          return { ...r, selected: true };
+        } else {
+          return r;
+        }
+      });
+
+      // setData(newDataArray);
+      updateUsersList(newDataArray);
       return;
     }
     let resultsList = [];
     originalData.forEach((record) => {
       if (record?.name?.toLowerCase().includes(text.toLowerCase())) {
-        resultsList.push({ ...record, hidden: false });
-      } else {
-        resultsList.push({ ...record, hidden: true });
+        let isSelected = data.find((r) => {
+          return r.id == record.id;
+        }).selected;
+        resultsList.push({ ...record, selected: isSelected });
       }
     });
-    console.log(resultsList);
-    setData(resultsList);
+    // setData(resultsList);
+    updateUsersList(resultsList);
   };
 
   useEffect(() => {
-    if (originalData.length < 1) {
-      setOriginalData([
-        { id: 1, name: "Ahmed Shehata", hidden: false },
-        { id: 2, name: "Omar", hidden: false },
-        { id: 3, name: "Dr. Mustafa Abd El Hafez", hidden: false },
-        { id: 4, name: "Mr. Waleed El Sayeed", hidden: false },
-        { id: 5, name: "Mohamed Shehata", hidden: false },
-        { id: 6, name: "Laila", hidden: false },
-        { id: 7, name: "Dr. Hadeer Mustafa", hidden: false },
-        { id: 8, name: "Mr. Osama Ashraf", hidden: false },
-      ]);
-      setData([
-        { id: 1, name: "Ahmed Shehata", hidden: false },
-        { id: 2, name: "Omar", hidden: false },
-        { id: 3, name: "Dr. Mustafa Abd El Hafez", hidden: false },
-        { id: 4, name: "Mr. Waleed El Sayeed", hidden: false },
-        { id: 5, name: "Mohamed Shehata", hidden: false },
-        { id: 6, name: "Laila", hidden: false },
-        { id: 7, name: "Dr. Hadeer Mustafa", hidden: false },
-        { id: 8, name: "Mr. Osama Ashraf", hidden: false },
-      ]);
+    if (isAdding) {
+      setSelectingClass("liGreen");
+    } else {
+      setSelectingClass("liRed");
     }
-  }, []);
+    if (originalData.length < 1) {
+      console.log("less");
+      setOriginalData(list);
+    }
+    setData(list);
+    setCount(selectedUsers.length);
+    console.log("list");
+    console.log(list);
+    console.log("data");
+    console.log(data);
+  }, [data, list]);
 
   return (
     <div className={classes.container}>
       <span className={classes.title}>{titleText}</span>
+
       <div className={classes.optionsBar}>
-        {/* <div className={classes.searchAndButton}> */}
         <SearchInput
           searchFunction={filterList}
           containerCSS={classes.SearchInput}
         />
+
         {data.length > 0 ? (
           <button
+            onClick={() => {
+              excuteFunction(selectedUsers);
+            }}
             className={`${classes.button} ${
               isAdding ? classes.buttonAdd : classes.buttonRemove
             } ${selectedUsers.length > 0 ? "" : classes.buttonDisabled}`}
@@ -126,15 +144,18 @@ export default function UsersList({
       </div>
       <ul className={`${classes.ul} scroll`}>
         {data.map((record, index) => {
+          console.log(record);
           return (
             <li
               id={record.id}
-              className={`${classes.li} ${record.hidden && "displayNone"}`}
+              className={`${classes.li} ${
+                record.selected ? classes[selectingClass] : null
+              }`}
               key={index + 1}
             >
               <div
-                onClick={(e) => {
-                  checkElement(e, record);
+                onClick={() => {
+                  checkElement(record);
                 }}
                 className={classes.checkBoxDiv}
               >

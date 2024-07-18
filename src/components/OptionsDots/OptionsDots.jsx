@@ -25,7 +25,7 @@ const OptionsDots = ({ dataArray, parentObject, selectGroupFunction }, ref) => {
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
     return () => document.removeEventListener("click", handleClickOutside);
-  }, []);
+  }, [dataArray]);
 
   return (
     <div ref={dropDownContainer} className={classes.container}>
@@ -56,7 +56,8 @@ const OptionsDots = ({ dataArray, parentObject, selectGroupFunction }, ref) => {
               className={classes.option}
               key={index + 1}
               onClick={() => {
-                opt.onClickFunction(parentObject.id);
+                opt.onClickFunction(parentObject);
+                setListActive(false);
               }}
             >
               {currentLanguage == "ar" ? opt.labelAr : opt.labelEn}

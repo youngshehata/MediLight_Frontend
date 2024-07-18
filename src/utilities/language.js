@@ -287,4 +287,8 @@ export const language = {
     en: "Remove Selected",
     ar: "إزالة المحدد",
   },
+  remove: {
+    en: "Remove",
+    ar: "إزالة",
+  },
 };

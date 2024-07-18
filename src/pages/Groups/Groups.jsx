@@ -17,13 +17,15 @@ export default function Groups() {
   const [loading, setLoading] = useState(false);
   const [showModifyWindow, setShowModifyWindow] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  // const [selectedGroup, setSelectedGroup] = useState({ name: null, id: null });
   const [selectedGroup, setSelectedGroup] = useState(null);
   // i dont like the following solution for triggering fetch function...
   const [updates, setUpdates] = useState(false);
+  // next state made to avoid re fetching the users everytime
+  const [allFetchedUsers, setAllFetchedUsers] = useState([]);
 
-  // Mode for users list (Add || REMOVE)
+  // Mode for users list (add || remove)
   const [listMode, setListMode] = useState("");
+  const [usersList, setUsersList] = useState([]);
 
   const currentLanguage = useContext(LanguageContext);
 
@@ -40,7 +42,7 @@ export default function Groups() {
       setLoading(false);
       handleErrors(error);
     }
-  }, [updates]);
+  }, []);
 
   const deleteFunction = useCallback(() => {
     fetchFromApi(
@@ -58,15 +60,21 @@ export default function Groups() {
         setShowModal(false);
         handleErrors(err);
       });
-  }, [selectedGroup, updates]);
+    // }, [selectedGroup, updates]);
+  }, [updates]); // below function (selectGroup now triggers updates)
 
-  const selectGroup = useCallback((group) => {
-    setSelectedGroup(group);
-  }, []);
+  const selectGroup = useCallback(
+    (group) => {
+      setSelectedGroup(group);
+      setUpdates(!updates);
+    },
+    [selectedGroup]
+  );
 
   const showDeleteModal = useCallback(() => {
     setShowModal(true);
   }, []);
+
   const showAddEditWindow = useCallback(() => {
     setShowModifyWindow(true);
   }, []);
@@ -116,7 +124,60 @@ export default function Groups() {
     [selectedGroup]
   );
 
-  useEffect(() => {}, [updates]);
+  const showAllUsers = useCallback(
+    function (group) {
+      console.log(allFetchedUsers);
+      setLoading(true);
+      // use selectedGroup.name for now, later when all endpoints changed to id use selectedGroup.id
+      // using static 200  members in 1 page for now, adding pagiation later if needed
+      const allUsers = [...allFetchedUsers];
+      // looking for users who already part of the selected group, and prevent rendering them
+      let newUsersList = [];
+      allUsers.forEach((user) => {
+        const belongs = [...user.roleName].find((r) => {
+          return r.toString().toLowerCase().includes(group?.name.toLowerCase());
+        });
+        if (!belongs) {
+          newUsersList.push({
+            id: user.id,
+            name: user.userName,
+            selected: false,
+          });
+        } else {
+          return;
+        }
+      });
+      setUsersList(newUsersList);
+      console.log(newUsersList);
+      setListMode("add");
+      setLoading(false);
+    },
+    [allFetchedUsers]
+  );
+
+  const updateUsersList = (list) => {
+    setUsersList(list);
+  };
+
+  useEffect(() => {
+    console.log(allFetchedUsers);
+    if (allFetchedUsers.length < 1) {
+      setLoading(true);
+      fetchFromApi(
+        `ApplicationUser/Api/V1/User/Paginated?PageNumber=1&PageSize=200`,
+        "GET"
+      )
+        .then((response) => {
+          const allUsers = [...response.data.data];
+          setAllFetchedUsers(allUsers);
+          setLoading(false);
+        })
+        .catch((err) => {
+          setLoading(false);
+          handleErrors(err);
+        });
+    }
+  }, [updates, selectedGroup, allFetchedUsers, usersList]);
 
   return (
     <>
@@ -167,13 +228,17 @@ export default function Groups() {
             showModifyWindow={showAddEditWindow}
             fetchFunction={fetchAllGroups}
             selectGroup={selectGroup}
+            showAllUsers={showAllUsers}
           />
         </section>
         <section className={`${classes.usersContainer}`}>
           <UsersList
+            updateUsersList={updateUsersList}
             titleText={`${language.users[currentLanguage]} ${
               listMode != "" ? `(${language[listMode][currentLanguage]})` : ""
             }`}
+            isAdding={listMode == "add" ? true : false}
+            list={usersList}
           />
         </section>
       </div>
