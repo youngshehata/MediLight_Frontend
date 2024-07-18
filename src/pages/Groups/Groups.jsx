@@ -18,6 +18,7 @@ export default function Groups() {
   const [showModifyWindow, setShowModifyWindow] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState(null);
+  const [selectedGroupTitle, setSelectedGroupTitle] = useState(null);
   // i dont like the following solution for triggering fetch function...
   const [updates, setUpdates] = useState(false);
   // next state made to avoid re fetching the users everytime
@@ -126,7 +127,6 @@ export default function Groups() {
 
   const showAllUsers = useCallback(
     function (group) {
-      console.log(allFetchedUsers);
       setLoading(true);
       // use selectedGroup.name for now, later when all endpoints changed to id use selectedGroup.id
       // using static 200  members in 1 page for now, adding pagiation later if needed
@@ -148,19 +148,21 @@ export default function Groups() {
         }
       });
       setUsersList(newUsersList);
-      console.log(newUsersList);
       setListMode("add");
       setLoading(false);
     },
     [allFetchedUsers]
   );
 
-  const updateUsersList = (list) => {
+  const updateUsersList = useCallback((list) => {
     setUsersList(list);
-  };
+  }, []);
+
+  const updateGroupTitle = useCallback((title) => {
+    setSelectedGroupTitle(title);
+  }, []);
 
   useEffect(() => {
-    console.log(allFetchedUsers);
     if (allFetchedUsers.length < 1) {
       setLoading(true);
       fetchFromApi(
@@ -213,7 +215,12 @@ export default function Groups() {
       <div className={`${classes.container}`}>
         <section className={`${classes.groupsContainer}`}>
           <div className={`${classes.groupsTitle} flexCenterRow`}>
-            <span>{language.groups[currentLanguage]}</span>
+            <span>
+              {`${language.groups[currentLanguage]}`}
+              <span className={classes.selectedGroupTitle}>{`${
+                selectedGroupTitle ? selectedGroupTitle : ""
+              }`}</span>
+            </span>
             <img
               onClick={() => {
                 setSelectedGroup(null);
@@ -229,6 +236,7 @@ export default function Groups() {
             fetchFunction={fetchAllGroups}
             selectGroup={selectGroup}
             showAllUsers={showAllUsers}
+            updateGroupTitle={updateGroupTitle}
           />
         </section>
         <section className={`${classes.usersContainer}`}>
@@ -239,6 +247,10 @@ export default function Groups() {
             }`}
             isAdding={listMode == "add" ? true : false}
             list={usersList}
+            currentGroup={selectedGroupTitle}
+            excuteFunction={(data) => {
+              toast.success(data);
+            }}
           />
         </section>
       </div>

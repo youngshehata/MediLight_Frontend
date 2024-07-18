@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import classes from "./UsersList.module.css";
 import SearchInput from "../SearchInput/SearchInput";
 import { language } from "../../utilities/language";
@@ -10,6 +10,7 @@ export default function UsersList({
   list,
   excuteFunction,
   updateUsersList,
+  currentGroup,
 }) {
   const [originalData, setOriginalData] = useState([]);
   const [data, setData] = useState([]);
@@ -17,6 +18,8 @@ export default function UsersList({
   const [count, setCount] = useState(0);
   const [selectingClass, setSelectingClass] = useState("");
   const currentLanguage = useContext(LanguageContext);
+
+  const currentTitle = useRef();
 
   // ========================================================================
   const checkElement = (parentObject) => {
@@ -52,7 +55,6 @@ export default function UsersList({
       clone.splice(theIndex, 1, newItemToSelectedList);
       let newSelectedUsers = [...selectedUsers];
       newSelectedUsers.push(newItemToSelectedList);
-      console.log(clone);
       setSelectedUsers(newSelectedUsers);
       // setData(clone);
       updateUsersList(clone);
@@ -92,21 +94,20 @@ export default function UsersList({
   };
 
   useEffect(() => {
+    if (currentTitle.current && currentTitle.current != currentGroup) {
+      setSelectedUsers([]);
+    }
+    currentTitle.current = currentGroup;
     if (isAdding) {
       setSelectingClass("liGreen");
     } else {
       setSelectingClass("liRed");
     }
     if (originalData.length < 1) {
-      console.log("less");
       setOriginalData(list);
     }
     setData(list);
     setCount(selectedUsers.length);
-    console.log("list");
-    console.log(list);
-    console.log("data");
-    console.log(data);
   }, [data, list]);
 
   return (
@@ -122,7 +123,7 @@ export default function UsersList({
         {data.length > 0 ? (
           <button
             onClick={() => {
-              excuteFunction(selectedUsers);
+              excuteFunction(JSON.stringify(selectedUsers));
             }}
             className={`${classes.button} ${
               isAdding ? classes.buttonAdd : classes.buttonRemove
@@ -144,7 +145,6 @@ export default function UsersList({
       </div>
       <ul className={`${classes.ul} scroll`}>
         {data.map((record, index) => {
-          console.log(record);
           return (
             <li
               id={record.id}

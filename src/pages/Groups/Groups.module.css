@@ -115,9 +115,12 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  color: #002339;
+  color: #043900;
   font-size: 1vmax;
   font-weight: 600;
+}
+.li:last-of-type {
+  margin-bottom: 3.5vmax;
 }
 .recordName {
   width: 50%;
@@ -139,6 +142,10 @@
   border-radius: 0.2vmax;
   border: none;
   padding: 0.2vmax 1vmax;
+}
+
+.selectedGroupTitle {
+  color: gold;
 }
 
 /* ************************ GROUPS WINDOW ****************** */

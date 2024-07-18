@@ -12,6 +12,7 @@ export default function GroupsList({
   showModifyWindow,
   selectGroup,
   showAllUsers,
+  updateGroupTitle,
 }) {
   const [originalData, setOriginalData] = useState([]);
   const [data, setData] = useState([]);
@@ -44,6 +45,7 @@ export default function GroupsList({
         labelAr: "إضافة مستخدمين",
         onClickFunction: (group) => {
           showAllUsers(group);
+          updateGroupTitle(` (${group.name}) `);
         },
         backgroundColor: "#008000",
         color: "#fff",
