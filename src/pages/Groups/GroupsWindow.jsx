@@ -36,7 +36,7 @@ export default function GroupsWindow({ isNew, excuteFunction, closeFunction }) {
           ref={inputRef}
           onKeyDown={(e) => {
             if (e.key == "Enter") {
-              excuteFunction();
+              excuteFunction(inputValue);
             }
           }}
           className={classes.groupsWindowInput}

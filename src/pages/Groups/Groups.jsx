@@ -11,6 +11,7 @@ import Modal from "../../components/Modal/Modal";
 import toast from "react-hot-toast";
 import GroupsWindow from "./GroupsWindow";
 import UsersList from "../../components/UsersList/UsersList";
+import { useNavigate } from "react-router-dom";
 
 export default function Groups() {
   setPageTitle("Create New Group", "إنشاء مجموعة جديدة");
@@ -23,6 +24,8 @@ export default function Groups() {
   const [updates, setUpdates] = useState(false);
   // next state made to avoid re fetching the users everytime
   const [allFetchedUsers, setAllFetchedUsers] = useState([]);
+  // next state made to avoid re fetching the users everytime
+  const [allGroupsFetched, setAllGroupsFetched] = useState([]);
 
   // Mode for users list (add || remove)
   const [listMode, setListMode] = useState("");
@@ -30,20 +33,36 @@ export default function Groups() {
 
   const currentLanguage = useContext(LanguageContext);
 
-  const fetchAllGroups = useCallback(async () => {
+  const navigate = useNavigate();
+
+  const fetchAllGroups = async () => {
     try {
       setLoading(true);
       const response = await fetchFromApi(
         "V1/AuthorizationRouting/Roles/Role-List",
         "GET"
       );
+      setAllGroupsFetched(response?.data?.data);
       setLoading(false);
-      return response?.data?.data;
     } catch (error) {
       setLoading(false);
       handleErrors(error);
     }
-  }, []);
+  };
+  // const fetchAllGroups = useCallback(async () => {
+  //   try {
+  //     setLoading(true);
+  //     const response = await fetchFromApi(
+  //       "V1/AuthorizationRouting/Roles/Role-List",
+  //       "GET"
+  //     );
+  //     setLoading(false);
+  //     return response?.data?.data;
+  //   } catch (error) {
+  //     setLoading(false);
+  //     handleErrors(error);
+  //   }
+  // }, [updates]);
 
   const deleteFunction = useCallback(() => {
     fetchFromApi(
@@ -69,7 +88,7 @@ export default function Groups() {
       setSelectedGroup(group);
       setUpdates(!updates);
     },
-    [selectedGroup]
+    [selectedGroup, updates]
   );
 
   const showDeleteModal = useCallback(() => {
@@ -94,7 +113,8 @@ export default function Groups() {
             toast.success(language.editedSuccessfully[currentLanguage]);
             setShowModifyWindow(false);
             setSelectedGroup(null); // trigger
-            setUpdates(!updates);
+            // setUpdates(!updates);
+            fetchGroupsFromApi();
             return;
           })
           .catch((err) => {
@@ -112,7 +132,8 @@ export default function Groups() {
             toast.success(language.addedSuccessfully[currentLanguage]);
             setShowModifyWindow(false);
             setSelectedGroup(null); // trigger
-            setUpdates(!updates);
+            // setUpdates(!updates);
+            fetchGroupsFromApi();
             return;
           })
           .catch((err) => {
@@ -122,15 +143,17 @@ export default function Groups() {
           });
       }
     },
-    [selectedGroup]
+    [selectedGroup, updates]
   );
 
   const showAllUsers = useCallback(
-    function (group) {
+    (group) => {
       setLoading(true);
       // use selectedGroup.name for now, later when all endpoints changed to id use selectedGroup.id
       // using static 200  members in 1 page for now, adding pagiation later if needed
       const allUsers = [...allFetchedUsers];
+      console.log("from showAllUsers");
+      console.log(allFetchedUsers);
       // looking for users who already part of the selected group, and prevent rendering them
       let newUsersList = [];
       allUsers.forEach((user) => {
@@ -151,7 +174,7 @@ export default function Groups() {
       setListMode("add");
       setLoading(false);
     },
-    [allFetchedUsers]
+    [allFetchedUsers, usersList]
   );
 
   const updateUsersList = useCallback((list) => {
@@ -162,24 +185,83 @@ export default function Groups() {
     setSelectedGroupTitle(title);
   }, []);
 
-  useEffect(() => {
-    if (allFetchedUsers.length < 1) {
+  //================================================================================
+  const addToGroupFunction = useCallback(
+    (arrayOfUsers) => {
       setLoading(true);
-      fetchFromApi(
-        `ApplicationUser/Api/V1/User/Paginated?PageNumber=1&PageSize=200`,
-        "GET"
-      )
-        .then((response) => {
-          const allUsers = [...response.data.data];
-          setAllFetchedUsers(allUsers);
+      fetchFromApi(`V1/AuthorizationRouting/Roles/Update-User-Roles`, "POST", {
+        users: arrayOfUsers,
+        roleId: selectedGroup.id,
+      })
+        .then(() => {
+          toast.success(language.addedSuccessfully[currentLanguage]);
           setLoading(false);
+          fetchUsersFromApi();
+          setUsersList([]);
         })
         .catch((err) => {
           setLoading(false);
           handleErrors(err);
         });
+    },
+    [selectedGroup, updates]
+  );
+  //================================================================================
+
+  const fetchUsersFromApi = () => {
+    setLoading(true);
+    fetchFromApi(
+      `ApplicationUser/Api/V1/User/Paginated?PageNumber=1&PageSize=200`,
+      "GET"
+    )
+      .then((response) => {
+        const allUsers = [...response.data.data];
+        setAllFetchedUsers(allUsers);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+        handleErrors(err);
+      });
+  };
+  //================================================================================
+
+  const fetchGroupsFromApi = () => {
+    setLoading(true);
+    fetchFromApi(`V1/AuthorizationRouting/Roles/Role-List`, "GET")
+      .then((response) => {
+        const allGroups = [...response.data.data];
+        setAllGroupsFetched(allGroups);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+        handleErrors(err);
+      });
+  };
+
+  useEffect(() => {
+    if (allFetchedUsers.length < 1) {
+      fetchUsersFromApi();
+      // setLoading(true);
+      // fetchFromApi(
+      //   `ApplicationUser/Api/V1/User/Paginated?PageNumber=1&PageSize=200`,
+      //   "GET"
+      // )
+      //   .then((response) => {
+      //     const allUsers = [...response.data.data];
+      //     setAllFetchedUsers(allUsers);
+      //     setLoading(false);
+      //   })
+      //   .catch((err) => {
+      //     setLoading(false);
+      //     handleErrors(err);
+      //   });
     }
-  }, [updates, selectedGroup, allFetchedUsers, usersList]);
+    if (allGroupsFetched.length < 1) {
+      fetchGroupsFromApi();
+    }
+  }, [updates, selectedGroup, allFetchedUsers, allGroupsFetched, usersList]);
 
   return (
     <>
@@ -233,7 +315,8 @@ export default function Groups() {
           <GroupsList
             showDeleteModal={showDeleteModal}
             showModifyWindow={showAddEditWindow}
-            fetchFunction={fetchAllGroups}
+            // fetchFunction={fetchAllGroups}
+            groupsList={allGroupsFetched}
             selectGroup={selectGroup}
             showAllUsers={showAllUsers}
             updateGroupTitle={updateGroupTitle}
@@ -248,9 +331,7 @@ export default function Groups() {
             isAdding={listMode == "add" ? true : false}
             list={usersList}
             currentGroup={selectedGroupTitle}
-            excuteFunction={(data) => {
-              toast.success(data);
-            }}
+            excuteFunction={addToGroupFunction}
           />
         </section>
       </div>

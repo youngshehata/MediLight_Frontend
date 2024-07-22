@@ -7,7 +7,7 @@
   place-items: center;
   /* border: 0.15vmax rgb(100, 100, 100) solid; */
   border-radius: 0.8vmax;
-  box-shadow: rgba(0, 0, 0, 0.3) 3px 3px 4px 4px;
+  box-shadow: rgba(0, 0, 0, 0.2) 2px 2px 3px 3px;
   display: grid;
   grid-template-columns: 40% 60%;
   grid-template-rows: 100%;
@@ -102,8 +102,9 @@
   width: 90%;
   max-height: 90%;
   border-radius: 0.8vmax;
+  padding-bottom: 5vmax;
   /* box-shadow: rgba(0, 0, 0, 0.3) 2px 2px 3px 3px; */
-  border: 0.15vmax rgb(200, 200, 200) solid;
+  /* border: 0.15vmax rgb(200, 200, 200) solid; */
 }
 
 .li {

@@ -11,6 +11,7 @@ export default function UsersList({
   excuteFunction,
   updateUsersList,
   currentGroup,
+  // addToGroupFunction,
 }) {
   const [originalData, setOriginalData] = useState([]);
   const [data, setData] = useState([]);
@@ -93,21 +94,35 @@ export default function UsersList({
     updateUsersList(resultsList);
   };
 
+  const handleSubmit = () => {
+    let clone = [...selectedUsers].map((user) => {
+      return user.id;
+    });
+    excuteFunction(clone);
+  };
+
   useEffect(() => {
     if (currentTitle.current && currentTitle.current != currentGroup) {
       setSelectedUsers([]);
     }
     currentTitle.current = currentGroup;
+
     if (isAdding) {
       setSelectingClass("liGreen");
     } else {
       setSelectingClass("liRed");
     }
+
     if (originalData.length < 1) {
       setOriginalData(list);
     }
+
     setData(list);
     setCount(selectedUsers.length);
+
+    if (list.length == 0) {
+      setSelectedUsers([]);
+    }
   }, [data, list]);
 
   return (
@@ -123,7 +138,8 @@ export default function UsersList({
         {data.length > 0 ? (
           <button
             onClick={() => {
-              excuteFunction(JSON.stringify(selectedUsers));
+              // excuteFunction(JSON.stringify(selectedUsers));
+              handleSubmit();
             }}
             className={`${classes.button} ${
               isAdding ? classes.buttonAdd : classes.buttonRemove

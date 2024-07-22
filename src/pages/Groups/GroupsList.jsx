@@ -13,15 +13,19 @@ export default function GroupsList({
   selectGroup,
   showAllUsers,
   updateGroupTitle,
+  groupsList,
 }) {
   const [originalData, setOriginalData] = useState([]);
   const [data, setData] = useState([]);
+  const [groups, setGroups] = useState(groupsList || []);
   const currentLanguage = useContext(LanguageContext);
 
   const gatherData = async () => {
-    const fetchedData = await fetchFunction();
-    setOriginalData(fetchedData);
-    setData(fetchedData);
+    // const fetchedData = await fetchFunction();
+    // setOriginalData(fetchedData);
+    // setData(fetchedData);
+    setOriginalData(groupsList);
+    setData(groupsList);
   };
 
   const filterList = (text) => {
@@ -37,6 +41,35 @@ export default function GroupsList({
     });
     setData(list);
   };
+
+  // const optionsArray = [
+  //   {
+  //     labelEn: "Add Users",
+  //     labelAr: "إضافة مستخدمين",
+  //     onClickFunction: (group) => {
+  //       showAllUsers(group);
+  //       updateGroupTitle(` (${group.name}) `);
+  //     },
+  //     backgroundColor: "#008000",
+  //     color: "#fff",
+  //   },
+  //   {
+  //     labelEn: "Edit",
+  //     labelAr: "تعديل",
+  //     onClickFunction: () => {
+  //       showModifyWindow();
+  //     },
+  //     backgroundColor: "#2F5597",
+  //     color: "#fff",
+  //   },
+  //   {
+  //     labelEn: "Delete",
+  //     labelAr: "حذف",
+  //     onClickFunction: showDeleteModal,
+  //     backgroundColor: "#C00000",
+  //     color: "#fff",
+  //   },
+  // ];
 
   const optionsArray = useMemo(() => {
     return [
@@ -70,14 +103,16 @@ export default function GroupsList({
   }, [showAllUsers]);
 
   useEffect(() => {
+    // showAllUsers();
     if (originalData.length < 1) {
       gatherData();
     }
-  }, [data, showAllUsers]);
+  }, [originalData, data, showAllUsers]);
 
   useEffect(() => {
-    gatherData();
-  }, [fetchFunction]);
+    setData(groupsList);
+    // gatherData();
+  }, [groupsList]);
 
   return (
     <div className={`${classes.groupListContainer} scroll`}>

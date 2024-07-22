@@ -11,7 +11,6 @@ const OptionsDots = ({ dataArray, parentObject, selectGroupFunction }, ref) => {
   const dropDownContainer = useRef();
 
   const [listActive, setListActive] = useState(false);
-  const [data, setData] = useState(dataArray || []);
 
   const handleClickOutside = (event) => {
     if (
@@ -23,6 +22,7 @@ const OptionsDots = ({ dataArray, parentObject, selectGroupFunction }, ref) => {
   };
 
   useEffect(() => {
+    // dataArray[0].onClickFunction({ name: "TEST" });s
     document.addEventListener("click", handleClickOutside);
     return () => document.removeEventListener("click", handleClickOutside);
   }, [dataArray]);
@@ -49,7 +49,7 @@ const OptionsDots = ({ dataArray, parentObject, selectGroupFunction }, ref) => {
             : classes.list
         } scroll`}
       >
-        {data.map((opt, index) => {
+        {dataArray.map((opt, index) => {
           return (
             <span
               style={{ backgroundColor: opt.backgroundColor, color: opt.color }}
