@@ -30,17 +30,101 @@ export default function DataTable({
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [pages, setPages] = useState({
+    currentPage: 1,
+    hasNextPage: false,
+    hasPreviousPage: false,
+    pageSize: 10,
+    totalCount: 10,
+    totalPages: 1,
+  });
 
-  const retriveData = async () => {
-    const res = await fetchFunction(pageNumber, pageSize);
-    if (res.data.constructor === Array) {
+  const handlePageChange = (responseData) => {
+    setPages({
+      currentPage: responseData.currentPage,
+      hasNextPage: responseData.hasNextPage,
+      hasPreviousPage: responseData.hasPreviousPage,
+      pageSize: responseData.pageSize,
+      totalCount: responseData.totalCount,
+      totalPages: responseData.totalPages,
+    });
+  };
+
+  const goToNextPage = async () => {
+    if (!pages.hasNextPage) {
+      return toast.error(language.lastPageError[currentLanguage]);
+    }
+    const res = await fetchFunction(pages.currentPage + 1, pages.pageSize);
+    handlePageChange(res);
+    if (res.constructor === Array) {
+      setData(res);
+      return;
+    } else if (res.data.constructor === Array) {
       setData(res.data);
       return;
     }
-    if (res.data.data.constructor === Array) {
-      setData(res.data.data);
+  };
+
+  const goToPreviousPage = async () => {
+    if (!pages.hasPreviousPage) {
+      return toast.error(language.firstPageError[currentLanguage]);
+    }
+    const res = await fetchFunction(pages.currentPage - 1, pages.pageSize);
+    handlePageChange(res);
+    if (res.constructor === Array) {
+      setData(res);
+      return;
+    } else if (res.data.constructor === Array) {
+      setData(res.data);
+      return;
+    }
+  };
+
+  const goToFirstPage = async () => {
+    if (!pages.hasPreviousPage) {
+      return toast.error(language.firstPageError[currentLanguage]);
+    }
+    const res = await fetchFunction(1, pages.pageSize);
+    handlePageChange(res);
+    if (res.constructor === Array) {
+      setData(res);
+      return;
+    } else if (res.data.constructor === Array) {
+      setData(res.data);
+      return;
+    }
+  };
+
+  const goToLastPage = async () => {
+    if (!pages.hasNextPage) {
+      return toast.error(language.lastPageError[currentLanguage]);
+    }
+    const res = await fetchFunction(pages.totalPages, pages.pageSize);
+    handlePageChange(res);
+    if (res.constructor === Array) {
+      setData(res);
+      return;
+    } else if (res.data.constructor === Array) {
+      setData(res.data);
+      return;
+    }
+  };
+
+  const handlePageCountChange = (event) => {
+    // setPageCount(parseInt(event.target.value));
+    setPages({ ...pages, pageSize: parseInt(event.target.value) });
+    // console.log(pages);
+    // retriveData();
+  };
+
+  const retriveData = async () => {
+    const res = await fetchFunction(pages.currentPage, pages.pageSize);
+    handlePageChange(res);
+    if (res.constructor === Array) {
+      setData(res);
+      return;
+    } else if (res.data.constructor === Array) {
+      setData(res.data);
       return;
     }
   };
@@ -62,8 +146,12 @@ export default function DataTable({
   };
 
   useEffect(() => {
+    console.log("EFFECT");
+    // if (data.length < 1) {
+    //   retriveData();
+    // }
     retriveData();
-  }, [currentLanguage]);
+  }, [currentLanguage, pages.pageSize]);
   return (
     <div className={`${classes.gridContainer}`}>
       {loading ? <Loading /> : null}
@@ -129,7 +217,10 @@ export default function DataTable({
                     }}
                   >
                     <span key={"963"} className={`${classes.numbers}`}>
-                      {index + 1}
+                      {pages.currentPage * pages.pageSize -
+                        pages.pageSize +
+                        (index + 1)}
+                      {/* {index + 1} */}
                     </span>
                     {Object.keys(columnsObject).map((column, index) => {
                       if (columnsObject[column].skip) {
@@ -202,7 +293,56 @@ export default function DataTable({
             : null}
         </ul>
       </div>
-      <div className={`${classes.pages}`}>Pages</div>
+      <div className={`${classes.pages}`}>
+        <div className={`${classes.pagesCount} flexCenterRow`}>
+          <span>{language.resultsPerPage[currentLanguage]}</span>
+          <select value={pages.pageSize} onChange={handlePageCountChange}>
+            <option value={10}>10</option>
+            <option value={20}>20</option>
+            <option value={50}>50</option>
+            <option value={100}>100</option>
+          </select>
+        </div>
+        <div
+          className={
+            currentLanguage == "ar"
+              ? `${classes.pagesContainer} ${classes.pagesContainerAr}`
+              : `${classes.pagesContainer} ${classes.pagesContainerEn}`
+          }
+        >
+          <img
+            className={`${classes.arrowImage} ${classes.endArrow}`}
+            src="/endArrow.svg"
+            alt="arrow"
+            onClick={goToLastPage}
+          />
+          <img
+            className={`${classes.arrowImage} ${classes.sideArrowFirst}`}
+            src="/sideArrow.svg"
+            alt="arrow"
+            onClick={goToNextPage}
+          />
+          <p
+            className={`${classes.pagesNumbers}`}
+          >{`${language.page[currentLanguage]} ${pages.currentPage} ${language.of[currentLanguage]} ${pages.totalPages}`}</p>
+          <img
+            className={`${classes.arrowImage} ${classes.sideArrowSecond}`}
+            src="/sideArrow.svg"
+            alt="arrow"
+            onClick={goToPreviousPage}
+          />
+          <img
+            className={`${classes.arrowImage} ${classes.endArrow}`}
+            src="/endArrow.svg"
+            alt="arrow"
+            onClick={goToFirstPage}
+          />
+        </div>
+        <div className={`${classes.totalResultsDiv} flexCenterRow`}>
+          <span>{language.totalResults[currentLanguage]}</span>
+          <span>{pages.totalCount}</span>
+        </div>
+      </div>
     </div>
   );
 }

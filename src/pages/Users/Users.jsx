@@ -18,8 +18,13 @@ export default function Users() {
         `ApplicationUser/Api/V1/User/Paginated?PageNumber=${pageNumber}&PageSize=${pageSize}`,
         "GET"
       );
+      const formattedArray = response.data.data.map((x) => {
+        return { ...x, roleName: x.roleName.join(" - ") };
+      });
+
+      let newResponse = { ...response.data, data: formattedArray };
       setLoading(false);
-      return response.data;
+      return newResponse;
     } catch (err) {
       setLoading(false);
       handleErrors(err);

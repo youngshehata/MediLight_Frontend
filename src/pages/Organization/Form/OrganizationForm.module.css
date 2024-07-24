@@ -1,6 +1,8 @@
 .container {
   position: relative;
-  width: 100%;
+  margin-top: 2vmax;
+  width: 95%;
+  align-self: flex-start;
   min-height: 50%;
   border-radius: 0.5vmax;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,

@@ -19,7 +19,7 @@ export default function Organization() {
         "GET"
       );
       setLoading(false);
-      return response.data;
+      return response.data.data;
     } catch (err) {
       setLoading(false);
       handleErrors(err);
@@ -171,6 +171,7 @@ export default function Organization() {
           addRole={"client-organization-add"}
           editRole={"client-organization-edit"}
           deleteRole={"client-organization-delete"}
+          viewUrl={"/medilight/client/organization/view"}
         />
       </div>
     </>

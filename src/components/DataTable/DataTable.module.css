@@ -5,7 +5,7 @@
   position: relative;
   height: 95%;
   width: 95%;
-  place-items: center;
+  /* place-items: center; */
 }
 
 .search {
@@ -15,10 +15,13 @@
   /* visibility: hidden; */
 }
 .pages {
+  justify-self: center;
   height: 100%;
-  width: 100%;
-  background-color: rgb(0, 89, 255);
-  visibility: hidden;
+  width: 90%;
+  visibility: visible;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .tableContainer {
@@ -58,7 +61,8 @@
   font-weight: 600;
   opacity: 0.8;
   transition: all 0.2s ease-in-out;
-  height: 3vmax;
+  min-height: 3vmax;
+  overflow: visible;
 }
 .table li:hover {
   opacity: 1;
@@ -70,16 +74,16 @@
 .table li:nth-child(even) {
   background-color: rgb(255, 255, 255);
 }
-.table li {
+/* .table li {
   overflow: scroll;
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; 
+  scrollbar-width: none; 
   transition: all 0.2s ease-in-out;
   scroll-behavior: smooth;
 }
 .table li ::-webkit-scrollbar {
-  display: none; /* Safari and Chrome */
-}
+  display: none; 
+} */
 .titles {
   position: sticky !important;
   background-color: #002b47 !important;
@@ -89,7 +93,7 @@
   opacity: 1 !important;
   border-radius: 0.7vmax !important;
   top: 0px;
-  z-index: 101;
+  z-index: 1;
 }
 
 .table li span {
@@ -154,4 +158,101 @@
   width: 1vmax;
   margin: 0 0.3vmax;
   transition: transform 0.2s ease-in-out;
+}
+
+.pagesContainer {
+  position: relative;
+  min-width: 30%;
+  height: 90%;
+  /* background-color: gold; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagesContainerEn .endArrow:first-of-type {
+  transform: rotate(180deg);
+}
+
+.pagesContainerEn .endArrow:last-of-type {
+  transform: rotate(0deg);
+}
+
+.pagesContainerEn .sideArrowFirst {
+  transform: rotate(-90deg);
+}
+
+.pagesContainerEn .sideArrowSecond {
+  transform: rotate(90deg);
+}
+
+/* AR */
+
+.pagesContainerAr .endArrow:first-of-type {
+  transform: rotate(0);
+}
+
+.pagesContainerAr .endArrow:last-of-type {
+  transform: rotate(180deg);
+}
+
+.pagesContainerAr .sideArrowFirst {
+  transform: rotate(90deg);
+}
+
+.pagesContainerAr .sideArrowSecond {
+  transform: rotate(-90deg);
+}
+
+.arrowImage {
+  height: 1vmax;
+  cursor: pointer;
+  margin: 0 0.25vmax;
+  transition: filter 0.2s ease-in-out;
+}
+
+.arrowImage:hover {
+  filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(2deg) brightness(0%)
+    contrast(107%);
+}
+
+.pagesNumbers {
+  padding: 0 1vmax;
+  margin: 0;
+  font-size: 0.8vmax;
+  font-weight: 600;
+  color: #002b47;
+}
+
+.totalResultsDiv {
+  font-weight: 600;
+  font-size: 0.9vmax;
+}
+.totalResultsDiv span {
+  margin: 0 0.25vmax;
+}
+
+.pagesCount {
+  font-weight: 600;
+  font-size: 0.9vmax;
+}
+.pagesCount select {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0.5vmax;
+  font-size: 0.8vmax;
+  font-weight: 600;
+  border: 0.15vmax #002b47 solid;
+  border-radius: 0.2vmax;
+  background-color: #002b47;
+  color: #fff;
+  padding: 0 0.3vmax;
+  text-align: center;
+  position: relative;
+}
+.pagesCount select option {
+  width: 100%;
+  text-align: center;
+  margin: 0;
 }

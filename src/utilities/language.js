@@ -291,4 +291,28 @@ export const language = {
     en: "Remove",
     ar: "إزالة",
   },
+  page: {
+    en: "Page",
+    ar: "صفحة",
+  },
+  of: {
+    en: "of",
+    ar: "من",
+  },
+  firstPageError: {
+    en: "You already viewing the first page",
+    ar: "انت بالفعل على الصفحة الأولى",
+  },
+  lastPageError: {
+    en: "You already viewing the last page",
+    ar: "انت بالفعل على الصفحة الأخيرة",
+  },
+  resultsPerPage: {
+    en: "Results per page:",
+    ar: "عدد النتائج بالصفحة:",
+  },
+  totalResults: {
+    en: "Total Results:",
+    ar: "إجمالى عدد النتائج:",
+  },
 };

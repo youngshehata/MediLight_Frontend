@@ -42,7 +42,7 @@ export default function UsersForm() {
           `${
             groupsList.find((r) => {
               return r.value == value;
-            }).labelEn
+            }).value
           }`,
         ],
       });
@@ -56,11 +56,11 @@ export default function UsersForm() {
       setLoading(true);
       // Groups
       if (groupsList.length < 1) {
-        const fetchedCurrs = await fetchFromApi(
+        const fetchedRoles = await fetchFromApi(
           "V1/AuthorizationRouting/Roles/Role-List",
           "GET"
         );
-        const formattedList = [...fetchedCurrs.data.data].map((opt) => {
+        const formattedList = [...fetchedRoles.data.data].map((opt) => {
           return {
             value: opt.id,
             labelAr: opt.name,
@@ -73,7 +73,7 @@ export default function UsersForm() {
           setFormData({
             ...formData,
             userType: formattedList[0]?.value,
-            roles: [`${formattedList[0]?.labelEn}`],
+            roles: [`${formattedList[0]?.value}`],
           });
         }
         ///============================================
@@ -88,19 +88,37 @@ export default function UsersForm() {
   };
 
   const handleSubmit = (e) => {
-    console.log(formData);
-    e.preventDefault();
-    setLoading(true);
-    fetchFromApi("ApplicationUser/Api/V1/User/Create", "POST", formData)
-      .then(() => {
-        setLoading(false);
-        toast.success(language.addedSuccessfully[currentLanguage]);
-        navigate("/medilight/admin/users");
+    if (editMode) {
+      e.preventDefault();
+      setLoading(true);
+      fetchFromApi("ApplicationUser/Api/V1/User/Edit", "PUT", {
+        userName: formData.userName,
+        roles: formData.roles,
+        id: params.id,
       })
-      .catch((err) => {
-        setLoading(false);
-        handleErrors(err);
-      });
+        .then(() => {
+          setLoading(false);
+          toast.success(language.addedSuccessfully[currentLanguage]);
+          navigate("/medilight/admin/users");
+        })
+        .catch((err) => {
+          setLoading(false);
+          handleErrors(err);
+        });
+    } else {
+      e.preventDefault();
+      setLoading(true);
+      fetchFromApi("ApplicationUser/Api/V1/User/Create", "POST", formData)
+        .then(() => {
+          setLoading(false);
+          toast.success(language.addedSuccessfully[currentLanguage]);
+          navigate("/medilight/admin/users");
+        })
+        .catch((err) => {
+          setLoading(false);
+          handleErrors(err);
+        });
+    }
   };
 
   const checkMode = () => {
@@ -120,13 +138,12 @@ export default function UsersForm() {
     setLoading(true);
     fetchFromApi(`ApplicationUser/Api/V1/User/${id}`, "GET")
       .then((response) => {
-        console.log(response);
         setLoading(false);
         setFormData({
           ...formData,
           userName: response.data.data.userName,
           userType: response.data.data.userType,
-          roles: response.roles,
+          roles: response.data.data.roleName,
         });
       })
       .catch((err) => {
@@ -164,42 +181,49 @@ export default function UsersForm() {
             onChangeFunction={handleChange}
           />
           {/* ************** Password ************* */}
-          <LabelInput
-            // ref={passwordRef}
-            isDisabled={viewMode}
-            containerCSS={`${classes.wrapper}`}
-            inputName={"password"}
-            labelLanguageObject={{ en: "Password", ar: "كلمة المرور" }}
-            onChangeFunction={handleChange}
-            inputType={"password"}
-          />
+          {editMode ? null : (
+            <LabelInput
+              // ref={passwordRef}
+              isDisabled={viewMode}
+              containerCSS={`${classes.wrapper}`}
+              inputName={"password"}
+              labelLanguageObject={{ en: "Password", ar: "كلمة المرور" }}
+              onChangeFunction={handleChange}
+              inputType={"password"}
+            />
+          )}
           {/* ************** Password Confirmation ************* */}
-          <LabelInput
-            // ref={passwordConfirmRef}
-            isDisabled={viewMode}
-            containerCSS={`${classes.wrapper}`}
-            inputName={"confirmPassword"}
-            labelLanguageObject={{
-              en: "Password Confirmation",
-              ar: "تأكيد كلمة المرور",
-            }}
-            onChangeFunction={handleChange}
-            inputType={"password"}
-          />
+          {editMode ? null : (
+            <LabelInput
+              // ref={passwordConfirmRef}
+              isDisabled={viewMode}
+              containerCSS={`${classes.wrapper}`}
+              inputName={"confirmPassword"}
+              labelLanguageObject={{
+                en: "Password Confirmation",
+                ar: "تأكيد كلمة المرور",
+              }}
+              onChangeFunction={handleChange}
+              inputType={"password"}
+            />
+          )}
           {/* ************** Group ************* */}
-          <LabelSelect
-            selectDefaultValue={formData.userType}
-            isDisabled={viewMode}
-            ref={groupRef}
-            containerCSS={`${classes.wrapper}`}
-            selectName={"userType"}
-            onChangeFunction={handleChange}
-            options={groupsList}
-            labelLanguageObject={{
-              en: "Group",
-              ar: "المجموعة",
-            }}
-          />
+          {editMode ? null : (
+            <LabelSelect
+              selectDefaultValue={formData.userType}
+              isDisabled={viewMode}
+              ref={groupRef}
+              containerCSS={`${classes.wrapper}`}
+              selectName={"userType"}
+              onChangeFunction={handleChange}
+              options={groupsList}
+              labelLanguageObject={{
+                en: "Group",
+                ar: "المجموعة",
+              }}
+            />
+          )}
+
           <button
             onClick={handleSubmit}
             className={
