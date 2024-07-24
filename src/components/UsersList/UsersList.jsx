@@ -3,6 +3,7 @@ import classes from "./UsersList.module.css";
 import SearchInput from "../SearchInput/SearchInput";
 import { language } from "../../utilities/language";
 import { LanguageContext } from "../../App";
+import toast from "react-hot-toast";
 
 export default function UsersList({
   titleText,
@@ -65,23 +66,26 @@ export default function UsersList({
 
   const filterList = (text) => {
     if (text == "") {
-      // check for every element in selected list
+      // let newDataArray = [...originalData].map((r) => {
       let newDataArray = [...originalData].map((r) => {
         const foundInSelected = selectedUsers.find((x) => {
           return x.id == r.id;
         });
         if (foundInSelected) {
+          console.log(r);
           return { ...r, selected: true };
         } else {
           return r;
         }
       });
 
-      // setData(newDataArray);
+      setOriginalData(newDataArray);
       updateUsersList(newDataArray);
       return;
     }
+
     let resultsList = [];
+
     originalData.forEach((record) => {
       if (record?.name?.toLowerCase().includes(text.toLowerCase())) {
         let isSelected = data.find((r) => {
@@ -91,7 +95,11 @@ export default function UsersList({
       }
     });
     // setData(resultsList);
-    updateUsersList(resultsList);
+    if (resultsList.length > 0) {
+      updateUsersList(resultsList);
+    } else {
+      toast.error(language.noMatching[currentLanguage]);
+    }
   };
 
   const handleSubmit = () => {
@@ -102,6 +110,7 @@ export default function UsersList({
   };
 
   useEffect(() => {
+    console.log(list);
     if (currentTitle.current && currentTitle.current != currentGroup) {
       setSelectedUsers([]);
     }

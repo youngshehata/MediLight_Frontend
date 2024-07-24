@@ -315,4 +315,8 @@ export const language = {
     en: "Total Results:",
     ar: "إجمالى عدد النتائج:",
   },
+  noMatching: {
+    en: "There are no matching results",
+    ar: "لا توجد أى نتائج مطابقة",
+  },
 };
