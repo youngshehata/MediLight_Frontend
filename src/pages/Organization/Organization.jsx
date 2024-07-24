@@ -1,15 +1,19 @@
 import { setPageTitle } from "../../utilities/titles";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import classes from "./Organization.module.css";
 import { fetchFromApi } from "../../api/fetcher";
 import Loading from "../../components/Loading/Loading";
 import DataTable from "../../components/DataTable/DataTable";
 import { handleErrors } from "../../utilities/errors";
 import { language } from "../../utilities/language";
+import toast from "react-hot-toast";
+import { LanguageContext } from "../../App";
 
 export default function Organization() {
   setPageTitle("Create New Organization", "إنشاء منظمة جديدة");
   const [loading, setLoading] = useState(false);
+
+  const currentLanguage = useContext(LanguageContext);
 
   const fetchOrgnizations = async (pageNumber, pageSize) => {
     try {
@@ -25,6 +29,39 @@ export default function Organization() {
       handleErrors(err);
     }
   };
+
+  const deleteOrganization = async (id) => {
+    try {
+      setLoading(true);
+      const response = await fetchFromApi(
+        `V1/Organization/OrganizationDelete/${id}`,
+        "POST"
+      );
+      if (response.status < 300) {
+        toast.success(language.deletedSuccessfully[currentLanguage]);
+        return true;
+      }
+    } catch (err) {
+      setLoading(false);
+      handleErrors(err);
+      return false;
+    }
+  };
+  // const deleteOrganization = async (id) => {
+  //   setLoading(true);
+  //   fetchFromApi(`V1/Organization/OrganizationDelete/${id}`, "POST")
+  //     .then(async () => {
+  //       setLoading(false);
+  //       toast.success(language.deletedSuccessfully[currentLanguage]);
+  //       return true;
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //       setLoading(false);
+  //       handleErrors(err);
+  //       return false;
+  //     });
+  // };
 
   const columnsObject = {
     name: {
@@ -161,7 +198,8 @@ export default function Organization() {
           fetchFunction={fetchOrgnizations}
           columnsObject={columnsObject}
           editUrl={"/medilight/client/organization/edit"}
-          deleteUrl={"V1/Organization/OrganizationDelete"}
+          // deleteUrl={"V1/Organization/OrganizationDelete"}
+          deleteFunction={deleteOrganization}
           deleteMessageObject={{
             ar: "هل أنت متأكد من حذف هذه المنظمة؟",
             en: "Are you sure you wanna delete this organization?",

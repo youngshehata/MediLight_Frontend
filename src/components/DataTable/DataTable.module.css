@@ -245,7 +245,7 @@
   font-weight: 600;
   border: 0.15vmax #002b47 solid;
   border-radius: 0.2vmax;
-  background-color: #002b47;
+  background-color: rgba(0, 43, 71, 1);
   color: #fff;
   padding: 0 0.3vmax;
   text-align: center;

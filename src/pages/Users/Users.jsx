@@ -1,15 +1,18 @@
 import { setPageTitle } from "../../utilities/titles";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import classes from "./Users.module.css";
 import { fetchFromApi } from "../../api/fetcher";
 import Loading from "../../components/Loading/Loading";
 import DataTable from "../../components/DataTable/DataTable";
 import { handleErrors } from "../../utilities/errors";
 import { language } from "../../utilities/language";
+import toast from "react-hot-toast";
+import { LanguageContext } from "../../App";
 
 export default function Users() {
   setPageTitle("Create New User", "إنشاء مستخدم جديد");
   const [loading, setLoading] = useState(false);
+  const currentLanguage = useContext(LanguageContext);
 
   const fetchOrgnizations = async (pageNumber, pageSize) => {
     try {
@@ -31,18 +34,36 @@ export default function Users() {
     }
   };
 
+  const deleteUser = async (id) => {
+    try {
+      setLoading(true);
+      const response = await fetchFromApi(
+        `ApplicationUser/Api/V1/User/${id}`,
+        "DELETE"
+      );
+      if (response.status < 300) {
+        toast.success(language.deletedSuccessfully[currentLanguage]);
+        return true;
+      }
+    } catch (err) {
+      setLoading(false);
+      handleErrors(err);
+      return false;
+    }
+  };
+
   const columnsObject = {
     userName: {
       en: "Username",
       ar: "إسم المستخدم",
       skip: false,
-      widthPercentage: "40",
+      widthPercentage: "30",
     },
     roleName: {
       en: "Group",
       ar: "المجموعة",
       skip: false,
-      widthPercentage: "40",
+      widthPercentage: "50",
     },
     edit: {
       en: "Edit",
@@ -67,7 +88,8 @@ export default function Users() {
           columnsObject={columnsObject}
           editUrl={"/medilight/admin/users/edit"}
           viewUrl={"/medilight/admin/users"}
-          deleteUrl={"ApplicationUser/Api/V1/User"}
+          // deleteUrl={"ApplicationUser/Api/V1/User"}
+          deleteFunction={deleteUser}
           deleteMessageObject={{
             ar: "هل أنت متأكد من حذف هذا المستخدم؟",
             en: "Are you sure you wanna delete this user?",

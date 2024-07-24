@@ -23,6 +23,7 @@ export default function DataTable({
   addNewUrl,
   addRole,
   viewUrl,
+  deleteFunction,
 }) {
   const navigate = useNavigate();
   const currentLanguage = useContext(LanguageContext);
@@ -129,21 +130,31 @@ export default function DataTable({
     }
   };
 
-  const deleteOrganization = () => {
-    setLoading(true);
+  const deleteOrganization = async () => {
     let id = showModal;
-    fetchFromApi(`${deleteUrl}/${id}`, "POST")
-      .then(async () => {
+    try {
+      const response = await deleteFunction(id);
+      if (response) {
         setShowModal(false);
-        setLoading(false);
         await retriveData();
-        toast.success(language.deletedSuccessfully[currentLanguage]);
-      })
-      .catch((err) => {
-        setLoading(false);
-        handleErrors(err);
-      });
+      }
+    } catch (error) {}
   };
+  // const deleteOrganization = () => {
+  //   setLoading(true);
+  //   let id = showModal;
+  //   fetchFromApi(`${deleteUrl}/${id}`, "POST")
+  //     .then(async () => {
+  //       setShowModal(false);
+  //       setLoading(false);
+  //       await retriveData();
+  //       toast.success(language.deletedSuccessfully[currentLanguage]);
+  //     })
+  //     .catch((err) => {
+  //       setLoading(false);
+  //       handleErrors(err);
+  //     });
+  // };
 
   useEffect(() => {
     console.log("EFFECT");
