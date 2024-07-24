@@ -319,4 +319,8 @@ export const language = {
     en: "There are no matching results",
     ar: "لا توجد أى نتائج مطابقة",
   },
+  details: {
+    en: "Details",
+    ar: "تفاصيل",
+  },
 };

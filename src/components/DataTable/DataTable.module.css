@@ -256,3 +256,34 @@
   text-align: center;
   margin: 0;
 }
+.viewDiv {
+  position: relative;
+  font-size: 0vmax;
+  text-align: center;
+  cursor: pointer;
+}
+
+.viewDiv span {
+  position: absolute;
+  width: 100%;
+  transition: font-size 0.2s ease-in-out;
+  top: 90%;
+}
+.viewDiv:hover span {
+  font-size: 0.6vmax;
+}
+
+.viewRecordEye {
+  height: 1.5vmax;
+  padding: 0;
+}
+
+.viewRecordEyeEn {
+  margin-left: 1.5vmax;
+  margin-right: 0;
+}
+
+.viewRecordEyeAr {
+  margin-right: 1.5vmax;
+  margin-left: 0;
+}

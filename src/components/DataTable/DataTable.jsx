@@ -16,7 +16,6 @@ export default function DataTable({
   columnsObject,
   editUrl,
   editRole,
-  deleteUrl,
   deleteRole,
   deleteMessageObject,
   addNewLanguageObject,
@@ -140,27 +139,8 @@ export default function DataTable({
       }
     } catch (error) {}
   };
-  // const deleteOrganization = () => {
-  //   setLoading(true);
-  //   let id = showModal;
-  //   fetchFromApi(`${deleteUrl}/${id}`, "POST")
-  //     .then(async () => {
-  //       setShowModal(false);
-  //       setLoading(false);
-  //       await retriveData();
-  //       toast.success(language.deletedSuccessfully[currentLanguage]);
-  //     })
-  //     .catch((err) => {
-  //       setLoading(false);
-  //       handleErrors(err);
-  //     });
-  // };
 
   useEffect(() => {
-    console.log("EFFECT");
-    // if (data.length < 1) {
-    //   retriveData();
-    // }
     retriveData();
   }, [currentLanguage, pages.pageSize]);
   return (
@@ -221,17 +201,33 @@ export default function DataTable({
           {data
             ? data.map((record, index) => {
                 return (
-                  <li
-                    key={index + 1}
-                    onDoubleClick={() => {
-                      navigate(`${viewUrl}/${record.id}`);
-                    }}
-                  >
+                  <li key={index + 1}>
                     <span key={"963"} className={`${classes.numbers}`}>
                       {pages.currentPage * pages.pageSize -
                         pages.pageSize +
                         (index + 1)}
-                      {/* {index + 1} */}
+                      {/* <div className={`${classes.viewDiv} flexCenterColumn`}> */}
+                      <div
+                        onClick={() => {
+                          navigate(`${viewUrl}/${record.id}`);
+                        }}
+                        className={
+                          currentLanguage == "ar"
+                            ? `${classes.viewDiv} ${classes.viewRecordEyeAr}`
+                            : `${classes.viewDiv} ${classes.viewRecordEyeEn}`
+                        }
+                      >
+                        <img
+                          className={
+                            currentLanguage == "ar"
+                              ? `${classes.viewRecordEye}`
+                              : `${classes.viewRecordEye}`
+                          }
+                          src="/details.svg"
+                          alt="show"
+                        />
+                        <span>{language.details[currentLanguage]}</span>
+                      </div>
                     </span>
                     {Object.keys(columnsObject).map((column, index) => {
                       if (columnsObject[column].skip) {
