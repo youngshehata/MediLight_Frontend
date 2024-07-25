@@ -11,7 +11,7 @@ import { handleErrors } from "../../../utilities/errors";
 import LabelInput from "../../../components/LabelInput/LabelInput";
 import LabelSelect from "../../../components/LabelSelect/LabelSelect";
 
-export default function OrganizationForm2() {
+export default function OrganizationForm() {
   //! init
   const currentLanguage = useContext(LanguageContext);
   const params = useParams();
@@ -25,6 +25,7 @@ export default function OrganizationForm2() {
   const [areas, setAreas] = useState([]);
   const [titles, setTitles] = useState([]);
   const [currencies, setCurrencies] = useState([]);
+  const [existingLogoUrl, setExistingLogoUrl] = useState(null);
   const [initListsFetched, setInitListsFetched] = useState(false);
   const [formData, setFormData] = useState({
     organizationCode: "",
@@ -41,7 +42,6 @@ export default function OrganizationForm2() {
     debitProfitCenter: "",
     debitAccountNo: "",
     secUserAccountID: 0,
-    logo: "",
     savedToFMIS: true,
   });
 
@@ -74,11 +74,44 @@ export default function OrganizationForm2() {
       let base64String = reader.result;
       let comaIndex = base64String.indexOf(",");
       base64String = base64String.substring(comaIndex + 1, base64String.length);
-      setDataObject({ ...dataObject, logo: base64String });
+      setFormData({ ...formData, logo: base64String });
     };
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    if (editMode) {
+      setLoading(true);
+      e.preventDefault();
+      formData.governorate = +formData.governorate;
+      formData.area = +formData.area;
+      formData.courtesy = +formData.courtesy;
+      formData.defaultCurrency = +formData.defaultCurrency;
+      setFormData({ ...formData, id: params.id });
+      fetchFromApi("V1/Organization/Organization/Edit", "POST", formData)
+        .then(() => {
+          setLoading(false);
+          toast.success(language.editedSuccessfully[currentLanguage]);
+          navigate("/medilight/client/organization");
+        })
+        .catch((err) => {
+          handleErrors(err);
+          setLoading(false);
+        });
+    } else {
+      setLoading(true);
+      e.preventDefault();
+      fetchFromApi("V1/Organization/Organization/Create", "POST", formData)
+        .then(() => {
+          setLoading(false);
+          toast.success(language.addedSuccessfully[currentLanguage]);
+          navigate("/medilight/client/organization");
+        })
+        .catch((err) => {
+          handleErrors(err);
+          setLoading(false);
+        });
+    }
+  };
 
   //! Fetching Data
   const gatherData = async () => {
@@ -167,11 +200,20 @@ export default function OrganizationForm2() {
           debitProfitCenter: record.debitProfitCenter,
           debitAccountNo: record.debitAccountNo,
           secUserAccountID: record.secUserAccountID,
-          logo: record.logo,
+          // logo: record.logo,
           savedToFMIS: record.savedToFMIS,
           governorate: record.governorate,
           area: record.area,
+          id: params.id,
         });
+        if (record.logo) {
+          setExistingLogoUrl(
+            `${import.meta.env.VITE_API_KEY.replace(
+              "/api/",
+              ""
+            )}/Storage/Logo/${record.logo}`
+          );
+        }
         // filling select element using refs
         governorateRef.current.children[1].value = record.governorate;
         courtesyRef.current.children[1].value = record.courtesy;
@@ -208,16 +250,35 @@ export default function OrganizationForm2() {
 
     // Checking for modes
     const paramsString = params["*"];
-    if (paramsString.includes("view")) {
-      setViewMode(true);
-    } else if (paramsString.includes("edit")) {
+    if (paramsString.includes("edit") || paramsString.includes("view")) {
       setEditMode(true);
       if (!editDataFilled) {
         await fetchAndFillUserData();
       }
-      areaRef.current.children[1].value = formData.area;
+      if (areaRef.current) {
+        areaRef.current.children[1].value = formData.area;
+      }
+
+      // if view mode disable elements
+      if (paramsString.includes("view")) {
+        setViewMode(true);
+      }
       setLoading(false);
     }
+    // // Checking for modes
+    // const paramsString = params["*"];
+    // if (paramsString.includes("view")) {
+    //   setViewMode(true);
+    // } else if (paramsString.includes("edit")) {
+    //   setEditMode(true);
+    //   if (!editDataFilled) {
+    //     await fetchAndFillUserData();
+    //   }
+    //   if (areaRef.current) {
+    //     areaRef.current.children[1].value = formData.area;
+    //   }
+    //   setLoading(false);
+    // }
   };
 
   //! Effect
@@ -427,6 +488,7 @@ export default function OrganizationForm2() {
               {language.isOrganization[currentLanguage]}
             </label>
             <input
+              checked={!formData.individuals}
               spellCheck={false}
               name="individuals"
               onChange={(e) => {
@@ -445,7 +507,11 @@ export default function OrganizationForm2() {
           <div
             className={`${classes.logoContainer} ${classes.div15} flexCenterColumn`}
           >
-            <img ref={logoImgRef} src="/organization.svg" alt="organization" />
+            <img
+              ref={logoImgRef}
+              src={existingLogoUrl ? existingLogoUrl : "/organization.svg"}
+              alt="organization"
+            />
             <span
               onClick={(e) => {
                 e.preventDefault();
@@ -455,6 +521,7 @@ export default function OrganizationForm2() {
               {language.changeLogo[currentLanguage]}
             </span>
             <input
+              disabled={viewMode}
               ref={logoInputRef}
               type="file"
               multiple={false}
