@@ -80,3 +80,21 @@
   border: none;
   outline: none;
 }
+
+.showResetButton {
+  margin-top: 1vmax;
+  width: fit-content;
+  align-self: flex-end;
+  color: #001e31;
+  font-weight: 600;
+  font-size: 0.9vmax;
+  padding: 0.3vmax 1vmax;
+  background-color: transparent;
+  outline: none;
+  border: 0.15vmax #001e31 solid;
+  border-radius: 0.25vmax;
+  transition: background-color 0.2s ease-in-out;
+}
+.showResetButton:hover {
+  background-color: #fff;
+}

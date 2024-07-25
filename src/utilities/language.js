@@ -323,6 +323,14 @@ export const language = {
     en: "Details",
     ar: "تفاصيل",
   },
+  update: {
+    en: "Update",
+    ar: "تحديث",
+  },
+  changePassword: {
+    en: "Change Password",
+    ar: "تعديل كلمة المرور",
+  },
   invalidID: {
     en: "Invalid ID",
     ar: "رقم تعريفى غير صحيح",

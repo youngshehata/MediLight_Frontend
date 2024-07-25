@@ -9,6 +9,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import LabelInput from "../../../components/LabelInput/LabelInput";
 import LabelSelect from "../../../components/LabelSelect/LabelSelect";
 import { useNavigate, useParams } from "react-router-dom";
+import UserResetPassword from "./UserResetPassword";
 
 export default function UsersForm() {
   const currentLanguage = useContext(LanguageContext);
@@ -23,6 +24,7 @@ export default function UsersForm() {
   const [groupsList, setGroupsList] = useState([]);
   const [editMode, setEditMode] = useState(false);
   const [viewMode, setViewMode] = useState(false);
+  const [showResetPassowrd, setShowResetPassowrd] = useState(false);
 
   const usernameRef = useRef();
   // const passwordRef = useRef();
@@ -152,6 +154,23 @@ export default function UsersForm() {
       });
   };
 
+  //! Change password
+  const changeUserPassword = (password, passwordConfirmation) => {
+    fetchFromApi("ApplicationUser/Api/V1/User/Change-Password", "PUT", {
+      id: parseInt(params.id),
+      // currentPassword: string,
+      newPassword: password,
+      confirmPassword: passwordConfirmation,
+    })
+      .then(() => {
+        toast.success(language.editedSuccessfully[currentLanguage]);
+        setShowResetPassowrd(false);
+      })
+      .catch((err) => {
+        handleErrors(err);
+      });
+  };
+
   useEffect(() => {
     checkMode();
     gatherData();
@@ -163,6 +182,14 @@ export default function UsersForm() {
   return (
     <>
       {loading ? <Loading /> : null}
+      {showResetPassowrd ? (
+        <UserResetPassword
+          closeFunction={() => {
+            setShowResetPassowrd(false);
+          }}
+          excuteFunction={changeUserPassword}
+        />
+      ) : null}
       <div className={`${classes.container}`}>
         <form className={`${classes.form}`}>
           <span className={`${classes.title}`}>
@@ -223,6 +250,18 @@ export default function UsersForm() {
               }}
             />
           )}
+
+          {editMode ? (
+            <button
+              className={classes.showResetButton}
+              onClick={(e) => {
+                e.preventDefault();
+                setShowResetPassowrd(true);
+              }}
+            >
+              {language.changePassword[currentLanguage]}
+            </button>
+          ) : null}
 
           <button
             onClick={handleSubmit}
