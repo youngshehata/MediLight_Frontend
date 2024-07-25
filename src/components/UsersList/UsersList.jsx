@@ -72,7 +72,6 @@ export default function UsersList({
           return x.id == r.id;
         });
         if (foundInSelected) {
-          console.log(r);
           return { ...r, selected: true };
         } else {
           return r;
@@ -110,7 +109,6 @@ export default function UsersList({
   };
 
   useEffect(() => {
-    console.log(list);
     if (currentTitle.current && currentTitle.current != currentGroup) {
       setSelectedUsers([]);
     }

@@ -238,3 +238,9 @@
   justify-content: center;
   align-items: center;
 }
+
+.currentNameSpan {
+  font-size: 1vmax;
+  color: rgb(120, 120, 120);
+  padding-top: 0.5vmax;
+}

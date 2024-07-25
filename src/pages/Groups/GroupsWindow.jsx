@@ -3,7 +3,12 @@ import classes from "./Groups.module.css";
 import { LanguageContext } from "../../App";
 import { language } from "../../utilities/language";
 
-export default function GroupsWindow({ isNew, excuteFunction, closeFunction }) {
+export default function GroupsWindow({
+  isNew,
+  excuteFunction,
+  closeFunction,
+  currentGroup,
+}) {
   const currentLanguage = useContext(LanguageContext);
   const [inputValue, setInputValue] = useState("");
   const [activeClass, setActiveClass] = useState("");
@@ -11,7 +16,12 @@ export default function GroupsWindow({ isNew, excuteFunction, closeFunction }) {
   const inputRef = useRef();
 
   useEffect(() => {
-    inputRef.current.select();
+    // sadly i cant fix it without setTimeout
+    let focusTimout = setTimeout(() => {
+      inputRef.current.focus();
+      clearTimeout(focusTimout);
+    }, 250);
+
     const controller = new AbortController();
     setActiveClass(classes.windowContainerActive);
     return () => {
@@ -32,6 +42,9 @@ export default function GroupsWindow({ isNew, excuteFunction, closeFunction }) {
             ? language.addNewGroup[currentLanguage]
             : language.editGroup[currentLanguage]}
         </span>
+        {currentGroup?.name ? (
+          <span className={classes.currentNameSpan}>{currentGroup.name}</span>
+        ) : null}
         <input
           ref={inputRef}
           onKeyDown={(e) => {

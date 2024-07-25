@@ -319,6 +319,7 @@ export default function Groups() {
           closeFunction={() => {
             setShowModifyWindow(false);
           }}
+          currentGroup={selectedGroup}
         />
       ) : null}
       {showModal ? (

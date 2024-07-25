@@ -111,10 +111,7 @@ export default function DataTable({
   };
 
   const handlePageCountChange = (event) => {
-    // setPageCount(parseInt(event.target.value));
     setPages({ ...pages, pageSize: parseInt(event.target.value) });
-    // console.log(pages);
-    // retriveData();
   };
 
   const retriveData = async () => {

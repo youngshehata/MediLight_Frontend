@@ -122,7 +122,6 @@ export default function OrganizationForm22() {
 
   const handleSubmit = (e) => {
     if (editMode) {
-      console.log(dataObject);
       setLoading(true);
       e.preventDefault();
       dataObject.governorate = +governorateRef.current.value;
@@ -140,7 +139,6 @@ export default function OrganizationForm22() {
           setLoading(false);
         });
     } else {
-      console.log(dataObject);
       setLoading(true);
       e.preventDefault();
       dataObject.governorate = +governorateRef.current.value;

@@ -12,7 +12,8 @@
   opacity: 0;
   width: 0%;
   height: 100%;
-  background-color: rgba(240, 240, 240, 0.8);
+  /* background-color: rgba(240, 240, 240, 0.8); */
+  background-color: rgba(240, 240, 240, 0.95);
   transition: all 0.2s ease-in-out;
   visibility: hidden;
 }
@@ -24,7 +25,8 @@
   opacity: 1;
   width: 15vmax;
   height: 100%;
-  background-color: rgba(240, 240, 240, 0.8);
+  /* background-color: rgba(240, 240, 240, 0.8); */
+  background-color: rgba(240, 240, 240, 0.95);
   position: absolute;
   left: 4vmax;
   z-index: 998;
