@@ -12,11 +12,15 @@ import LabelInput from "../../../components/LabelInput/LabelInput";
 import LabelSelect from "../../../components/LabelSelect/LabelSelect";
 
 export default function OrganizationForm2() {
-  //init
+  //! init
   const currentLanguage = useContext(LanguageContext);
-  // states
+  const params = useParams();
+  const navigate = useNavigate();
+  //! states
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+  const [editDataFilled, setEditDataFilled] = useState(false);
   const [governorates, setGovernorates] = useState([]);
   const [areas, setAreas] = useState([]);
   const [titles, setTitles] = useState([]);
@@ -41,16 +45,24 @@ export default function OrganizationForm2() {
     savedToFMIS: true,
   });
 
-  // Refs
+  //! Refs
   const containerRef = useRef();
   const logoImgRef = useRef();
   const logoInputRef = useRef();
+  const courtesyRef = useRef();
+  const governorateRef = useRef();
+  const areaRef = useRef();
+  const currencyRef = useRef();
+  const indevidualRef = useRef();
 
-  // Handlers
-  const handleChange = (event) => {
+  //! Handlers
+  const handleChange = async (event) => {
     const { name, value } = event.target;
+    // checking for governorate so areas would be updated
+    if (name == "governorate") {
+      await fetchAreas(value);
+    }
     setFormData({ ...formData, [name]: value });
-    console.log(formData);
   };
 
   const handleBase64Convert = (file) => {
@@ -68,7 +80,7 @@ export default function OrganizationForm2() {
 
   const handleSubmit = () => {};
 
-  // Fetching Data
+  //! Fetching Data
   const gatherData = async () => {
     try {
       setLoading(true);
@@ -117,58 +129,101 @@ export default function OrganizationForm2() {
             labelEn: x.englishName,
           };
         });
+        await fetchAreas(1);
         setGovernorates(formatted);
       }
-
-      // Areas
-      const fetchedAreas = await fetchFromApi(
-        `V1/CodesRouting/AreaList/${formData.governorate || 1}`,
-        "GET"
-      );
-      const formatted = fetchedAreas.data.data.map((x) => {
-        return {
-          value: x.id,
-          labelAr: x.arabicName,
-          labelEn: x.englishName,
-        };
-      });
-      setAreas(formatted);
 
       setInitListsFetched(true);
       setLoading(false);
     } catch (error) {
-      console.log(error);
       toast(language.internalError[currentLanguage]);
     }
   };
 
-  // Effect
-  useEffect(() => {
-    if (!initListsFetched) {
-      gatherData();
+  const fetchAndFillUserData = async () => {
+    if (!params.id) {
+      return toast.error(language.internalError[currentLanguage]);
     }
-    if (governorates.length > 0) {
-      // Areas
-      const fetchedAreas = fetchFromApi(
-        `V1/CodesRouting/AreaList/${formData.governorate || 1}`,
-        "GET"
-      )
-        .then((response) => {
-          const formatted = response.data.data.map((x) => {
-            return {
-              value: x.id,
-              labelAr: x.arabicName,
-              labelEn: x.englishName,
-            };
-          });
-          setAreas(formatted);
-        })
-        .catch((err) => {
-          handleErrors(err);
+    fetchFromApi(
+      `V1/Organization/Organization/SearchOrg?id=${params.id}`,
+      "GET"
+    )
+      .then(async (response) => {
+        if (response?.data?.data?.data?.length < 1) {
+          toast.error(language.invalidID[currentLanguage]);
+          return navigate("/medilight/client/organization");
+        }
+        const record = response?.data?.data?.data[0];
+        setFormData({
+          organizationCode: record.organizationCode,
+          name: record.name,
+          address: record.address,
+          enName: record.enName,
+          courtesy: record.courtesy,
+          keyperson: record.keyperson,
+          job: record.job,
+          individuals: record.individuals,
+          defaultCurrency: record.defaultCurrency,
+          debitProfitCenter: record.debitProfitCenter,
+          debitAccountNo: record.debitAccountNo,
+          secUserAccountID: record.secUserAccountID,
+          logo: record.logo,
+          savedToFMIS: record.savedToFMIS,
+          governorate: record.governorate,
+          area: record.area,
         });
+        // filling select element using refs
+        governorateRef.current.children[1].value = record.governorate;
+        courtesyRef.current.children[1].value = record.courtesy;
+        currencyRef.current.children[1].value = record.defaultCurrency;
+        await fetchAreas(record.governorate);
+        setEditDataFilled(true);
+      })
+      .catch((err) => {
+        handleErrors(err);
+      });
+  };
+
+  const fetchAreas = async (govId) => {
+    // Areas
+    const fetchedAreas = await fetchFromApi(
+      `V1/CodesRouting/AreaList/${govId}`,
+      "GET"
+    );
+    const formatted = fetchedAreas.data.data.map((x) => {
+      return {
+        value: x.id,
+        labelAr: x.arabicName,
+        labelEn: x.englishName,
+      };
+    });
+    setAreas(formatted);
+  };
+
+  //! Init Function
+  const initFunction = async () => {
+    if (!initListsFetched) {
+      await gatherData();
     }
-    setLoading(false);
-  }, [formData.governorate]);
+
+    // Checking for modes
+    const paramsString = params["*"];
+    if (paramsString.includes("view")) {
+      setViewMode(true);
+    } else if (paramsString.includes("edit")) {
+      setEditMode(true);
+      if (!editDataFilled) {
+        await fetchAndFillUserData();
+      }
+      areaRef.current.children[1].value = formData.area;
+      setLoading(false);
+    }
+  };
+
+  //! Effect
+  useEffect(() => {
+    initFunction();
+  }, [editDataFilled, initListsFetched]);
 
   return (
     <>
@@ -218,35 +273,38 @@ export default function OrganizationForm2() {
           />
 
           {/* ************** Governorate ************* */}
-          <LabelSelect
-            selectDefaultValue={formData.governorate}
-            isDisabled={viewMode}
-            // ref={groupRef}
-            containerCSS={`${classes.div4}`}
-            selectName={"governorate"}
-            onChangeFunction={handleChange}
-            options={governorates}
-            labelLanguageObject={{
-              en: "Governorate",
-              ar: "المحافظة",
-            }}
-          />
+          {governorates.length > 0 ? (
+            <LabelSelect
+              selectDefaultValue={formData.governorate}
+              isDisabled={viewMode}
+              ref={governorateRef}
+              containerCSS={`${classes.div4}`}
+              selectName={"governorate"}
+              onChangeFunction={handleChange}
+              options={governorates}
+              labelLanguageObject={{
+                en: "Governorate",
+                ar: "المحافظة",
+              }}
+            />
+          ) : null}
 
           {/* ************** Areas ************* */}
-          <LabelSelect
-            selectDefaultValue={formData.area}
-            isDisabled={viewMode}
-            // ref={groupRef}
-            containerCSS={`${classes.div5}`}
-            selectName={"area"}
-            onChangeFunction={handleChange}
-            options={areas}
-            labelLanguageObject={{
-              en: "Area",
-              ar: "النطاق",
-            }}
-          />
-
+          {initListsFetched ? (
+            <LabelSelect
+              selectDefaultValue={formData.area}
+              isDisabled={viewMode}
+              ref={areaRef}
+              containerCSS={`${classes.div5}`}
+              selectName={"area"}
+              onChangeFunction={handleChange}
+              options={areas}
+              labelLanguageObject={{
+                en: "Area",
+                ar: "النطاق",
+              }}
+            />
+          ) : null}
           {/* ************** Address ************* */}
           <LabelInput
             inputDefaultValue={formData.address}
@@ -279,7 +337,7 @@ export default function OrganizationForm2() {
           <LabelSelect
             selectDefaultValue={formData.courtesy}
             isDisabled={viewMode}
-            // ref={groupRef}
+            ref={courtesyRef}
             containerCSS={`${classes.div8}`}
             selectName={"courtesy"}
             onChangeFunction={handleChange}
@@ -308,7 +366,7 @@ export default function OrganizationForm2() {
           <LabelSelect
             selectDefaultValue={formData.defaultCurrency}
             isDisabled={viewMode}
-            // ref={groupRef}
+            ref={currencyRef}
             containerCSS={`${classes.div10}`}
             selectName={"defaultCurrency"}
             onChangeFunction={handleChange}
@@ -411,16 +469,17 @@ export default function OrganizationForm2() {
           </div>
 
           {/* **************  Submit Button ************* */}
-          <button
-            onClick={handleSubmit}
-            className={`${classes.div16} ${classes.button}`}
-            formAction="submit"
-          >
-            CLICK
-            {/* {editMode
-              ? language.edit[currentLanguage]
-              : language.add[currentLanguage]} */}
-          </button>
+          {viewMode ? null : (
+            <button
+              onClick={handleSubmit}
+              className={`${classes.div16} ${classes.button}`}
+              formAction="submit"
+            >
+              {editMode
+                ? language.edit[currentLanguage]
+                : language.add[currentLanguage]}
+            </button>
+          )}
         </form>
       </div>
     </>

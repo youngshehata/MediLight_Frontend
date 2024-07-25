@@ -323,4 +323,8 @@ export const language = {
     en: "Details",
     ar: "تفاصيل",
   },
+  invalidID: {
+    en: "Invalid ID",
+    ar: "رقم تعريفى غير صحيح",
+  },
 };

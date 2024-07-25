@@ -18,9 +18,8 @@ const LabelSelect = (
 
   return (
     <div ref={ref} className={containerCSS}>
-      <label htmlFor={selectName || null}>
-        {labelLanguageObject[currentLanguage]}
-      </label>
+      {/* <label htmlFor={selectName || null}> */}
+      <label>{labelLanguageObject[currentLanguage]}</label>
       <select
         onChange={onChangeFunction}
         disabled={isDisabled}

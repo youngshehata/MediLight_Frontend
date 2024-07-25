@@ -30,9 +30,8 @@ const LabelInput = (
 
   return (
     <div ref={ref} className={containerCSS}>
-      <label htmlFor={inputName || null}>
-        {labelLanguageObject[currentLanguage]}
-      </label>
+      {/* <label htmlFor={inputName || null}> */}
+      <label>{labelLanguageObject[currentLanguage]}</label>
       {inputType == "password" ? (
         <div className="flexCenterColumn">
           <input

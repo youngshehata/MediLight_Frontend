@@ -14,6 +14,7 @@ export default function GroupsList({
   showAllUsers,
   updateGroupTitle,
   groupsList,
+  showAllMembers,
 }) {
   const [originalData, setOriginalData] = useState([]);
   const [data, setData] = useState([]);
@@ -130,7 +131,13 @@ export default function GroupsList({
                     {record?.name}
                   </span>
                   <div className={classes.optionsContainer}>
-                    <button>{language.viewUsers[currentLanguage]}</button>
+                    <button
+                      onClick={() => {
+                        showAllMembers(record);
+                      }}
+                    >
+                      {language.viewUsers[currentLanguage]}
+                    </button>
                     <OptionsDots
                       selectGroupFunction={selectGroup}
                       parentObject={record}

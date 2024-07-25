@@ -47,21 +47,6 @@ export default function Organization() {
       return false;
     }
   };
-  // const deleteOrganization = async (id) => {
-  //   setLoading(true);
-  //   fetchFromApi(`V1/Organization/OrganizationDelete/${id}`, "POST")
-  //     .then(async () => {
-  //       setLoading(false);
-  //       toast.success(language.deletedSuccessfully[currentLanguage]);
-  //       return true;
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //       setLoading(false);
-  //       handleErrors(err);
-  //       return false;
-  //     });
-  // };
 
   const columnsObject = {
     name: {

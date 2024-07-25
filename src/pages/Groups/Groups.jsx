@@ -99,6 +99,8 @@ export default function Groups() {
     setShowModifyWindow(true);
   }, []);
 
+  //================================================================================
+
   const handleWindowExcute = useCallback(
     (newData) => {
       setLoading(true);
@@ -146,14 +148,15 @@ export default function Groups() {
     [selectedGroup, updates]
   );
 
+  //================================================================================
+
   const showAllUsers = useCallback(
     (group) => {
       setLoading(true);
       // use selectedGroup.name for now, later when all endpoints changed to id use selectedGroup.id
       // using static 200  members in 1 page for now, adding pagiation later if needed
       const allUsers = [...allFetchedUsers];
-      console.log("from showAllUsers");
-      console.log(allFetchedUsers);
+
       // looking for users who already part of the selected group, and prevent rendering them
       let newUsersList = [];
       allUsers.forEach((user) => {
@@ -177,9 +180,45 @@ export default function Groups() {
     [allFetchedUsers, usersList]
   );
 
+  //================================================================================
+
+  const showAllMembers = useCallback(
+    (group) => {
+      setLoading(true);
+      // use selectedGroup.name for now, later when all endpoints changed to id use selectedGroup.id
+      // using static 200  members in 1 page for now, adding pagiation later if needed
+      const allUsers = [...allFetchedUsers];
+
+      // looking for users who already part of the selected group, and prevent rendering them
+      let newUsersList = [];
+      allUsers.forEach((user) => {
+        const belongs = [...user.roleName].find((r) => {
+          return r.toString().toLowerCase().includes(group?.name.toLowerCase());
+        });
+        if (belongs) {
+          newUsersList.push({
+            id: user.id,
+            name: user.userName,
+            selected: false,
+          });
+        } else {
+          return;
+        }
+      });
+      setUsersList(newUsersList);
+      setListMode("remove");
+      setLoading(false);
+    },
+    [allFetchedUsers, usersList]
+  );
+
+  //================================================================================
+
   const updateUsersList = useCallback((list) => {
     setUsersList(list);
   }, []);
+
+  //================================================================================
 
   const updateGroupTitle = useCallback((title) => {
     setSelectedGroupTitle(title);
@@ -187,6 +226,27 @@ export default function Groups() {
 
   //================================================================================
   const addToGroupFunction = useCallback(
+    (arrayOfUsers) => {
+      setLoading(true);
+      fetchFromApi(`V1/AuthorizationRouting/Roles/Update-User-Roles`, "POST", {
+        users: arrayOfUsers,
+        roleId: selectedGroup.id,
+      })
+        .then(() => {
+          toast.success(language.addedSuccessfully[currentLanguage]);
+          setLoading(false);
+          fetchUsersFromApi();
+          setUsersList([]);
+        })
+        .catch((err) => {
+          setLoading(false);
+          handleErrors(err);
+        });
+    },
+    [selectedGroup, updates]
+  );
+  //================================================================================
+  const removeFromGroupFunction = useCallback(
     (arrayOfUsers) => {
       setLoading(true);
       fetchFromApi(`V1/AuthorizationRouting/Roles/Update-User-Roles`, "POST", {
@@ -243,20 +303,6 @@ export default function Groups() {
   useEffect(() => {
     if (allFetchedUsers.length < 1) {
       fetchUsersFromApi();
-      // setLoading(true);
-      // fetchFromApi(
-      //   `ApplicationUser/Api/V1/User/Paginated?PageNumber=1&PageSize=200`,
-      //   "GET"
-      // )
-      //   .then((response) => {
-      //     const allUsers = [...response.data.data];
-      //     setAllFetchedUsers(allUsers);
-      //     setLoading(false);
-      //   })
-      //   .catch((err) => {
-      //     setLoading(false);
-      //     handleErrors(err);
-      //   });
     }
     if (allGroupsFetched.length < 1) {
       fetchGroupsFromApi();
@@ -320,6 +366,7 @@ export default function Groups() {
             selectGroup={selectGroup}
             showAllUsers={showAllUsers}
             updateGroupTitle={updateGroupTitle}
+            showAllMembers={showAllMembers}
           />
         </section>
         <section className={`${classes.usersContainer}`}>

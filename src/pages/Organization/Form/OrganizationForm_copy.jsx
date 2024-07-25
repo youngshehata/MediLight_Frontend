@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 import Loading from "../../../components/Loading/Loading";
 import { handleErrors } from "../../../utilities/errors";
 
-export default function OrganizationForm2() {
+export default function OrganizationForm22() {
   const currentLanguage = useContext(LanguageContext);
   const containerRef = useRef();
   const navigate = useNavigate();
