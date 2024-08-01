@@ -39,4 +39,24 @@ export const titles = {
     en: "Users Groups",
     ar: "مجموعات المستخدمين",
   },
+  medilight_admin_permissions: {
+    en: "Permissions",
+    ar: "الصلاحيات",
+  },
+  medilight_admin_permissions_add: {
+    en: "Add Permission",
+    ar: "إضافة صلاحية جديدة",
+  },
+  medilight_admin_permissions_edit: {
+    en: "Edit Permission",
+    ar: "تعديل صلاحية",
+  },
+  medilight_admin_permissions_modify: {
+    en: "Grant Or Remove Permissions",
+    ar: "إعطاء أو سحب صلاحيات",
+  },
+  medilight_admin_permissions_data: {
+    en: "View All Permissions",
+    ar: "عرض جميع الصلاحيات",
+  },
 };

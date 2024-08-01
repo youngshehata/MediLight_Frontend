@@ -335,4 +335,12 @@ export const language = {
     en: "Invalid ID",
     ar: "رقم تعريفى غير صحيح",
   },
+  managePermissions: {
+    en: "Manage Permissions",
+    ar: "إدارة الصلاحيات",
+  },
+  grantOrRemovePermissions: {
+    en: "Grant Or Remove Permissions",
+    ar: "إعطاء أو سحب الصلاحيات",
+  },
 };

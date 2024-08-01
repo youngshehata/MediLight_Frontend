@@ -70,6 +70,13 @@ export default function UsersForm() {
           };
         });
 
+        // pushing -Not Selected- Option
+        formattedList.unshift({
+          value: 0,
+          labelAr: "غير محدد",
+          labelEn: "None",
+        });
+
         // if group list not selected use first option
         if (!formData.userType) {
           setFormData({
@@ -109,8 +116,15 @@ export default function UsersForm() {
         });
     } else {
       e.preventDefault();
+
       setLoading(true);
-      fetchFromApi("ApplicationUser/Api/V1/User/Create", "POST", formData)
+      const requestBody = { ...formData };
+      if (requestBody.roles[0].toString() == "0") {
+        console.log("wrong");
+        requestBody.roles = null;
+      }
+      console.log(requestBody);
+      fetchFromApi("ApplicationUser/Api/V1/User/Create", "POST", requestBody)
         .then(() => {
           setLoading(false);
           toast.success(language.addedSuccessfully[currentLanguage]);
@@ -156,6 +170,7 @@ export default function UsersForm() {
 
   //! Change password
   const changeUserPassword = (password, passwordConfirmation) => {
+    setLoading(true);
     fetchFromApi("ApplicationUser/Api/V1/User/Change-Password", "PUT", {
       id: parseInt(params.id),
       // currentPassword: string,
@@ -163,10 +178,12 @@ export default function UsersForm() {
       confirmPassword: passwordConfirmation,
     })
       .then(() => {
+        setLoading(false);
         toast.success(language.editedSuccessfully[currentLanguage]);
         setShowResetPassowrd(false);
       })
       .catch((err) => {
+        setLoading(false);
         handleErrors(err);
       });
   };

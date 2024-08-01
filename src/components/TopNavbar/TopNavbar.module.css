@@ -16,6 +16,11 @@
   cursor: pointer;
   width: fit-content;
   min-width: 1.5vmax; /*so user can click the X shape */
+
+  /* DISABLED FOR NOW  */
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.3;
 }
 
 .spanOne,
@@ -93,6 +98,7 @@
   position: relative;
   height: 100%;
   width: fit-content;
+  margin: 0 1vmax;
 }
 
 .profileList {
@@ -102,6 +108,7 @@
   visibility: hidden;
   opacity: 0;
   overflow: hidden;
+  margin: 0 1vmax;
 }
 
 .profileList * {
@@ -127,7 +134,7 @@
 .profileListActive {
   visibility: visible;
   opacity: 1;
-  transform: translateX(-1%) translateY(-2%);
+  transform: translateX(-0%) translateY(-2%);
 }
 
 .languageSpan {

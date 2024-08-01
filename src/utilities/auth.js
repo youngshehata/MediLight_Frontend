@@ -82,9 +82,10 @@ export const decodeJWT = (token) => {
 export const decodeJWT_Roles = (token) => {
   try {
     const decodedJWT = jwtDecode(token);
-    return decodedJWT[
-      "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
-    ];
+    return decodedJWT["Permission"];
+    // return decodedJWT[
+    //   "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+    // ];
   } catch (err) {
     return null;
   }

@@ -37,6 +37,12 @@
   margin: 0.2vmax 0.5vmax;
   color: rgb(80, 80, 80);
 }
+.form div input:focus {
+  border: 0.12vmax rgb(101, 142, 231) solid;
+}
+.form div select:focus {
+  border: 0.12vmax rgb(101, 142, 231) solid;
+}
 
 .div1 {
   grid-area: 1 / 1 / 2 / 4;

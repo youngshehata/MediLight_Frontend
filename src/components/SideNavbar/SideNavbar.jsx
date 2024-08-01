@@ -53,6 +53,10 @@ export default function SideNavbar({
                 ],
                 link: "admin/groups",
               },
+              {
+                label: { en: "Permissions", ar: "الصلاحيات" }[currentLanguage],
+                link: "admin/permissions",
+              },
             ]}
           />
         }

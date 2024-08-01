@@ -71,6 +71,8 @@ function App() {
     setUserInfo(data);
     if (roles) {
       setUserRoles(["Medilight", ...roles]);
+    } else {
+      setUserRoles([]);
     }
   };
 

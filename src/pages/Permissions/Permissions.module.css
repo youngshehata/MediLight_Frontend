@@ -1,0 +1,36 @@
+.mainButtonsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.3) 2px 2px 3px 3px;
+  padding: 5vmax 1vmax;
+  border-radius: 0.5vmax;
+  position: relative;
+}
+
+.mainButton {
+  cursor: pointer;
+  position: relative;
+  min-width: 70%;
+  margin: 1.5vmax 8vmax;
+  font-size: 1.6vmax;
+  padding: 0.5vmax;
+  border-radius: 0.6vmax;
+  background-color: #002339;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  grid-template-columns: 85% 15%;
+  grid-template-rows: 100%;
+}
+.mainButton:hover {
+  background-color: #086120;
+}
+
+.mainButton img {
+  width: 2.5vmax;
+  height: 2.5vmax;
+  /* margin: 0 1vmax; */
+  position: relative;
+}

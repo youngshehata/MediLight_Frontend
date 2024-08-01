@@ -318,13 +318,15 @@ export default function DataTable({
             className={`${classes.arrowImage} ${classes.endArrow}`}
             src="/endArrow.svg"
             alt="arrow"
-            onClick={goToLastPage}
+            // onClick={goToLastPage}
+            onClick={goToFirstPage}
           />
           <img
             className={`${classes.arrowImage} ${classes.sideArrowFirst}`}
             src="/sideArrow.svg"
             alt="arrow"
-            onClick={goToNextPage}
+            onClick={goToPreviousPage}
+            // onClick={goToNextPage}
           />
           <p
             className={`${classes.pagesNumbers}`}
@@ -333,13 +335,15 @@ export default function DataTable({
             className={`${classes.arrowImage} ${classes.sideArrowSecond}`}
             src="/sideArrow.svg"
             alt="arrow"
-            onClick={goToPreviousPage}
+            // onClick={goToPreviousPage}
+            onClick={goToNextPage}
           />
           <img
             className={`${classes.arrowImage} ${classes.endArrow}`}
             src="/endArrow.svg"
             alt="arrow"
-            onClick={goToFirstPage}
+            // onClick={goToFirstPage}
+            onClick={goToLastPage}
           />
         </div>
         <div className={`${classes.totalResultsDiv} flexCenterRow`}>
