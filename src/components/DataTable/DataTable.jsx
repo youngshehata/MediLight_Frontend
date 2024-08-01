@@ -206,6 +206,7 @@ export default function DataTable({
                       {/* <div className={`${classes.viewDiv} flexCenterColumn`}> */}
                       <div
                         onClick={() => {
+                          console.log(`${viewUrl}/${record.id}`);
                           navigate(`${viewUrl}/${record.id}`);
                         }}
                         className={
