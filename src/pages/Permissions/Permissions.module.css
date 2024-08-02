@@ -43,3 +43,109 @@
   justify-content: center;
   align-items: center;
 }
+
+.formContainer {
+  box-shadow: rgba(0, 0, 0, 0.3) 2px 2px 3px 3px;
+  min-height: 70%;
+  position: relative;
+  min-width: 40%;
+  border-radius: 0.5vmax;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100%;
+  width: 100%;
+}
+
+.formTitle {
+  display: block;
+  color: rgb(100, 100, 100);
+  margin: 1vmax 0;
+  padding: 0.4vmax 0;
+  background-color: rgba(150, 150, 150, 0.2);
+  width: 100%;
+  text-align: center;
+}
+
+/* ===================  Permissions Modify (pm) ====================== */
+
+.pmContainer {
+  height: 95%;
+  width: 95%;
+  display: grid;
+  grid-template-columns: 40% 60%;
+  grid-template-rows: 10% 80% 10%;
+  justify-items: center;
+}
+.permissionsList {
+  grid-row-start: 1;
+  grid-row-end: -1;
+  grid-column-start: 1;
+  grid-column-end: 1;
+  height: 100%;
+  width: 95%;
+  border: 0.2vmax #002339 solid;
+  border-radius: 0.4vmax;
+}
+
+.modeContainer {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.3vmax;
+  font-weight: 600;
+  color: #002339;
+}
+
+.modeContainer span {
+  margin: 0 1vmax;
+}
+/* .buttosSectiob {
+  position: relative;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+.modeButton {
+  font-size: 1.4vmax;
+  min-width: 10vmax;
+  padding: 0.25vmax 1vmax;
+  border-top-left-radius: 5vmax;
+  border-bottom-left-radius: 5vmax;
+  color: #fff;
+  background-color: green;
+  border: 0.2vmax #000 solid;
+  border-right: 0.13vmax #000 solid;
+  opacity: 0.5;
+  filter: grayscale(1);
+  transition: all 0.2s ease-in-out;
+}
+.removeButton {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 5vmax;
+  border-bottom-right-radius: 5vmax;
+  border-left: 0.13vmax #000 solid;
+  background-color: darkred;
+}
+.modeButton:hover {
+  filter: grayscale(0);
+}
+.activeButton {
+  filter: grayscale(0);
+  opacity: 1;
+  transform: translateX(0vmax) translateY(-0.1vmax);
+  box-shadow: rgba(0, 0, 0, 0.2) 2px 2px 2px 2px;
+}

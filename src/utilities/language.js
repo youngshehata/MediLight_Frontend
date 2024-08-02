@@ -343,4 +343,24 @@ export const language = {
     en: "Grant Or Remove Permissions",
     ar: "إعطاء أو سحب الصلاحيات",
   },
+  addPermission: {
+    en: "Add New Permission",
+    ar: "إضافة صلاحية جديدة",
+  },
+  editPermission: {
+    en: "Edit Permission",
+    ar: "تعديل صلاحية",
+  },
+  viewPermission: {
+    en: "View Permission",
+    ar: "عرض صلاحية",
+  },
+  mode: {
+    en: "Mode:",
+    ar: "الوضع:",
+  },
+  grant: {
+    en: "Grant",
+    ar: "منح",
+  },
 };
