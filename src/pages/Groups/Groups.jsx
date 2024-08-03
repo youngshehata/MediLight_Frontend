@@ -160,9 +160,18 @@ export default function Groups() {
       // looking for users who already part of the selected group, and prevent rendering them
       let newUsersList = [];
       allUsers.forEach((user) => {
-        const belongs = [...user.roleName].find((r) => {
-          return r.toString().toLowerCase().includes(group?.name.toLowerCase());
-        });
+        // const belongs = [...user.roleName].find((r) => {
+        //   return r.toString().toLowerCase().includes(group?.name.toLowerCase());
+        // });
+        const belongs =
+          [...user.roleName][0] == null
+            ? false
+            : [...user.roleName].find((r) => {
+                return r
+                  .toString()
+                  .toLowerCase()
+                  .includes(group?.name.toLowerCase());
+              });
         if (!belongs) {
           newUsersList.push({
             id: user.id,

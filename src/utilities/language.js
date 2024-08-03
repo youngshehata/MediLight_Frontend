@@ -251,6 +251,10 @@ export const language = {
     en: "Groups",
     ar: "المجموعات",
   },
+  group: {
+    en: "Group",
+    ar: "مجموعة",
+  },
   viewUsers: {
     en: "View Users",
     ar: "عرض المستخدمين",
@@ -270,6 +274,10 @@ export const language = {
   users: {
     en: "Users",
     ar: "المستخدمين",
+  },
+  user: {
+    en: "User",
+    ar: "مستخدم",
   },
   search: {
     en: "Search",
@@ -362,5 +370,25 @@ export const language = {
   grant: {
     en: "Grant",
     ar: "منح",
+  },
+  permissionFooterGrant: {
+    en: " Permissions will be granted to ",
+    ar: " صلاحية سيتم منحها إلى ",
+  },
+  permissionFooterRemove: {
+    en: " Permissions will be removed from ",
+    ar: " صلاحية سيتم إزالتها من ",
+  },
+  grantPermissions: {
+    en: "Grant Permissions",
+    ar: "منح الصلاحيات",
+  },
+  removePermissions: {
+    en: "Remove Permissions",
+    ar: "إزالة الصلاحيات",
+  },
+  entities: {
+    en: "Entities",
+    ar: "الجهات",
   },
 };
