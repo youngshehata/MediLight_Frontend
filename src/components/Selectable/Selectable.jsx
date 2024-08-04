@@ -1,7 +1,8 @@
 export default function Selectable({
+  id,
   label,
   isSelected,
-  onClickHandler,
+  handleSelection,
   backgroundColor,
   cssClass,
   color,
@@ -15,8 +16,9 @@ export default function Selectable({
       key={label}
     >
       <div
+        style={isSelected ? { borderColor: "#fff" } : {}}
         onClick={() => {
-          onClickHandler();
+          handleSelection(id);
         }}
       >
         {isSelected ? <img src="/correctWhite.svg" alt="checked" /> : null}

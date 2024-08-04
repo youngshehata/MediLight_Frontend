@@ -197,6 +197,10 @@
   color: green;
   font-weight: 600;
 }
+.redSpan {
+  color: darkred;
+  font-weight: 600;
+}
 
 .submitPermissionsButton {
   font-size: 1.3vmax;
@@ -288,7 +292,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #b9e4ff;
   width: 100%;
   list-style: none;
   padding: 1vmax 0;
@@ -297,16 +300,39 @@
 
 .entity {
   width: 90%;
-  border: 0.15vmax #002339 solid;
+  /* border: 0.15vmax #002339 solid; */
+  box-shadow: rgba(0, 0, 0, 0.25) 2px 2px 3px 3px;
   border-radius: 0.35vmax;
-  margin: 0.5vmax 0;
+  margin: 0.75vmax 0;
   display: flex;
   align-items: center;
   font-size: 1vmax;
   padding: 0.3vmax 1vmax;
+  background-color: #fff;
+  padding: 1vmax;
+  transition: all 0.2s ease-in-out;
 }
 
 .entity img {
+  position: absolute;
   height: 1.5vmax;
   width: 1.5vmax;
+  left: 10%;
+  top: -50%;
+}
+.entity div {
+  position: relative;
+  border: #002339 0.2vmax solid;
+  padding: 0.2vmax;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1.3vmax;
+  width: 1.3vmax;
+  border-radius: 0.2vmax;
+}
+.entity span {
+  font-size: 1.4vmax;
+  margin: 0 2vmax;
 }
