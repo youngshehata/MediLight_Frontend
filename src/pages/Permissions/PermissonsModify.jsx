@@ -4,6 +4,7 @@ import classes from "./Permissions.module.css";
 import { LanguageContext } from "../../App";
 import PermissionsEntities from "./PermissionsEntities";
 import Loading from "../../components/Loading/Loading";
+import PermissionsList from "./PermissionsList";
 
 export default function PermissonsModify() {
   const currentLanguage = useContext(LanguageContext);
@@ -12,6 +13,7 @@ export default function PermissonsModify() {
   const [loading, setLoading] = useState(true);
   const [activeMode, setActiveMode] = useState("grant");
   const [permissionsList, setPermissionsList] = useState([]);
+  const [formattedPermissionsList, setFormattedPermissionsList] = useState([]);
   const [entitesList, setEntitesList] = useState([]);
   const [recivers, setRecivers] = useState({ type: "users", list: [] });
 
@@ -32,7 +34,45 @@ export default function PermissonsModify() {
 
   //******************************************************************
 
-  const formatPermissionsList = (list) => {};
+  const formatPermissionsList = () => {
+    let clone = [...permissionsList];
+    //TODO      assuming permissions will look like following (without group)
+    //TODO      {id:1 , name:"client-organization"}
+    let permissionsGroupsList = []; // {group: client, children:[{id:1, name:add-user}]}
+    // getting groups names by first word before "-"
+    clone.forEach((permission) => {
+      const firstWord = permission.name.split("-")[0];
+      // checking if exists already in groups list
+
+      let groupExists = permissionsGroupsList.find((x) => {
+        return x.group?.toLowerCase() == firstWord.toLowerCase();
+      });
+      // getting the permission name without the group name, to push it into its group
+
+      let removeGroupName = permission.name.split("-");
+      removeGroupName.shift(); // Remove the first word
+
+      let permissionNameWithoutGroup = removeGroupName.join("-"); // Combine the remaining words back
+
+      if (!groupExists) {
+        permissionsGroupsList.push({
+          group: firstWord,
+          children: [{ id: permission.id, name: permissionNameWithoutGroup }],
+        });
+      } else {
+        // pushing the current permission to its group
+        groupExists.children.push({
+          id: permission.id,
+          name: permissionNameWithoutGroup,
+        });
+      }
+    });
+    console.log(permissionsGroupsList);
+
+    // end of looping
+    setFormattedPermissionsList(permissionsGroupsList);
+    return permissionsGroupsList;
+  };
 
   //******************************************************************
 
@@ -67,20 +107,41 @@ export default function PermissonsModify() {
 
   //! Effect:
   useEffect(() => {
+    // Dummy
     setEntitesList([
       { id: 1, labelEn: "Shehata", labelAr: "شحاته", selected: false },
       { id: 2, labelEn: "Omar", labelAr: "عمر", selected: true },
       { id: 3, labelEn: "Laila", labelAr: "ليلى", selected: false },
     ]);
 
+    // Dummy
+    if (permissionsList.length < 1) {
+      setPermissionsList([
+        { id: 1, name: "Client-organization-Add", selected: false },
+        { id: 2, name: "Client-organization-Edit", selected: true },
+        { id: 3, name: "Client-organization-Delete", selected: false },
+        { id: 4, name: "admin-users", selected: false },
+        { id: 5, name: "admin-users-add", selected: false },
+        { id: 6, name: "admin-permissions-edit", selected: false },
+      ]);
+    }
+
+    formatPermissionsList();
+    //! INFINITE LOOP
+
     setLoading(false);
-  }, []);
+  }, [permissionsList]);
 
   return (
     <div className={classes.pmContainer}>
       {loading ? <Loading /> : null}
       {/* -------------- Permissions List  --------------------*/}
-      <div className={classes.permissionsList}>P.List</div>
+      <div className={classes.permissionsList}>
+        <span className={classes.permissionsListTitle}>
+          {language.permissionsList[currentLanguage]}
+        </span>
+        <PermissionsList formattedPermissionsList={formattedPermissionsList} />
+      </div>
       {/* -------------- MODE (GRANT || REMOVE)  --------------------*/}
       <div className={classes.modeContainer}>
         <span>{language.mode[currentLanguage]}</span>

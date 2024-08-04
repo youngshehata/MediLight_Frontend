@@ -391,4 +391,8 @@ export const language = {
     en: "Entities",
     ar: "الجهات",
   },
+  permissionsList: {
+    en: "Permissions List",
+    ar: "قائمة الصلاحيات",
+  },
 };

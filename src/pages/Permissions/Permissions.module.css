@@ -93,6 +93,9 @@
   width: 95%;
   border: 0.2vmax #002339 solid;
   border-radius: 0.4vmax;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .modeContainer {
@@ -335,4 +338,16 @@
 .entity span {
   font-size: 1.4vmax;
   margin: 0 2vmax;
+}
+
+.permissionsListTitle {
+  font-size: 1.2vmax;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #002339;
+  color: #fff;
+  padding: 0.5vmax 0;
 }
