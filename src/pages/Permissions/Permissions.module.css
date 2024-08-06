@@ -241,7 +241,7 @@
   color: #fff;
   width: 100%;
   padding: 0.5vmax 0;
-  font-size: 1vmax;
+  font-size: 1.2vmax;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -350,4 +350,139 @@
   background-color: #002339;
   color: #fff;
   padding: 0.5vmax 0;
+}
+
+.listOfPermissionsGroups {
+  width: 95%;
+  font-size: 1vmax;
+  color: #002339;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.permissionGroupClass {
+  position: relative;
+  margin: 1vmax 0;
+  border: 0.1vmax #0023398c solid;
+  padding: 0.5vmax;
+  border-radius: 0.5vmax;
+  background-color: #fff;
+}
+
+.permissionGroupClassSelected {
+  background-color: green;
+  color: #fff;
+}
+.permissionGroupClassSelected .expandImg {
+  filter: invert(94%) sepia(94%) saturate(0%) hue-rotate(163deg)
+    brightness(105%) contrast(110%);
+}
+.permissionGroupClassSelected .wholeGroupSelectElement {
+  border-color: #fff;
+}
+
+.permissionGroupClassSelected .wholeGroupSelectImg {
+  display: flex;
+}
+
+.permissionGroupClassSelected .permissionLi {
+  border-color: #fff;
+}
+
+.permissionGroupTopDiv {
+  display: grid;
+  grid-template-columns: 80% 10% 10%;
+  grid-template-rows: 100%;
+  align-items: center;
+}
+
+.expandImg {
+  height: 1.7vmax;
+  justify-self: center;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.permissionGroupName {
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.permissionLi {
+  position: relative;
+  width: 100%;
+  margin: 0.5vmax 0.2vmax;
+  padding: 0.5vmax 0.7vmax;
+  border-radius: 0.35vmax;
+  display: grid;
+  grid-template-columns: 85% 15%;
+  grid-template-rows: 100%;
+  text-transform: capitalize;
+  border: rgba(0, 0, 0, 0.2) 0.1vmax solid;
+  transition: all 0.2s ease-in-out;
+}
+
+.permissionLi div {
+  position: relative;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 1;
+  /* background-color: #086120; */
+  width: 1.2vmax;
+  height: 1.2vmax;
+  justify-self: flex-end;
+  border: 0.15vmax #002339 solid;
+  border-radius: 0.2vmax;
+  cursor: pointer;
+}
+.permissionLi img {
+  position: absolute;
+  height: 1.3vmax;
+  width: 1.3vmax;
+  left: 10%;
+  top: -30%;
+}
+
+.permissionsListInsideGroup {
+  list-style: circle;
+  margin: 0;
+  padding: 0 0.5vmax;
+  transition: all 0.2s ease-in-out;
+  /* max-height: 0; */
+  min-height: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.groupExpanded ul {
+  transition: all 0.2s ease-in-out;
+  /* max-height: fit-content; */
+  min-height: 5vmax;
+  height: 10vmax;
+  overflow: scroll;
+}
+.groupExpanded .expandImg {
+  transition: transform 0.2s ease-in-out;
+  transform: rotate(180deg);
+}
+
+.wholeGroupSelectElement {
+  height: 1.3vmax;
+  width: 1.3vmax;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0.15vmax #002339 solid;
+  border-radius: 0.2vmax;
+  cursor: pointer;
+}
+.wholeGroupSelectImg {
+  position: relative;
+  height: 1.3vmax;
+  width: 1.3vmax;
+  top: -10%;
+  left: 20%;
+  display: none;
 }

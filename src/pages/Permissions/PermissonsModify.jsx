@@ -57,13 +57,24 @@ export default function PermissonsModify() {
       if (!groupExists) {
         permissionsGroupsList.push({
           group: firstWord,
-          children: [{ id: permission.id, name: permissionNameWithoutGroup }],
+          children: [
+            {
+              id: permission.id,
+              // name: permissionNameWithoutGroup,
+              labelEn: permissionNameWithoutGroup,
+              labelAr: permissionNameWithoutGroup,
+              selected: permission.selected,
+            },
+          ],
         });
       } else {
         // pushing the current permission to its group
         groupExists.children.push({
           id: permission.id,
-          name: permissionNameWithoutGroup,
+          // name: permissionNameWithoutGroup,
+          labelEn: permissionNameWithoutGroup,
+          labelAr: permissionNameWithoutGroup,
+          selected: permission.selected,
         });
       }
     });
@@ -105,6 +116,40 @@ export default function PermissonsModify() {
     setEntitesList(clone);
   };
 
+  //******************************************************************
+
+  const togglePermissionSelection = (id) => {
+    const clone = [...permissionsList];
+
+    const elementToRemove = clone.find((x) => {
+      return x.id == id;
+    });
+
+    let elementToAdd = { ...elementToRemove };
+    elementToAdd.selected = !elementToAdd.selected;
+
+    const indexToRemove = clone.indexOf(elementToRemove);
+    clone.splice(indexToRemove, 1, elementToAdd);
+    setPermissionsList(clone);
+  };
+
+  //******************************************************************
+
+  const toggleGroupOfPermissionsSelection = (id) => {
+    const clone = [...entitesList];
+
+    const elementToRemove = clone.find((x) => {
+      return x.id == id;
+    });
+
+    let elementToAdd = { ...elementToRemove };
+    elementToAdd.selected = !elementToAdd.selected;
+
+    const indexToRemove = clone.indexOf(elementToRemove);
+    clone.splice(indexToRemove, 1, elementToAdd);
+    setEntitesList(clone);
+  };
+
   //! Effect:
   useEffect(() => {
     // Dummy
@@ -120,9 +165,15 @@ export default function PermissonsModify() {
         { id: 1, name: "Client-organization-Add", selected: false },
         { id: 2, name: "Client-organization-Edit", selected: true },
         { id: 3, name: "Client-organization-Delete", selected: false },
-        { id: 4, name: "admin-users", selected: false },
-        { id: 5, name: "admin-users-add", selected: false },
-        { id: 6, name: "admin-permissions-edit", selected: false },
+        { id: 11, name: "Client-organization-Add", selected: false },
+        { id: 22, name: "Client-organization-Edit", selected: true },
+        { id: 33, name: "Client-organization-Delete", selected: false },
+        { id: 14, name: "Client-organization-Add", selected: false },
+        { id: 24, name: "Client-organization-Edit", selected: true },
+        { id: 34, name: "Client-organization-Delete", selected: false },
+        { id: 4, name: "admin-users", selected: true },
+        { id: 5, name: "admin-users-add", selected: true },
+        { id: 6, name: "admin-permissions-edit", selected: true },
       ]);
     }
 
@@ -140,7 +191,12 @@ export default function PermissonsModify() {
         <span className={classes.permissionsListTitle}>
           {language.permissionsList[currentLanguage]}
         </span>
-        <PermissionsList formattedPermissionsList={formattedPermissionsList} />
+        <PermissionsList
+          mode={activeMode}
+          formattedPermissionsList={formattedPermissionsList}
+          handlePermissionSelection={togglePermissionSelection}
+          handleGroupSelection={toggleGroupOfPermissionsSelection}
+        />
       </div>
       {/* -------------- MODE (GRANT || REMOVE)  --------------------*/}
       <div className={classes.modeContainer}>
