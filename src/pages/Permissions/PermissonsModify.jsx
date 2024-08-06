@@ -78,11 +78,20 @@ export default function PermissonsModify() {
         });
       }
     });
-    console.log(permissionsGroupsList);
+
+    // checking if the whole list is selected
+    const listWithAllSelected = permissionsGroupsList.map((group) => {
+      let allPermissionsSelected =
+        group.children.filter((x) => {
+          return x.selected;
+        }).length == group.children.length;
+
+      return { ...group, allSelected: allPermissionsSelected };
+    });
 
     // end of looping
-    setFormattedPermissionsList(permissionsGroupsList);
-    return permissionsGroupsList;
+    setFormattedPermissionsList(listWithAllSelected);
+    return listWithAllSelected;
   };
 
   //******************************************************************

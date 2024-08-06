@@ -24,13 +24,10 @@ export default function PermissionsList({
         return (
           <li
             className={
-              permissionGroup.children.filter((x) => {
-                return x.selected;
-              }).length == permissionGroup.children.length
+              permissionGroup.allSelected
                 ? `${classes.permissionGroupClass} ${classes.permissionGroupClassSelected}`
                 : `${classes.permissionGroupClass}`
             }
-            // <li className={classes.permissionGroupClass}>
           >
             <div className={classes.permissionGroupTopDiv}>
               <span className={classes.permissionGroupName}>
