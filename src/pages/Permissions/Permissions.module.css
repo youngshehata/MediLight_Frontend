@@ -367,11 +367,17 @@
   padding: 0.5vmax;
   border-radius: 0.5vmax;
   background-color: #fff;
+  transition: all 0.2s ease-in-out;
 }
 
 .permissionGroupClassSelected {
-  background-color: green;
   color: #fff;
+}
+.permissionGroupClassSelected_grant {
+  background-color: green;
+}
+.permissionGroupClassSelected_remove {
+  background-color: darkred;
 }
 .permissionGroupClassSelected .expandImg {
   filter: invert(94%) sepia(94%) saturate(0%) hue-rotate(163deg)
