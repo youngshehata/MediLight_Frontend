@@ -28,7 +28,7 @@ export default function DataTable({
   const currentLanguage = useContext(LanguageContext);
 
   const [showModal, setShowModal] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [pages, setPages] = useState({
     currentPage: 1,
@@ -119,9 +119,11 @@ export default function DataTable({
     handlePageChange(res);
     if (res.constructor === Array) {
       setData(res);
+      setLoading(false);
       return;
     } else if (res.data.constructor === Array) {
       setData(res.data);
+      setLoading(false);
       return;
     }
   };

@@ -144,19 +144,33 @@ export default function PermissonsModify() {
 
   //******************************************************************
 
-  const toggleGroupOfPermissionsSelection = (id) => {
-    const clone = [...entitesList];
-
-    const elementToRemove = clone.find((x) => {
-      return x.id == id;
+  const toggleGroupOfPermissionsSelection = (name) => {
+    const groupToSelect = formattedPermissionsList.find((x) => {
+      return x.group.toLowerCase() == name.toLowerCase();
     });
 
-    let elementToAdd = { ...elementToRemove };
-    elementToAdd.selected = !elementToAdd.selected;
+    // checking if its selecting or removing selection
+    let isSelecting = groupToSelect.allSelected ? false : true;
 
-    const indexToRemove = clone.indexOf(elementToRemove);
-    clone.splice(indexToRemove, 1, elementToAdd);
-    setEntitesList(clone);
+    const permissionsToBeSelected = [...groupToSelect.children].map((x) => {
+      return x.id;
+    });
+
+    const clone = [...permissionsList];
+    clone.map((x) => {
+      if (
+        permissionsToBeSelected.find((permission) => {
+          return x.id == permission;
+        })
+      ) {
+        x.selected = isSelecting;
+        return x;
+      } else {
+        return x;
+      }
+    });
+
+    setPermissionsList(clone);
   };
 
   //! Effect:

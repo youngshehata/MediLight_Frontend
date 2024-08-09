@@ -42,7 +42,12 @@ export default function PermissionsList({
                   src="/downArrowNavy.svg"
                   alt="expand"
                 />
-                <div className={classes.wholeGroupSelectElement}>
+                <div
+                  onClick={() => {
+                    handleGroupSelection(permissionGroup.group);
+                  }}
+                  className={classes.wholeGroupSelectElement}
+                >
                   <img
                     className={classes.wholeGroupSelectImg}
                     src="/correctWhite.svg"
